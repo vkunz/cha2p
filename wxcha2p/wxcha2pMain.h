@@ -12,6 +12,7 @@
 
 //(*Headers(wxcha2pFrame)
 #include <wx/menu.h>
+#include <wx/textctrl.h>
 #include <wx/frame.h>
 #include <wx/statusbr.h>
 //*)
@@ -31,12 +32,14 @@ class wxcha2pFrame: public wxFrame
         //*)
 
         //(*Identifiers(wxcha2pFrame)
+        static const long ID_TEXTCTRL1;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
         //*)
 
         //(*Declarations(wxcha2pFrame)
+        wxTextCtrl* m_text;
         wxStatusBar* StatusBar1;
         //*)
 

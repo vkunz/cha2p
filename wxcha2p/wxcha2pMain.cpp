@@ -42,6 +42,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(wxcha2pFrame)
+const long wxcha2pFrame::ID_TEXTCTRL1 = wxNewId();
 const long wxcha2pFrame::idMenuQuit = wxNewId();
 const long wxcha2pFrame::idMenuAbout = wxNewId();
 const long wxcha2pFrame::ID_STATUSBAR1 = wxNewId();
@@ -60,8 +61,10 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     wxMenu* Menu1;
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
-    
+
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+    m_text = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxPoint(0,40), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    m_text->SetEditable(false);
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -78,7 +81,7 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
     StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
     SetStatusBar(StatusBar1);
-    
+
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnAbout);
     //*)
