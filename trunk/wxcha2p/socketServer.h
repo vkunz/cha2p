@@ -1,17 +1,16 @@
 #ifndef SOCKET_H_INCLUDED
 #define SOCKET_H_INCLUDED
 
-#include "wx/socket.h"
-#include "wx/event.h"
+#include <wx/socket.h>
+#include <wx/event.h>
 
 
-class SocketServer : public wxEvtHandler {
+class SocketServer : private wxEvtHandler {
 public:
     SocketServer(int port);
-
-private:
     ~SocketServer();
 
+private:
     void OnServerEvent(wxSocketEvent& event);
     void OnSocketEvent(wxSocketEvent& event);
 
