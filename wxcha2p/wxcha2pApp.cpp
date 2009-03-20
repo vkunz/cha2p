@@ -9,10 +9,15 @@
 
 #include "wxcha2pApp.h"
 
+#include <wx/msgdlg.h>
+
 //(*AppHeaders
-#include "wxcha2pMain.h"
 #include <wx/image.h>
 //*)
+
+BEGIN_EVENT_TABLE(wxcha2pApp, wxApp)
+	EVT_MESSAGE(0, wxcha2pApp::OnMessageEvent)
+END_EVENT_TABLE()
 
 IMPLEMENT_APP(wxcha2pApp);
 
@@ -23,9 +28,10 @@ bool wxcha2pApp::OnInit()
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	wxcha2pFrame* Frame = new wxcha2pFrame(0);
+    	Frame = new wxcha2pFrame(0);
     	Frame->Show();
     	SetTopWindow(Frame);
+    	wxSocketBase::Initialize(); //needed to get sockets in other threads working
     }
     //*)
 
@@ -33,4 +39,9 @@ bool wxcha2pApp::OnInit()
 
     return wxsOK;
 
+}
+
+void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
+    wxMessageBox(wxT("event"));
+    Frame->addMessage(event.getMessage());
 }

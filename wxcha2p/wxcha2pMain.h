@@ -13,6 +13,7 @@
 //(*Headers(wxcha2pFrame)
 #include <wx/menu.h>
 #include <wx/textctrl.h>
+#include <wx/button.h>
 #include <wx/frame.h>
 #include <wx/statusbr.h>
 //*)
@@ -24,23 +25,30 @@ class wxcha2pFrame: public wxFrame
         wxcha2pFrame(wxWindow* parent,wxWindowID id = -1);
         virtual ~wxcha2pFrame();
 
+        void addMessage(wxString message);
+
     private:
 
         //(*Handlers(wxcha2pFrame)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
+        void OnButton_SendClick(wxCommandEvent& event);
         //*)
 
         //(*Identifiers(wxcha2pFrame)
         static const long ID_TEXTCTRL1;
+        static const long ID_TEXTCTRL2;
+        static const long ID_BUTTON1;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
         //*)
 
         //(*Declarations(wxcha2pFrame)
-        wxTextCtrl* m_text;
+        wxButton* Button_Send;
+        wxTextCtrl* m_text_output;
         wxStatusBar* StatusBar1;
+        wxTextCtrl* m_text_input;
         //*)
 
         DECLARE_EVENT_TABLE()

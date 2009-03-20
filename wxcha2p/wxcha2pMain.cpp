@@ -43,6 +43,8 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 
 //(*IdInit(wxcha2pFrame)
 const long wxcha2pFrame::ID_TEXTCTRL1 = wxNewId();
+const long wxcha2pFrame::ID_TEXTCTRL2 = wxNewId();
+const long wxcha2pFrame::ID_BUTTON1 = wxNewId();
 const long wxcha2pFrame::idMenuQuit = wxNewId();
 const long wxcha2pFrame::idMenuAbout = wxNewId();
 const long wxcha2pFrame::ID_STATUSBAR1 = wxNewId();
@@ -63,8 +65,10 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     wxMenu* Menu2;
 
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-    m_text = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxPoint(0,40), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
-    m_text->SetEditable(false);
+    SetClientSize(wxSize(400,490));
+    m_text_output = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxPoint(0,0), wxSize(400,320), wxTE_MULTILINE|wxTE_READONLY, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    m_text_input = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxPoint(0,336), wxSize(352,112), 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    Button_Send = new wxButton(this, ID_BUTTON1, _("Send"), wxPoint(352,336), wxSize(48,112), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -82,6 +86,7 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
     SetStatusBar(StatusBar1);
 
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&wxcha2pFrame::OnButton_SendClick);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnAbout);
     //*)
@@ -102,4 +107,14 @@ void wxcha2pFrame::OnAbout(wxCommandEvent& event)
 {
     wxString msg = wxbuildinfo(long_f);
     wxMessageBox(msg, _("Welcome to..."));
+}
+
+void wxcha2pFrame::addMessage(wxString message) {
+    m_text_output->AppendText(message + wxT("\n"));
+}
+
+void wxcha2pFrame::OnButton_SendClick(wxCommandEvent& event)
+{
+    //Nachrict versenden
+    addMessage(m_text_input->GetValue());
 }

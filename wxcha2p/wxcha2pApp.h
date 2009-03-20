@@ -12,7 +12,9 @@
 
 #include <wx/app.h>
 
+#include "wxcha2pMain.h"
 #include "socketServer.h"
+#include "MessageEvent.h"
 
 class wxcha2pApp : public wxApp
 {
@@ -21,6 +23,11 @@ class wxcha2pApp : public wxApp
 
     private:
         SocketServer* server;
+        void OnMessageEvent(MessageEvent& event);
+
+        wxcha2pFrame* Frame;
+
+        DECLARE_EVENT_TABLE();
 };
 
 #endif // WXCHA2PAPP_H
