@@ -9,11 +9,12 @@ public:
     SocketClient();
     ~SocketClient();
     void OpenConnection(wxString hostname, int port);
+    void SendMessage(const wxChar* message);
 
 private:
-    wxSocketClient *m_sock;
-
     void OnSocketEvent(wxSocketEvent& event);
+
+    wxSocketClient *m_sock;
 
     static const long SOCKET_ID;
 
