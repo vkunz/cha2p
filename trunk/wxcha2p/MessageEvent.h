@@ -3,19 +3,23 @@
 
 #include <wx/event.h>
 #include <wx/string.h>
+#include "enum.h"
 
 class MessageEvent : public wxNotifyEvent
 {
 private:
 	wxString m_message;
+	messageType m_type;
 
 public:
 	MessageEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	MessageEvent(const MessageEvent& event);
 	virtual wxEvent* Clone() const;
 	void setMessage(wxString message);
+	void setMessageType(messageType type);
 
 	wxString getMessage();
+	messageType getMessageType();
 
 	DECLARE_DYNAMIC_CLASS(GLKeyEvent);
 };

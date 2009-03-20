@@ -90,6 +90,7 @@
 		<Unit filename="MessageEvent.h" />
 		<Unit filename="Sender.cpp" />
 		<Unit filename="Sender.h" />
+		<Unit filename="enum.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

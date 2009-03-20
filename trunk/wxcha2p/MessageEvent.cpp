@@ -18,7 +18,15 @@ void MessageEvent::setMessage(wxString message)
 	m_message = message;
 }
 
+void MessageEvent::setMessageType(messageType type) {
+    m_type = type;
+}
+
 wxString MessageEvent::getMessage()
 {
 	return m_message;
+}
+
+messageType MessageEvent::getMessageType() {
+    return m_type;
 }
