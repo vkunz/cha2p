@@ -54,3 +54,10 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
     m_sock->Close();
   }
 }
+
+void SocketClient::SendMessage(const wxChar* message) {
+    unsigned char len = (unsigned char)((wxStrlen(message) + 1) * sizeof(wxChar));
+
+    m_sock->Write(&len, 1);
+    m_sock->Write(message, len);
+}

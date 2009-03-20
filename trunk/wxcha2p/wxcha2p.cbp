@@ -88,6 +88,8 @@
 		</Linker>
 		<Unit filename="MessageEvent.cpp" />
 		<Unit filename="MessageEvent.h" />
+		<Unit filename="Sender.cpp" />
+		<Unit filename="Sender.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
