@@ -1,12 +1,16 @@
 #include "socketServer.h"
 
+#include "MessageEvent.h"
+
+#include <wx/msgdlg.h>
+
+const long SocketServer::SERVER_ID = wxNewId();
+const long SocketServer::SOCKET_ID = wxNewId();
+
 BEGIN_EVENT_TABLE(SocketServer,wxEvtHandler)
     EVT_SOCKET(SERVER_ID, SocketServer::OnServerEvent)
     EVT_SOCKET(SOCKET_ID, SocketServer::OnSocketEvent)
 END_EVENT_TABLE()
-
-const long SocketServer::SERVER_ID = wxNewId();
-const long SocketServer::SOCKET_ID = wxNewId();
 
 SocketServer::SocketServer(int port) {
     // Create the address - defaults to localhost:0 initially
@@ -25,8 +29,6 @@ SocketServer::SocketServer(int port) {
     m_server->SetEventHandler(*this, SERVER_ID);
     m_server->SetNotify(wxSOCKET_CONNECTION_FLAG);
     m_server->Notify(true);
-
-//    m_busy = false;
 }
 
 SocketServer::~SocketServer() {
@@ -53,17 +55,40 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             // wxSocketEvent again.
             sock->SetNotify(wxSOCKET_LOST_FLAG);
 
+            sock->SetFlags(wxSOCKET_WAITALL);
+
+            //read out temp value
             // Which test are we going to run?
+            unsigned char c;
+            sock->Read(&c, 1);
+
+            // Read the size
+            unsigned char len;
+            sock->Read(&len, 1);
+
+            // Read the data
+            char *buf = new char[len];
+            sock->Read(buf, len);
+
+            #warning "TODO: How to convert FROM char* TO wxString??"
+
+            // Send Event with Message
+            MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
+            myevent.setMessage(wxString::FromAscii(buf));
+            myevent.SetEventObject(this);
+            ProcessEvent(myevent);
+
+/*            // Which test are we going to run?
             unsigned char c;
             sock->Read(&c, 1);
 
             switch (c)
             {
-//                case 0xBE: TestConnection(sock); break;
-//                case 0xCE: TestConnection(sock); break;
-//                case 0xDE: TestConnection(sock); break;
+                case 0xBE: TestConnection(sock); break;
+                case 0xCE: TestConnection(sock); break;
+                case 0xDE: TestConnection(sock); break;
             }
-
+*/
             // Enable input events again.
             sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
             break;

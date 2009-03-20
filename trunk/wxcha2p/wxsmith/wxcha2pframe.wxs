@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxFrame" name="wxcha2pFrame">
-		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="m_text" member="yes">
-			<pos>0,40</pos>
-			<extra_code>m__text-&gt;SetEditable(false);</extra_code>
+		<size>400,490</size>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="m_text_output" member="yes">
+			<pos>0,0</pos>
+			<size>400,320</size>
+			<style>wxTE_MULTILINE|wxTE_READONLY</style>
+		</object>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="m_text_input" member="yes">
+			<pos>0,336</pos>
+			<size>352,112</size>
+		</object>
+		<object class="wxButton" name="ID_BUTTON1" variable="Button_Send" member="yes">
+			<label>Send</label>
+			<pos>352,336</pos>
+			<size>48,112</size>
+			<handler function="OnButton_SendClick" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">
