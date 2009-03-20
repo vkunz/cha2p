@@ -1,8 +1,7 @@
 #include "socketServer.h"
 
 #include "MessageEvent.h"
-
-#include <wx/msgdlg.h>
+#include "enum.h"
 
 const long SocketServer::SERVER_ID = wxNewId();
 const long SocketServer::SOCKET_ID = wxNewId();
@@ -67,14 +66,13 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             sock->Read(&len, 1);
 
             // Read the data
-            char *buf = new char[len];
+            wxChar *buf = new wxChar[len];
             sock->Read(buf, len);
-
-            #warning "TODO: How to convert FROM char* TO wxString??"
 
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
-            myevent.setMessage(wxString::FromAscii(buf));
+            myevent.setMessage(buf);
+            myevent.setMessageType(RECEIVE);
             myevent.SetEventObject(this);
             ProcessEvent(myevent);
 

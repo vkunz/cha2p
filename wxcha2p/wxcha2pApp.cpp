@@ -9,7 +9,7 @@
 
 #include "wxcha2pApp.h"
 
-#include <wx/msgdlg.h>
+#include "Sender.h"
 
 //(*AppHeaders
 #include <wx/image.h>
@@ -38,10 +38,16 @@ bool wxcha2pApp::OnInit()
     server = new SocketServer(3000);
 
     return wxsOK;
-
 }
 
 void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
-    wxMessageBox(wxT("event"));
-    Frame->addMessage(event.getMessage());
+    switch(event.getMessageType()) {
+        case RECEIVE:
+            Frame->addMessage(event.getMessage());
+            break;
+        case SENDMSG:
+            Sender snd;
+            snd.SendMessage(wxT("localhost"), 3000, event.getMessage());
+            break;
+    }
 }

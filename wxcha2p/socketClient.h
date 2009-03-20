@@ -10,6 +10,7 @@ public:
     ~SocketClient();
     void OpenConnection(wxString hostname, int port);
     void SendMessage(const wxChar* message);
+    void CloseConnection();
 
 private:
     void OnSocketEvent(wxSocketEvent& event);

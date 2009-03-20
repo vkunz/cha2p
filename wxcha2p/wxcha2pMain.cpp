@@ -9,6 +9,7 @@
 
 #include "wxcha2pMain.h"
 #include <wx/msgdlg.h>
+#include "MessageEvent.h"
 
 //(*InternalHeaders(wxcha2pFrame)
 #include <wx/intl.h>
@@ -116,5 +117,11 @@ void wxcha2pFrame::addMessage(wxString message) {
 void wxcha2pFrame::OnButton_SendClick(wxCommandEvent& event)
 {
     //Nachrict versenden
-    addMessage(m_text_input->GetValue());
+    MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
+	myevent.setMessageType(SENDMSG);
+	myevent.setMessage(m_text_input->GetValue());
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
+
+	m_text_input->Clear();
 }
