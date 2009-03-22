@@ -1,5 +1,5 @@
-#ifndef _ATHOS_MAINWINDOW_H_
-#define _ATHOS_MAINWINDOW_H_
+#ifndef _QTCHA2P_MAINWINDOW_H_
+#define _QTCHA2P_MAINWINDOW_H_
 
 #include <QtGui/QMainWindow>
 
@@ -20,4 +20,4 @@ private:
     Ui::MainWindowClass* ui;
 };
 
-#endif // _ATHOS_MAINWINDOW_H_
+#endif // _QTCHA2P_MAINWINDOW_H_
