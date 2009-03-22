@@ -19,8 +19,10 @@ DESTDIR  = "../bin"
 TEMPLATE = app
 
 SOURCES  += src\main.cpp\
-           src\MainWindow.cpp
+            src\MainWindow.cpp\
+            src\Configuration.cpp
 
-HEADERS  += src\MainWindow.hpp
+HEADERS  += src\MainWindow.hpp\
+			src\Configuration.hpp
 
 FORMS    += ui/MainWindow.ui
