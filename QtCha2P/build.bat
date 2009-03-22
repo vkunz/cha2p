@@ -1,8 +1,10 @@
+echo off
+
 REM first start qmake to create makefile
-qmake QtCha2P.pro -spec win32-g++ -r CONFI+=debug_and_release
+qmake QtCha2P.pro -spec win32-g++ -r 
 
 REM make
-mingw32-make.exe release -w
+mingw32-make.exe all
 
 REM generate documentation
 doxygen doxyconfig
