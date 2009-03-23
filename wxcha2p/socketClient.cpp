@@ -1,3 +1,8 @@
+/*
+ * Diese Klasse implementiert die grundlegenden Funktionen für einen Client-Socket,
+ * wie den Aufbau einer Verbindung, das Versenden von Nachrichten, den Verbindungsabbau
+ */
+
 #include "socketClient.h"
 
 #include <wx/string.h>
@@ -8,6 +13,10 @@ END_EVENT_TABLE()
 
 const long SocketClient::SOCKET_ID = wxNewId();
 
+/*
+ * Constructor
+ * Socket registrieren und notwendige Initialisierungen durchführen
+ */
 SocketClient::SocketClient() {
     // Create the socket
     m_sock = new wxSocketClient();
@@ -17,10 +26,17 @@ SocketClient::SocketClient() {
     m_sock->Notify(true);
 }
 
+/*
+ * Destructor
+ */
 SocketClient::~SocketClient() {
     delete m_sock;
 }
 
+/*
+ * Verarbeitet Events, die vom Socket ausgelöst wurden.
+ * Gegebenenfalls kann auf diese Fälle gesondert eingegangen werden
+ */
 void SocketClient::OnSocketEvent(wxSocketEvent& event) {
     wxString s = wxT("OnSocketEvent: ");
 
@@ -40,6 +56,9 @@ void SocketClient::OnSocketEvent(wxSocketEvent& event) {
     }
 }
 
+/*
+ * Baut eine Verbindung zum angegebenen Host auf
+ */
 void SocketClient::OpenConnection(wxString hostname, int port) {
   wxIPV4address addr;
 
@@ -55,6 +74,10 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
   }
 }
 
+/*
+ * Sendet eine übergegebene Nachricht zum Server
+ * Momentan werden hier auch noch Protokoll-Aufgaben mit übernommen
+ */
 void SocketClient::SendMessage(const wxChar* message) {
     unsigned char len = (unsigned char)((wxStrlen(message) + 1) * sizeof(wxChar));
 
@@ -66,6 +89,9 @@ void SocketClient::SendMessage(const wxChar* message) {
     m_sock->Write(message, len);
 }
 
+/*
+ * Schliesst die Verbindung
+ */
 void SocketClient::CloseConnection() {
     m_sock->Close();
 }
