@@ -1,7 +1,15 @@
+/*
+ * Diese Klasse ist als spätere Thread Klasse zum Versenden der Nachrichten gedacht.
+ * Nachrichten sollten also nicht direkt über die Sockets versendet werden, sondern über
+ * diese Klasse.
+ * Sie verwendet intern die socketClient-Klasse, um die Nachrichten zu senden.
+ */
+
 #include "Sender.h"
 
-#include <wx/socket.h>
-
+/*
+ * Versenden der Nachricht mit Hilfe der zuständigen Socket-Methode
+ */
 void Sender::SendMessage(wxString hostname, int port, wxString message) {
     socket.OpenConnection(hostname, port);
     socket.SendMessage(message);

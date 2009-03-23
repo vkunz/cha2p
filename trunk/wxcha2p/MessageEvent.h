@@ -15,6 +15,7 @@ public:
 	MessageEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	MessageEvent(const MessageEvent& event);
 	virtual wxEvent* Clone() const;
+
 	void setMessage(wxString message);
 	void setMessageType(messageType type);
 

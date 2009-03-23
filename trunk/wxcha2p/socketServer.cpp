@@ -1,3 +1,7 @@
+/*
+ * Stellt Grundfunktionen zum Erstellen eines Server-Sockets zur Verfügung.
+ */
+
 #include "socketServer.h"
 
 #include "MessageEvent.h"
@@ -11,6 +15,10 @@ BEGIN_EVENT_TABLE(SocketServer,wxEvtHandler)
     EVT_SOCKET(SOCKET_ID, SocketServer::OnSocketEvent)
 END_EVENT_TABLE()
 
+/*
+ * Constructor
+ * Erstellt den Socket, bindet ihn an einen Port und führt zusätzliche Initialisierungen durch
+ */
 SocketServer::SocketServer(int port) {
     // Create the address - defaults to localhost:0 initially
     wxIPV4address addr;
@@ -30,10 +38,17 @@ SocketServer::SocketServer(int port) {
     m_server->Notify(true);
 }
 
+/*
+ * Destructor
+ */
 SocketServer::~SocketServer() {
     delete m_server;
 }
 
+/*
+ * Reagiert auf Events am Socket. Dies geschieht bei eingehenden Verbindungen. Diese wird
+ * akzeptiert und es werden weitere Handler angegeben, die auf diesen speziellen Socket hören
+ */
 void SocketServer::OnServerEvent(wxSocketEvent& event) {
     wxSocketBase *sock;
     sock = m_server->Accept(false);
@@ -43,6 +58,10 @@ void SocketServer::OnServerEvent(wxSocketEvent& event) {
     sock->Notify(true);
 }
 
+/*
+ * Reagiert auf Events, die an einem bereits verbundenen Socket entstehen. Hierzu
+ * zählen das Empfangen einer Nachricht, ein Verbindungsabbruch, ...
+ */
 void SocketServer::OnSocketEvent(wxSocketEvent& event) {
     wxSocketBase *sock = event.GetSocket();
     // Now we process the event

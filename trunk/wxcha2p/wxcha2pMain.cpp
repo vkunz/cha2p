@@ -110,10 +110,16 @@ void wxcha2pFrame::OnAbout(wxCommandEvent& event)
     wxMessageBox(msg, _("Welcome to..."));
 }
 
+/*
+ * Fügt eine übergebene Nachricht dem Output-Control hinzu
+ */
 void wxcha2pFrame::addMessage(wxString message) {
     m_text_output->AppendText(message + wxT("\n"));
 }
 
+/*
+ * Handled einen Klick auf den Senden Button
+ */
 void wxcha2pFrame::OnButton_SendClick(wxCommandEvent& event)
 {
     //Nachrict versenden

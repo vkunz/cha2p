@@ -35,19 +35,25 @@ bool wxcha2pApp::OnInit()
     }
     //*)
 
+    // Server-Socket erstellen
     server = new SocketServer(3000);
 
     return wxsOK;
 }
 
+/*
+ * Reagiert auf MessageEvent-Events und leitet die Verarbeitung ein
+ */
 void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
     switch(event.getMessageType()) {
         case RECEIVE:
             Frame->addMessage(event.getMessage());
             break;
         case SENDMSG:
-            Sender snd;
-            snd.SendMessage(wxT("localhost"), 3000, event.getMessage());
+            if(event.getMessage() != wxT("")) {
+                Sender snd;
+                snd.SendMessage(wxT("localhost"), 3000, event.getMessage());
+            }
             break;
     }
 }
