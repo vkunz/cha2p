@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="WindowsDebug">
-				<Option output="bin\Debug\wxcha2p" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\wxcha2p.debug" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -32,7 +32,7 @@
 				</Linker>
 			</Target>
 			<Target title="WindowsRelease">
-				<Option output="bin\Release\wxcha2p" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\wxcha2p.release" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="0" />
 				<Option compiler="gcc" />
