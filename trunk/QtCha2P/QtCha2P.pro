@@ -9,12 +9,12 @@ QT       += network
 CONFIG   += debug_and_release
 
 CONFIG(debug, debug|release) {
-	TARGET = QtCha2P.debug
+	DESTDIR  = "../bin/debug"
 } else {
-	TARGET = QtCha2P.release
+	DESTDIR  = "../bin/release"
 }
 
-DESTDIR  = "../bin"
+TARGET = QtCha2P
 
 TEMPLATE = app
 
