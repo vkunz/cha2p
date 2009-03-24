@@ -85,12 +85,12 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             sock->Read(&len, 1);
 
             // Read the data
-            wxChar *buf = new wxChar[len];
+            char* buf = new char[len];
             sock->Read(buf, len);
 
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
-            myevent.setMessage(buf);
+            myevent.setMessage(wxString::FromAscii(buf));
             myevent.setMessageType(RECEIVE);
             myevent.SetEventObject(this);
             ProcessEvent(myevent);

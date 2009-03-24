@@ -5,4 +5,7 @@ enum messageType    {   RECEIVE,
                         SENDMSG
                     };
 
+enum protocol       {   CHANNELMESSAGE
+                    };
+
 #endif // ENUM_H_INCLUDED

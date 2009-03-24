@@ -4,12 +4,14 @@
 #include <wx/socket.h>
 #include <wx/event.h>
 
+#include "OutputData.h"
+
 class SocketClient : private wxEvtHandler{
 public:
     SocketClient();
     ~SocketClient();
     void OpenConnection(wxString hostname, int port);
-    void SendMessage(const wxChar* message);
+    void SendMessage(OutputData* output);
     void CloseConnection();
 
 private:

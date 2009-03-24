@@ -78,15 +78,13 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
  * Sendet eine übergegebene Nachricht zum Server
  * Momentan werden hier auch noch Protokoll-Aufgaben mit übernommen
  */
-void SocketClient::SendMessage(const wxChar* message) {
-    unsigned char len = (unsigned char)((wxStrlen(message) + 1) * sizeof(wxChar));
-
-    // Communication Protocoll
-    unsigned char c = 0xBE;
-    m_sock->Write(&c, 1);
-
-    m_sock->Write(&len, 1);
-    m_sock->Write(message, len);
+void SocketClient::SendMessage(OutputData* output) {
+    // send communication protocoll
+    m_sock->Write(output->getComProtocol(), 1);
+    // send message-length
+    m_sock->Write(output->getNumBytes(), 1);
+    // send message
+    m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
 }
 
 /*
