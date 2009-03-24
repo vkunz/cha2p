@@ -10,6 +10,8 @@
 #include "wxcha2pApp.h"
 
 #include "Sender.h"
+#include "GenerateOutput.h"
+#include "outputData.h"
 
 //(*AppHeaders
 #include <wx/image.h>
@@ -51,8 +53,9 @@ void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
             break;
         case SENDMSG:
             if(event.getMessage() != wxT("")) {
+                GenerateOutput output;
                 Sender snd;
-                snd.SendMessage(wxT("localhost"), 3000, event.getMessage());
+                snd.SendMessage(wxT("localhost"), 3000, output.SendChannelMessage(event.getMessage()));
             }
             break;
     }

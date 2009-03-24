@@ -110,7 +110,7 @@
 				<Option working_dir="..\bin" />
 				<Option object_output="obj\Debug\" />
 				<Option type="0" />
-				<Option compiler="mingw32crosscompiler" />
+				<Option compiler="gcc" />
 				<Option projectCompilerOptionsRelation="1" />
 				<Option projectLinkerOptionsRelation="1" />
 				<Option projectIncludeDirsRelation="1" />
@@ -138,7 +138,7 @@
 				<Option working_dir="..\bin" />
 				<Option object_output="obj\Release\" />
 				<Option type="0" />
-				<Option compiler="mingw32crosscompiler" />
+				<Option compiler="gcc" />
 				<Option projectCompilerOptionsRelation="1" />
 				<Option projectLinkerOptionsRelation="1" />
 				<Option projectIncludeDirsRelation="1" />
@@ -189,11 +189,15 @@
 			<Add library="libwsock32.a" />
 			<Add library="libodbc32.a" />
 		</Linker>
+		<Unit filename="GenerateOutput.cpp" />
+		<Unit filename="GenerateOutput.h" />
 		<Unit filename="MessageEvent.cpp" />
 		<Unit filename="MessageEvent.h" />
+		<Unit filename="OutputData.cpp" />
 		<Unit filename="Sender.cpp" />
 		<Unit filename="Sender.h" />
 		<Unit filename="enum.h" />
+		<Unit filename="outputData.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 			<Option target="WindowsDebug" />
