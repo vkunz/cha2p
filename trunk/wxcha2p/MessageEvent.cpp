@@ -39,6 +39,13 @@ void MessageEvent::setMessage(wxString message)
 }
 
 /*
+ * Setzt den Pointer auf ein SocketData-Objekt
+ */
+void MessageEvent::setSocketData(SocketData* data) {
+    m_socketData = data;
+}
+
+/*
  * Setzt den Event-Typ
  */
 void MessageEvent::setMessageType(messageType type) {
@@ -51,6 +58,13 @@ void MessageEvent::setMessageType(messageType type) {
 wxString MessageEvent::getMessage()
 {
 	return m_message;
+}
+
+/*
+ * Liest den Pointer auf ein SocketData-Objekt
+ */
+SocketData* MessageEvent::getSocketData() {
+    return m_socketData;
 }
 
 /*

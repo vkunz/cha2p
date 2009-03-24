@@ -78,7 +78,7 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
  * Sendet eine übergegebene Nachricht zum Server
  * Momentan werden hier auch noch Protokoll-Aufgaben mit übernommen
  */
-void SocketClient::SendMessage(OutputData* output) {
+void SocketClient::SendMessage(SocketData* output) {
     // send communication protocoll
     m_sock->Write(output->getComProtocol(), 1);
     // send message-length

@@ -2,11 +2,11 @@
 #define GENERATEOUTPUT_H_INCLUDED
 
 #include <wx/string.h>
-#include "OutputData.h"
+#include "SocketData.h"
 
 class GenerateOutput {
 public:
-    OutputData* SendChannelMessage(wxString message);
+    SocketData* SendChannelMessage(wxString message);
 
 private:
 

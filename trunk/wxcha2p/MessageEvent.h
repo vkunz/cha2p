@@ -4,12 +4,14 @@
 #include <wx/event.h>
 #include <wx/string.h>
 #include "enum.h"
+#include "SocketData.h"
 
 class MessageEvent : public wxNotifyEvent
 {
 private:
 	wxString m_message;
 	messageType m_type;
+	SocketData* m_socketData;
 
 public:
 	MessageEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
@@ -17,9 +19,11 @@ public:
 	virtual wxEvent* Clone() const;
 
 	void setMessage(wxString message);
+	void setSocketData(SocketData* data);
 	void setMessageType(messageType type);
 
 	wxString getMessage();
+	SocketData* getSocketData();
 	messageType getMessageType();
 
 	DECLARE_DYNAMIC_CLASS(GLKeyEvent);

@@ -9,8 +9,8 @@
 /*
  * Präpariert den Output um eine Nachricht an einen Channel zu versenden
  */
-OutputData* GenerateOutput::SendChannelMessage(wxString message) {
-    OutputData* output = new OutputData;
+SocketData* GenerateOutput::SendChannelMessage(wxString message) {
+    SocketData* output = new SocketData;
 
     // Communication Protocoll
     output->setComProtocol(CHANNELMESSAGE);

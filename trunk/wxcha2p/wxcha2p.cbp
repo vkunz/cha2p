@@ -189,15 +189,17 @@
 			<Add library="libwsock32.a" />
 			<Add library="libodbc32.a" />
 		</Linker>
+		<Unit filename="EvaluateInput.cpp" />
+		<Unit filename="EvaluateInput.h" />
 		<Unit filename="GenerateOutput.cpp" />
 		<Unit filename="GenerateOutput.h" />
 		<Unit filename="MessageEvent.cpp" />
 		<Unit filename="MessageEvent.h" />
-		<Unit filename="OutputData.cpp" />
 		<Unit filename="Sender.cpp" />
 		<Unit filename="Sender.h" />
+		<Unit filename="SocketData.cpp" />
+		<Unit filename="SocketData.h" />
 		<Unit filename="enum.h" />
-		<Unit filename="outputData.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 			<Option target="WindowsDebug" />

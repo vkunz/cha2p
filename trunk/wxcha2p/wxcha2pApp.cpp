@@ -11,7 +11,8 @@
 
 #include "Sender.h"
 #include "GenerateOutput.h"
-#include "outputData.h"
+#include "EvaluateInput.h"
+#include "SocketData.h"
 
 //(*AppHeaders
 #include <wx/image.h>
@@ -49,6 +50,8 @@ bool wxcha2pApp::OnInit()
 void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
     switch(event.getMessageType()) {
         case RECEIVE:
+            EvaluateInput input;
+            input.evaluate(event.getSocketData());
             Frame->addMessage(event.getMessage());
             break;
         case SENDMSG:
