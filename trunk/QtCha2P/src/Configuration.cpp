@@ -1,3 +1,4 @@
+
 #include "Configuration.hpp"
 
 namespace QtCha2P
@@ -15,7 +16,7 @@ namespace QtCha2P
 	Configuration::~Configuration()
 	{
 	}
- 
+
 	// create instance if no exist and return address of it
 	Configuration* Configuration::getInstance()
 	{
@@ -32,5 +33,6 @@ namespace QtCha2P
 	void Configuration::readConfigFile(QString filename)
 	{
 	}
-	
+
 } // namespace QtCha2P
+
