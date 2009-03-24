@@ -10,15 +10,15 @@ namespace QtCha2P
 	private:
 		// pointer to instance
 		static Configuration* m_instance;
-		
+
 	protected:
 		// ctor
 		Configuration();
-		
+
 		// prevent copying
 		// no copy-constructor
 		Configuration(const Configuration&);
-		
+
 		// no assignment-operator
 		Configuration& operator=(const Configuration&);
 
@@ -32,6 +32,7 @@ namespace QtCha2P
 
 		// read config file and store its data
 		void readConfigFile(QString filename);
+
 	}; // class Configuration
 } // namespace QtCha2P
 
