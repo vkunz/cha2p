@@ -85,6 +85,8 @@ void SocketClient::SendMessage(OutputData* output) {
     m_sock->Write(output->getNumBytes(), 1);
     // send message
     m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
+
+    delete output;
 }
 
 /*

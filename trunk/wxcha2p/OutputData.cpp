@@ -1,3 +1,7 @@
+/*
+ * Klasse um alle Daten für den Austausch zu speichern und an entsprechende Stellen weiterzugeben
+ */
+
 #include "OutputData.h"
 
 void OutputData::setComProtocol(unsigned char com) {
