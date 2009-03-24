@@ -1,6 +1,5 @@
 #include <QtGui/QApplication>
 
-#include "MainWindow.hpp"
 #include "LogInWindow.hpp"
 
 int main(int argc, char *argv[])
