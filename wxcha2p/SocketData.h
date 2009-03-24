@@ -1,9 +1,9 @@
-#ifndef OUTPUTDATA_H_INCLUDED
-#define OUTPUTDATA_H_INCLUDED
+#ifndef SOCKETDATA_H_INCLUDED
+#define SOCKETDATA_H_INCLUDED
 
 #include <wx/string.h>
 
-class OutputData {
+class SocketData {
 public:
     void setComProtocol(unsigned char com);
     void setNumBytes(unsigned char num);
@@ -20,4 +20,4 @@ private:
 
 };
 
-#endif // OUTPUTDATA_H_INCLUDED
+#endif // SOCKETDATA_H_INCLUDED

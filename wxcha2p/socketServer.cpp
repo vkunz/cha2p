@@ -5,6 +5,7 @@
 #include "socketServer.h"
 
 #include "MessageEvent.h"
+#include "SocketData.h"
 #include "enum.h"
 
 const long SocketServer::SERVER_ID = wxNewId();
@@ -77,20 +78,26 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
 
             //read out temp value
             // Which test are we going to run?
-            unsigned char c;
-            sock->Read(&c, 1);
 
-            // Read the size
+            SocketData* data = new SocketData;
+
+            // read protocoll byte
+            sock->Read(data->getComProtocol(), 1);
+
+            // read the size
             unsigned char len;
             sock->Read(&len, 1);
+            data->setNumBytes(len);
 
             // Read the data
             char* buf = new char[len];
             sock->Read(buf, len);
+            data->setMessage(wxString::FromAscii(buf));
+            delete[] buf;
 
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
-            myevent.setMessage(wxString::FromAscii(buf));
+            myevent.setSocketData(data);
             myevent.setMessageType(RECEIVE);
             myevent.SetEventObject(this);
             ProcessEvent(myevent);

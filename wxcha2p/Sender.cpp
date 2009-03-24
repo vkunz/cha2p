@@ -10,7 +10,7 @@
 /*
  * Versenden der Nachricht mit Hilfe der zuständigen Socket-Methode
  */
-void Sender::SendMessage(wxString hostname, int port, OutputData* output) {
+void Sender::SendMessage(wxString hostname, int port, SocketData* output) {
     socket.OpenConnection(hostname, port);
     socket.SendMessage(output);
     socket.CloseConnection();
