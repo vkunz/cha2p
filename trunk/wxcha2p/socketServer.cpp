@@ -98,6 +98,7 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
             myevent.setSocketData(data);
+            myevent.setSocket(sock);
             myevent.setMessageType(RECEIVE);
             myevent.SetEventObject(this);
             ProcessEvent(myevent);

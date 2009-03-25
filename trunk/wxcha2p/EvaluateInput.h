@@ -9,6 +9,7 @@ public:
     void evaluate(SocketData* data);
 
 private:
+    void channelMessage(SocketData* data);
 
 };
 
