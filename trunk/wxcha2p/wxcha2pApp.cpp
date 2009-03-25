@@ -20,6 +20,7 @@
 
 BEGIN_EVENT_TABLE(wxcha2pApp, wxApp)
 	EVT_MESSAGE(0, wxcha2pApp::OnMessageEvent)
+	EVT_GUI(0, wxcha2pApp::OnGUIEvent)
 END_EVENT_TABLE()
 
 IMPLEMENT_APP(wxcha2pApp);
@@ -49,17 +50,25 @@ bool wxcha2pApp::OnInit()
  */
 void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
     switch(event.getMessageType()) {
-        case RECEIVE:
+        case RECEIVE: {
             EvaluateInput input;
             input.evaluate(event.getSocketData());
-            Frame->addMessage(event.getMessage());
             break;
+        }
         case SENDMSG:
             if(event.getMessage() != wxT("")) {
                 GenerateOutput output;
                 Sender snd;
                 snd.SendMessage(wxT("localhost"), 3000, output.SendChannelMessage(event.getMessage()));
             }
+            break;
+    }
+}
+
+void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
+    switch(event.getEventType()) {
+        case DISPLAYMESSAGE:
+            Frame->addMessage(event.getText());
             break;
     }
 }

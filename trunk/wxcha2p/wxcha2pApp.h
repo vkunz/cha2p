@@ -15,6 +15,7 @@
 #include "wxcha2pMain.h"
 #include "socketServer.h"
 #include "MessageEvent.h"
+#include "GUIEvent.h"
 
 class wxcha2pApp : public wxApp
 {
@@ -24,6 +25,7 @@ class wxcha2pApp : public wxApp
     private:
         SocketServer* server;
         void OnMessageEvent(MessageEvent& event);
+        void OnGUIEvent(GUIEvent& event);
 
         wxcha2pFrame* Frame;
 
