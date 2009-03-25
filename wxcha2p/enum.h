@@ -8,4 +8,7 @@ enum messageType    {   RECEIVE,
 enum protocol       {   CHANNELMESSAGE
                     };
 
+enum guiEventType   {   DISPLAYMESSAGE
+                    };
+
 #endif // ENUM_H_INCLUDED

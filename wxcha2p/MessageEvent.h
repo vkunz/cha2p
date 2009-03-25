@@ -26,7 +26,7 @@ public:
 	SocketData* getSocketData();
 	messageType getMessageType();
 
-	DECLARE_DYNAMIC_CLASS(GLKeyEvent);
+	DECLARE_DYNAMIC_CLASS(MessageEvent);
 };
 
 typedef void (wxEvtHandler::*MessageEventFunction)(MessageEvent&);

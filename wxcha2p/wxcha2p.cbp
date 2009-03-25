@@ -191,6 +191,8 @@
 		</Linker>
 		<Unit filename="EvaluateInput.cpp" />
 		<Unit filename="EvaluateInput.h" />
+		<Unit filename="GUIEvent.cpp" />
+		<Unit filename="GUIEvent.h" />
 		<Unit filename="GenerateOutput.cpp" />
 		<Unit filename="GenerateOutput.h" />
 		<Unit filename="MessageEvent.cpp" />

@@ -5,14 +5,17 @@
 
 #include "EvaluateInput.h"
 #include "enum.h"
-
-#include <wx/msgdlg.h>
+#include "GUIEvent.h"
 
 void EvaluateInput::evaluate(SocketData* data) {
     switch(*data->getComProtocol()) {
         case CHANNELMESSAGE:
-            // es fehlt ein neues Event um die Nachricht an die GUI zu senden
-            wxMessageBox(data->getMessage());
+            // Send Event to display Text
+            GUIEvent myevent(wxEVT_COMMAND_GUIEvent);
+            myevent.setEventType(DISPLAYMESSAGE);
+            myevent.setText(data->getMessage());
+//            myevent.SetEventObject(this);
+            ProcessEvent(myevent);
             break;
     }
 }
