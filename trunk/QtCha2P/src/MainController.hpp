@@ -6,6 +6,7 @@
 #include <QtNetwork/QTcpSocket>
 
 #include "ChannelFrame.hpp"
+#include "ListenerThread.hpp"
 #include "LogInWindow.hpp"
 
 namespace QtCha2P
@@ -22,8 +23,8 @@ namespace QtCha2P
 			// pointer to ChannelFrame
 			ChannelFrame* m_cf;
 			
-			// tcpsocket
-			QTcpSocket m_socket;
+			// pointer to listenerthread
+			ListenerThread* m_listener;		
 			
 		public:
 			// ctor
