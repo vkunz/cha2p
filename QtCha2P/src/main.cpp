@@ -1,11 +1,10 @@
 #include <QtGui/QApplication>
 
-#include "LogInWindow.hpp"
+#include "MainController.hpp"
 
 int main(int argc, char *argv[])
 {
 	QApplication QtCha2P(argc, argv);
-	QtCha2P::LogInWindow liw;
-	liw.show();
+	QtCha2P::MainController mc;
 	return QtCha2P.exec();
 }
