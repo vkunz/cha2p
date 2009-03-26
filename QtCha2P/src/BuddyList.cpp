@@ -19,14 +19,14 @@ namespace QtCha2P
 	}
 
 	// add buddy
-	void BuddyList::addBuddy(const Buddy const* buddy)
+	void BuddyList::addBuddy(const Buddy* const buddy)
 	{
 		// add buddy
 		m_ptrList->push_back(*buddy);
 	}
 
 	// remove buddy		
-	void BuddyList::removeBuddy(const QHostAddress const* ipaddress)
+	void BuddyList::removeBuddy(const QHostAddress* const ipaddress)
 	{
 		// iterator
 		std::list<Buddy>::iterator it;
@@ -38,7 +38,7 @@ namespace QtCha2P
 	}
 
 	// check if given nickname is available
-	bool BuddyList::nicknameAvailable(const QString const* nickname)
+	bool BuddyList::nicknameAvailable(const QString* const nickname)
 	{
 		// iterator
 		std::list<Buddy>::iterator it;
@@ -50,7 +50,7 @@ namespace QtCha2P
 	}
 
 	// return Nickname of given ipAddress
-	QString getNickname(const QHostAddress const* ipaddress)
+	QString getNickname(const QHostAddress* const ipaddress)
 	{
 		// return value
 		QString ret;

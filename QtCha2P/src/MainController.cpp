@@ -18,6 +18,9 @@ namespace QtCha2P
 		
 		// show the window
 		m_liw->show();
+		
+		// init listenerthread and run
+		m_listener = new ListenerThread(3000);
 	}
 	
 	// dtor
@@ -28,6 +31,7 @@ namespace QtCha2P
 	// public slots
 	void MainController::newInputMessage(QString inputMessage)
 	{
+		/*
 		qDebug() << inputMessage;
 		
 		QByteArray arr;
@@ -51,10 +55,12 @@ namespace QtCha2P
 		
 		qDebug() << m_socket.bytesToWrite();
 		qDebug() << m_socket.bytesAvailable();
+		*/
 	}
-	
+
 	void MainController::newConnection(QString host, QString nick)
 	{
+		/*
 		m_liw->close();
 		m_socket.connectToHost(host, 3000);
 		
@@ -70,5 +76,6 @@ namespace QtCha2P
 		
 		// show the frame
 		m_cf->show();
+		*/
 	}
 } // namespace QtCha2P
