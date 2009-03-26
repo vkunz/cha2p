@@ -18,11 +18,15 @@ TARGET = QtCha2P
 
 TEMPLATE = app
 
-SOURCES  += src\main.cpp\
+SOURCES  += src\ChannelFrame.cpp\
+			src\Configuration.cpp\
             src\LogInWindow.cpp\
-            src\Configuration.cpp
+			src\main.cpp\
+			src\MainController.cpp
+            
 
-HEADERS  += src\LogInWindow.hpp\
-			src\Configuration.hpp
-
-FORMS    += ui/LogInWindow.ui
+HEADERS  += src\ChannelFrame.hpp\
+			src\Configuration.hpp\
+			src\LogInWindow.hpp\
+			src\MainController.hpp
+			
