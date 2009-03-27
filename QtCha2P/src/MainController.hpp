@@ -6,8 +6,8 @@
 #include <QtNetwork/QTcpSocket>
 
 #include "ChannelFrame.hpp"
+#include "ConnectWindow.hpp"
 #include "ListenerThread.hpp"
-#include "LogInWindow.hpp"
 
 namespace QtCha2P
 {
@@ -18,7 +18,7 @@ namespace QtCha2P
 		
 		private:
 			// pointer to LogInWindow
-			LogInWindow* m_liw;
+			ConnectWindow* m_liw;
 			
 			// pointer to ChannelFrame
 			ChannelFrame* m_cf;
@@ -39,6 +39,7 @@ namespace QtCha2P
 			
 			// signal: LogInWindow connect button pressed
 			void newConnection(QString host, QString nick);
+
 	}; // class MainController
 } // namespace
 
