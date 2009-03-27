@@ -10,7 +10,8 @@ enum protocol       {   REQUESTCONTACTS = 1,
                         CHANNELMESSAGE
                     };
 
-enum guiEventType   {   DISPLAYMESSAGE
+enum guiEventType   {   DISPLAYMESSAGE,
+                        CONNECT
                     };
 
 #endif // ENUM_H_INCLUDED

@@ -34,11 +34,13 @@ class wxcha2pFrame: public wxFrame
         void OnAbout(wxCommandEvent& event);
         void OnButton_SendClick(wxCommandEvent& event);
         //*)
+        void OnConnect(wxCommandEvent& event);
 
         //(*Identifiers(wxcha2pFrame)
         static const long ID_TEXTCTRL1;
         static const long ID_TEXTCTRL2;
         static const long ID_BUTTON1;
+        static const long idMenuConnect;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
