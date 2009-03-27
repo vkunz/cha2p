@@ -6,6 +6,8 @@
 
 class GenerateOutput {
 public:
+    SocketData* requestContacts();
+    SocketData* sendContacts();
     SocketData* SendChannelMessage(wxString message);
 
 private:

@@ -4,6 +4,7 @@
  */
 
 #include "GenerateOutput.h"
+#include "ContactList.h"
 #include "enum.h"
 
 /*
@@ -18,6 +19,34 @@ SocketData* GenerateOutput::SendChannelMessage(wxString message) {
     output->setNumBytes((unsigned char)((wxStrlen(message) + 1) * sizeof(char)));
     //Message
     output->setMessage(message);
+
+    return output;
+}
+
+/*
+ * Erstellt die Anfrage um von einem fremden Client die Kontaktliste abzufragen
+ */
+SocketData* GenerateOutput::requestContacts() {
+    SocketData* output = new SocketData;
+    output->setComProtocol(REQUESTCONTACTS);
+    output->setNumBytes(0);
+
+    return output;
+}
+
+/*
+ * Sendet an einen fremden Client die Kontaktliste in serialisierter Form
+ */
+SocketData* GenerateOutput::sendContacts() {
+    // serialize ContactList
+    ContactList* contact = ContactList::getInstance();
+    wxString list = contact->serialize();
+
+    // generate socket-data
+    SocketData* output = new SocketData;
+    output->setComProtocol(SENDCONTACTS);
+    output->setNumBytes((unsigned char)((wxStrlen(list) +1) * sizeof(char)));
+    output->setMessage(list);
 
     return output;
 }

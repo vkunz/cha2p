@@ -20,8 +20,8 @@ void EvaluateInput::evaluate(SocketData* data) {
 }
 
 /*
- * Hier wird ein neues Event erzeugt umd er GUI mitzuteilen, dass die neue Nachricht
- * angezeigt werden soll.
+ * Hier wird ein neues Event erzeugt um der GUI mitzuteilen, dass die neue Nachricht
+ * angezeigy     werden soll.
  */
 void EvaluateInput::channelMessage(SocketData* data) {
     // Send Event to display Text
