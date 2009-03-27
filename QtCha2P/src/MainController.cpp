@@ -2,7 +2,7 @@
 #include <QtCore/QString>
 //#include <QtCore/QDataStream>
 
-#include "LogInWindow.hpp"
+#include "ConnectWindow.hpp"
 #include "MainController.hpp"
 
 namespace QtCha2P
@@ -11,22 +11,23 @@ namespace QtCha2P
 	MainController::MainController()
 	{
 		// new loginwindow
-		m_liw = new LogInWindow();
+		m_liw = new ConnectWindow();
+
+		// init listenerthread and run
+		m_listener = new ListenerThread(3000);
 
 		// connect signals and slots
 		QObject::connect(m_liw, SIGNAL(connect(QString, QString)), this, SLOT(newConnection(QString, QString)));
-		
+				
 		// show the window
 		m_liw->show();
-		
-		// init listenerthread and run
-		m_listener = new ListenerThread(3000);
 	}
 	
 	// dtor
 	MainController::~MainController()
 	{
 	}
+	
 	
 	// public slots
 	void MainController::newInputMessage(QString inputMessage)
@@ -58,7 +59,7 @@ namespace QtCha2P
 		*/
 	}
 
-	void MainController::newConnection(QString host, QString nick)
+	void MainController::on(QString host, QString nick)
 	{
 		/*
 		m_liw->close();
