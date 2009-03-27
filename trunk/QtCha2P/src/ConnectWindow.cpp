@@ -5,7 +5,7 @@
 namespace QtCha2P
 {
 	// ctor
-	LogInWindow::LogInWindow(QWidget* parent) : QMainWindow(parent)
+	ConnectWindow::ConnectWindow(QWidget* parent) : QMainWindow(parent)
 	{
 		// set object name
 		if (objectName().isEmpty())
@@ -91,16 +91,16 @@ namespace QtCha2P
         setWindowTitle("LogIn");
         
         // connect slots and signals
-        QObject::connect(m_btnConnect, SIGNAL(pressed()), this, SLOT(connectPressed()));
+        QObject::connect(m_btnConnect, SIGNAL(pressed()), this, SLOT(onBtnConnectPressed()));
 	}
 
 	// dtor
-	LogInWindow::~LogInWindow()
+	ConnectWindow::~ConnectWindow()
 	{
 	}
 	
 	// public slots
-	void LogInWindow::connectPressed()
+	void ConnectWindow::onBtnConnectPressed()
 	{
 		// tmp strings
 		QString host, nick;

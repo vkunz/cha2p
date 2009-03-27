@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_LOGINWINDOW_H_
-#define _QTCHA2P_LOGINWINDOW_H_
+#ifndef _QTCHA2P_CONNECTWINDOW_H_
+#define _QTCHA2P_CONNECTWINDOW_H_
 
 #include <QtGui/QAction>
 #include <QtGui/QLabel>
@@ -13,7 +13,7 @@
 
 namespace QtCha2P
 {
-	class LogInWindow : public QMainWindow
+	class ConnectWindow : public QMainWindow
 	{
 		// QtMeta-Object-Compiler tags
 		Q_OBJECT
@@ -33,17 +33,17 @@ namespace QtCha2P
 		
 	public:
 		// ctor
-		LogInWindow(QWidget *parent = 0);
+		ConnectWindow(QWidget *parent = 0);
 	
 		// dtor
-		~LogInWindow();
+		~ConnectWindow();
 	
 	signals:
 		void connect(QString host, QString nickname);
 			
 	public slots:
-		void connectPressed();
-	}; // class LogInWindow
+		void onBtnConnectPressed();
+	}; // class ConnectWindow
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_LOGINWINDOW_H_
+#endif // _QTCHA2P_CONNECTWINDOW_H_
