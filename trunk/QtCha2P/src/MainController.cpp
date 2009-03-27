@@ -1,6 +1,5 @@
 #include <QtGlobal>
 #include <QtCore/QString>
-//#include <QtCore/QDataStream>
 
 #include "ConnectWindow.hpp"
 #include "MainController.hpp"
@@ -59,7 +58,7 @@ namespace QtCha2P
 		*/
 	}
 
-	void MainController::on(QString host, QString nick)
+	void MainController::newConnection(QString host, QString nick)
 	{
 		/*
 		m_liw->close();

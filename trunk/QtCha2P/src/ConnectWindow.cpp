@@ -1,6 +1,6 @@
 #include <QtGui/QSizePolicy>
 
-#include "LogInWindow.hpp"
+#include "ConnectWindow.hpp"
 
 namespace QtCha2P
 {
