@@ -9,10 +9,13 @@
 
 #include "wxcha2pApp.h"
 
+#include <iostream>
+
 #include "Sender.h"
 #include "GenerateOutput.h"
 #include "EvaluateInput.h"
 #include "SocketData.h"
+#include "ConnectDialog.h"
 
 //(*AppHeaders
 #include <wx/image.h>
@@ -65,10 +68,20 @@ void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
     }
 }
 
+#include <wx/msgdlg.h>
+
 void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
     switch(event.getEventType()) {
         case DISPLAYMESSAGE:
             Frame->addMessage(event.getText());
+            break;
+        case CONNECT:
+            ConnectDialog dialog(0);
+            GenerateOutput output;
+            Sender snd;
+
+            dialog.ShowModal();
+            snd.SendMessage(dialog.getAddress(), 3000, output.requestContacts());
             break;
     }
 }
