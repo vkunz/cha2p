@@ -5,7 +5,9 @@ enum messageType    {   RECEIVE,
                         SENDMSG
                     };
 
-enum protocol       {   CHANNELMESSAGE
+enum protocol       {   REQUESTCONTACTS = 1,
+                        SENDCONTACTS,
+                        CHANNELMESSAGE
                     };
 
 enum guiEventType   {   DISPLAYMESSAGE
