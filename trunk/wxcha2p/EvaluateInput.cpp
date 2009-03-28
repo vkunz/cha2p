@@ -3,8 +3,10 @@
  * Schritte ein, wie das Senden einer Antwort oder das Aktuallisieren der GUI
  */
 
+#include "ContactList.h"
 #include "EvaluateInput.h"
 #include "enum.h"
+#include "GenerateOutput.h"
 #include "GUIEvent.h"
 
 /*
@@ -15,6 +17,12 @@ void EvaluateInput::evaluate(MessageEvent& message) {
     switch(*message.getSocketData()->getComProtocol()) {
         case CHANNELMESSAGE:
             channelMessage(message.getSocketData());
+            break;
+        case REQUESTCONTACTS:
+            requestContacts(message);
+            break;
+        case SENDCONTACTS:
+            sendContacts(message.getSocketData());
             break;
     }
 }
@@ -30,4 +38,21 @@ void EvaluateInput::channelMessage(SocketData* data) {
     myevent.setText(data->getMessage());
     myevent.SetEventObject(this);
     ProcessEvent(myevent);
+}
+
+/*
+ * Verarbeitung einer Anfrage nach der eigenen Kontaktliste. Veranlassung der Antwort
+ * mit dieser Liste
+ */
+void EvaluateInput::requestContacts(MessageEvent& message) {
+    GenerateOutput* genOut = GenerateOutput::getInstance();
+    genOut->sendContacts(message);
+}
+
+/*
+ * Verarbeitung des Eintreffens einer fremden Kontaktliste und Aufnahme in die eigene
+ */
+void EvaluateInput::sendContacts(SocketData* data) {
+    ContactList* list = ContactList::getInstance();
+    list->unserialize(data->getMessage());
 }
