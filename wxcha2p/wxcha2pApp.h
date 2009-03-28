@@ -12,10 +12,12 @@
 
 #include <wx/app.h>
 
-#include "wxcha2pMain.h"
-#include "socketServer.h"
-#include "MessageEvent.h"
+#include "EvaluateInput.h"
+#include "GenerateOutput.h"
 #include "GUIEvent.h"
+#include "MessageEvent.h"
+#include "socketServer.h"
+#include "wxcha2pMain.h"
 
 class wxcha2pApp : public wxApp
 {
@@ -23,11 +25,14 @@ class wxcha2pApp : public wxApp
         virtual bool OnInit();
 
     private:
-        SocketServer* server;
         void OnMessageEvent(MessageEvent& event);
         void OnGUIEvent(GUIEvent& event);
 
         wxcha2pFrame* Frame;
+        SocketServer* m_server;
+        GenerateOutput* m_genOutput;
+        EvaluateInput* m_evalInput;
+
 
         DECLARE_EVENT_TABLE();
 };
