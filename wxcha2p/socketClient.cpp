@@ -4,6 +4,7 @@
  */
 
 #include "socketClient.h"
+#include "MessageEvent.h"
 
 #include <wx/string.h>
 
@@ -20,6 +21,10 @@ const long SocketClient::SOCKET_ID = wxNewId();
 SocketClient::SocketClient() {
     // Create the socket
     m_sock = new wxSocketClient();
+
+    // set timeout
+    m_sock->SetTimeout(20);
+
     // Setup the event handler and subscribe to most events
     m_sock->SetEventHandler(*this, SOCKET_ID);
     m_sock->SetNotify(wxSOCKET_CONNECTION_FLAG | wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
@@ -87,6 +92,36 @@ void SocketClient::SendMessage(SocketData* output) {
     m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
 
     delete output;
+}
+
+/*
+ * Sendet eine Nachricht zum Server und wartet auf eine Antwort
+ */
+void SocketClient::SendWithAnswer(SocketData* output) {
+    // send message to server
+    m_sock->Write(output->getComProtocol(), 1);
+    m_sock->Write(output->getNumBytes(), 1);
+    m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
+
+    //read answer
+    m_sock->Read(output->getComProtocol(), 1);
+
+    unsigned char len;
+    m_sock->Read(&len, 1);
+    output->setNumBytes(len);
+
+    char* buf = new char[len];
+    m_sock->Read(buf, len);
+    output->setMessage(wxString::FromAscii(buf));
+    delete[] buf;
+
+    // Send Event with Answer
+    MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
+    myevent.setSocketData(output);
+    myevent.setSocket(m_sock);
+    myevent.setMessageType(RECEIVE);
+    myevent.SetEventObject(this);
+    ProcessEvent(myevent);
 }
 
 /*
