@@ -31,5 +31,14 @@ ContactList* ContactList::getInstance() {
  * Verfügung zu stellen
  */
 wxString ContactList::serialize() {
+    wxString str = wxT("ip1:nick1;ip2:nick2");
+    return str;
+}
 
+#include <wx/msgdlg.h>
+/*
+ * liest einen String ein und generiert daraus eine Kontaktliste
+ */
+void ContactList::unserialize(wxString list) {
+    wxMessageBox(list);
 }

@@ -58,8 +58,6 @@ void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
         case SENDMSG:
             if(event.getMessage() != wxT("")) {
                 m_genOutput->SendChannelMessage(event.getMessage());
-                #warning "DEL next line"
-                //snd.SendMessage(wxT("localhost"), 3000, output->SendChannelMessage(event.getMessage()));
             }
             break;
     }
@@ -71,11 +69,9 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
             Frame->addMessage(event.getText());
             break;
         case CONNECT:
+            // ask for server-ip
             ConnectDialog dialog(0);
-            #warning "DEL COMMENTS"
-
             dialog.ShowModal();
-            //snd.SendMessage(dialog.getAddress(), 3000, output->requestContacts());
             m_genOutput->requestContacts(dialog.getAddress(), 3000);
             break;
     }

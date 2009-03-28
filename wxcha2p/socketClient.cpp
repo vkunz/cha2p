@@ -94,6 +94,7 @@ void SocketClient::SendMessage(SocketData* output) {
     delete output;
 }
 
+#include <wx/msgdlg.h>
 /*
  * Sendet eine Nachricht zum Server und wartet auf eine Antwort
  */
@@ -102,6 +103,8 @@ void SocketClient::SendWithAnswer(SocketData* output) {
     m_sock->Write(output->getComProtocol(), 1);
     m_sock->Write(output->getNumBytes(), 1);
     m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
+
+    wxMessageBox(wxT("TODO: wait for answer"));
 
     //read answer
     m_sock->Read(output->getComProtocol(), 1);

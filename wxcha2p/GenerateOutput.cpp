@@ -30,34 +30,20 @@ GenerateOutput* GenerateOutput::getInstance() {
 }
 
 /*
- * Präpariert den Output um eine Nachricht an einen Channel zu versenden
- */
-void GenerateOutput::SendChannelMessage(wxString message) {
-    SocketData* output = new SocketData;
-
-    // generate Message
-    output->setComProtocol(CHANNELMESSAGE);
-    output->setNumBytes((unsigned char)((wxStrlen(message) + 1) * sizeof(char)));
-    output->setMessage(message);
-
-    m_sender->SendMessage(wxT("localhost"), 3000, output);
-}
-
-/*
  * Erstellt die Anfrage um von einem fremden Client die Kontaktliste abzufragen
  */
-SocketData* GenerateOutput::requestContacts(wxString hostname, int port) {
+void GenerateOutput::requestContacts(wxString hostname, int port) {
     SocketData* output = new SocketData;
     output->setComProtocol(REQUESTCONTACTS);
     output->setNumBytes(0);
 
-    return output;
+    m_sender->SendWithAnswer(hostname, port, output);
 }
 
 /*
  * Sendet an einen fremden Client die Kontaktliste in serialisierter Form
  */
-SocketData* GenerateOutput::sendContacts() {
+void GenerateOutput::sendContacts(MessageEvent& event) {
     // serialize ContactList
     ContactList* contact = ContactList::getInstance();
     wxString list = contact->serialize();
@@ -70,7 +56,19 @@ SocketData* GenerateOutput::sendContacts() {
 
     // answer client-request
     SocketServer* server = SocketServer::getInstance(3000);
-    //server->AnswerRequest(
+    server->AnswerRequest(event.getSocket(), output);
+}
 
-    return output;
+/*
+ * Präpariert den Output um eine Nachricht an einen Channel zu versenden
+ */
+void GenerateOutput::SendChannelMessage(wxString message) {
+    SocketData* output = new SocketData;
+
+    // generate Message
+    output->setComProtocol(CHANNELMESSAGE);
+    output->setNumBytes((unsigned char)((wxStrlen(message) + 1) * sizeof(char)));
+    output->setMessage(message);
+
+    m_sender->SendMessage(wxT("localhost"), 3000, output);
 }

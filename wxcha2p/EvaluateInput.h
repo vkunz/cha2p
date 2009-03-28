@@ -11,6 +11,8 @@ public:
 
 private:
     void channelMessage(SocketData* data);
+    void requestContacts(MessageEvent& event);
+    void sendContacts(SocketData* data);
 
 };
 
