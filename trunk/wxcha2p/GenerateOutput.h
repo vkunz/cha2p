@@ -6,11 +6,14 @@
 
 class GenerateOutput {
 public:
+    static GenerateOutput* getInstance();
     SocketData* requestContacts();
     SocketData* sendContacts();
     SocketData* SendChannelMessage(wxString message);
-
+protected:
+    GenerateOutput();
 private:
+    static GenerateOutput* pinstance;
 
 };
 

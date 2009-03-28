@@ -6,6 +6,8 @@
 
 #include "ContactList.h"
 
+ContactList* ContactList::pinstance = 0;
+
 /*
  * privater Constructor, der wegen der Singleton-Eigenschaft nicht von auﬂen
  * aufgerufen werden darf
@@ -18,7 +20,10 @@ ContactList::ContactList() {
  * statische Funktion um eine Instanz der Singleton-Klasse zu bekommen
  */
 ContactList* ContactList::getInstance() {
-
+    if (pinstance == 0) {
+		pinstance = new ContactList;
+	}
+	return pinstance;
 }
 
 /*

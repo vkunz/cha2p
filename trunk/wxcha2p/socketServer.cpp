@@ -19,7 +19,7 @@ BEGIN_EVENT_TABLE(SocketServer,wxEvtHandler)
 END_EVENT_TABLE()
 
 /*
- * privater Constructor für Singleton-Klasse
+ * protected Constructor für Singleton-Klasse
  * Erstellt den Socket, bindet ihn an einen Port und führt zusätzliche Initialisierungen durch
  */
 SocketServer::SocketServer(int port) {
@@ -77,7 +77,7 @@ void SocketServer::OnServerEvent(wxSocketEvent& event) {
  * zählen das Empfangen einer Nachricht, ein Verbindungsabbruch, ...
  */
 void SocketServer::OnSocketEvent(wxSocketEvent& event) {
-    wxSocketBase *sock = event.GetSocket();
+    wxSocketBase* sock = event.GetSocket();
     // Now we process the event
     switch(event.GetSocketEvent())
     {
@@ -123,4 +123,14 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
         }
         default: ;
     }
+}
+
+/*
+ * Antwortet auf eine Anfrage mit den gewünschten Daten
+ */
+void SocketServer::AnswerRequest(wxSocketBase* sock, SocketData* output) {
+    // send message to client
+    sock->Write(output->getComProtocol(), 1);
+    sock->Write(output->getNumBytes(), 1);
+    sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
 }

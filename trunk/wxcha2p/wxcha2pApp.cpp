@@ -60,9 +60,9 @@ void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
         }
         case SENDMSG:
             if(event.getMessage() != wxT("")) {
-                GenerateOutput output;
+                GenerateOutput* output = GenerateOutput::getInstance();
                 Sender snd;
-                snd.SendMessage(wxT("localhost"), 3000, output.SendChannelMessage(event.getMessage()));
+                snd.SendMessage(wxT("localhost"), 3000, output->SendChannelMessage(event.getMessage()));
             }
             break;
     }
@@ -77,11 +77,11 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
             break;
         case CONNECT:
             ConnectDialog dialog(0);
-            GenerateOutput output;
+            GenerateOutput* output = GenerateOutput::getInstance();
             Sender snd;
 
             dialog.ShowModal();
-            snd.SendMessage(dialog.getAddress(), 3000, output.requestContacts());
+            snd.SendMessage(dialog.getAddress(), 3000, output->requestContacts());
             break;
     }
 }

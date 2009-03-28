@@ -1,11 +1,31 @@
 /*
  * Hier wird die Nachricht generiert. Diese Klasse weiß über das grundliegende Protokoll
  * bescheid und prepariert die Nachrichten entsprechend der gewünschten Art.
+ * Diese Klasse ist als Singleton implementiert
  */
 
 #include "GenerateOutput.h"
+
 #include "ContactList.h"
 #include "enum.h"
+#include "socketServer.h"
+
+GenerateOutput* GenerateOutput::pinstance = 0;
+
+/*
+ * Protected Constructor fuer Singleton-Klasse
+ */
+GenerateOutput::GenerateOutput() {}
+
+/*
+ * Erstellt eine Instanz der Singleton-Klasse
+ */
+GenerateOutput* GenerateOutput::getInstance() {
+    if (pinstance == 0) {
+		pinstance = new GenerateOutput;
+	}
+	return pinstance;
+}
 
 /*
  * Präpariert den Output um eine Nachricht an einen Channel zu versenden
@@ -47,6 +67,9 @@ SocketData* GenerateOutput::sendContacts() {
     output->setComProtocol(SENDCONTACTS);
     output->setNumBytes((unsigned char)((wxStrlen(list) +1) * sizeof(char)));
     output->setMessage(list);
+
+    SocketServer* server = SocketServer::getInstance(3000);
+    //server->AnswerRequest(
 
     return output;
 }
