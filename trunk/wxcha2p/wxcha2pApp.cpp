@@ -43,7 +43,7 @@ bool wxcha2pApp::OnInit()
     //*)
 
     // Server-Socket erstellen
-    server = new SocketServer(3000);
+    server = SocketServer::getInstance(3000);
 
     return wxsOK;
 }

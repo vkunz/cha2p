@@ -1,5 +1,6 @@
 /*
  * Stellt Grundfunktionen zum Erstellen eines Server-Sockets zur Verfügung.
+ * Ist als Singleton-Klasse realisiert, da nie mehr als ein Server benötigt wird.
  */
 
 #include "socketServer.h"
@@ -8,6 +9,7 @@
 #include "SocketData.h"
 #include "enum.h"
 
+SocketServer* SocketServer::pinstance = 0;
 const long SocketServer::SERVER_ID = wxNewId();
 const long SocketServer::SOCKET_ID = wxNewId();
 
@@ -17,7 +19,7 @@ BEGIN_EVENT_TABLE(SocketServer,wxEvtHandler)
 END_EVENT_TABLE()
 
 /*
- * Constructor
+ * privater Constructor für Singleton-Klasse
  * Erstellt den Socket, bindet ihn an einen Port und führt zusätzliche Initialisierungen durch
  */
 SocketServer::SocketServer(int port) {
@@ -37,6 +39,17 @@ SocketServer::SocketServer(int port) {
     m_server->SetEventHandler(*this, SERVER_ID);
     m_server->SetNotify(wxSOCKET_CONNECTION_FLAG);
     m_server->Notify(true);
+}
+
+/*
+ * Wird zur Erstellung der Singleton-Klasse genutzt. Erstellt eine neue Instanz, wenn noch
+ * keine vorhanden ist oder liefert einen Pointer auf eine vorhandene Instanz zurück
+ */
+SocketServer* SocketServer::getInstance(int port) {
+    if (pinstance == 0) {
+		pinstance = new SocketServer(port);
+	}
+	return pinstance;
 }
 
 /*
@@ -70,14 +83,10 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
     {
         case wxSOCKET_INPUT:
         {
-            // We disable input events, so that the test doesn't trigger
+            // We disable input events, so that it doesn't trigger
             // wxSocketEvent again.
             sock->SetNotify(wxSOCKET_LOST_FLAG);
-
             sock->SetFlags(wxSOCKET_WAITALL);
-
-            //read out temp value
-            // Which test are we going to run?
 
             SocketData* data = new SocketData;
 
@@ -103,17 +112,6 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             myevent.SetEventObject(this);
             ProcessEvent(myevent);
 
-/*            // Which test are we going to run?
-            unsigned char c;
-            sock->Read(&c, 1);
-
-            switch (c)
-            {
-                case 0xBE: TestConnection(sock); break;
-                case 0xCE: TestConnection(sock); break;
-                case 0xDE: TestConnection(sock); break;
-            }
-*/
             // Enable input events again.
             sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
             break;
