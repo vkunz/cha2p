@@ -10,8 +10,10 @@ public:
     void unserialize(wxString list);
     void add();
     bool inList(wxString ip);
-private:
+protected:
     ContactList();
+private:
+    static ContactList* pinstance;
 
 };
 

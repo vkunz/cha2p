@@ -3,12 +3,14 @@
 
 #include <wx/socket.h>
 #include <wx/event.h>
+#include "SocketData.h"
 
 
 class SocketServer : private wxEvtHandler {
 public:
     static SocketServer* getInstance(int port);
     ~SocketServer();
+    void AnswerRequest(wxSocketBase* sock, SocketData* output);
 
 protected:
     SocketServer(int port);
