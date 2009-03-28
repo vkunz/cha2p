@@ -2,11 +2,12 @@
 #define EVALUATEINPUT_H_INCLUDED
 
 #include <wx/event.h>
+#include "MessageEvent.h"
 #include "SocketData.h"
 
 class EvaluateInput: private wxEvtHandler {
 public:
-    void evaluate(SocketData* data);
+    void evaluate(MessageEvent& message);
 
 private:
     void channelMessage(SocketData* data);

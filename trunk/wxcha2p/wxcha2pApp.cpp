@@ -9,12 +9,6 @@
 
 #include "wxcha2pApp.h"
 
-#include <iostream>
-
-#include "Sender.h"
-#include "GenerateOutput.h"
-#include "EvaluateInput.h"
-#include "SocketData.h"
 #include "ConnectDialog.h"
 
 //(*AppHeaders
@@ -38,12 +32,16 @@ bool wxcha2pApp::OnInit()
     	Frame = new wxcha2pFrame(0);
     	Frame->Show();
     	SetTopWindow(Frame);
-    	wxSocketBase::Initialize(); //needed to get sockets in other threads working
     }
     //*)
 
+    wxSocketBase::Initialize(); //needed to get sockets in other threads working
+
     // Server-Socket erstellen
-    server = SocketServer::getInstance(3000);
+    m_server = SocketServer::getInstance(3000);
+
+    m_genOutput = GenerateOutput::getInstance();
+    m_evalInput = new EvaluateInput;
 
     return wxsOK;
 }
@@ -54,21 +52,18 @@ bool wxcha2pApp::OnInit()
 void wxcha2pApp::OnMessageEvent(MessageEvent& event) {
     switch(event.getMessageType()) {
         case RECEIVE: {
-            EvaluateInput input;
-            input.evaluate(event.getSocketData());
+            m_evalInput->evaluate(event);
             break;
         }
         case SENDMSG:
             if(event.getMessage() != wxT("")) {
-                GenerateOutput* output = GenerateOutput::getInstance();
-                Sender snd;
-                snd.SendMessage(wxT("localhost"), 3000, output->SendChannelMessage(event.getMessage()));
+                m_genOutput->SendChannelMessage(event.getMessage());
+                #warning "DEL next line"
+                //snd.SendMessage(wxT("localhost"), 3000, output->SendChannelMessage(event.getMessage()));
             }
             break;
     }
 }
-
-#include <wx/msgdlg.h>
 
 void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
     switch(event.getEventType()) {
@@ -77,11 +72,11 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
             break;
         case CONNECT:
             ConnectDialog dialog(0);
-            GenerateOutput* output = GenerateOutput::getInstance();
-            Sender snd;
+            #warning "DEL COMMENTS"
 
             dialog.ShowModal();
-            snd.SendMessage(dialog.getAddress(), 3000, output->requestContacts());
+            //snd.SendMessage(dialog.getAddress(), 3000, output->requestContacts());
+            m_genOutput->requestContacts(dialog.getAddress(), 3000);
             break;
     }
 }

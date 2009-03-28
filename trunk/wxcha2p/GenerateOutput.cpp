@@ -15,7 +15,9 @@ GenerateOutput* GenerateOutput::pinstance = 0;
 /*
  * Protected Constructor fuer Singleton-Klasse
  */
-GenerateOutput::GenerateOutput() {}
+GenerateOutput::GenerateOutput() {
+    m_sender = new Sender;
+}
 
 /*
  * Erstellt eine Instanz der Singleton-Klasse
@@ -30,23 +32,21 @@ GenerateOutput* GenerateOutput::getInstance() {
 /*
  * Präpariert den Output um eine Nachricht an einen Channel zu versenden
  */
-SocketData* GenerateOutput::SendChannelMessage(wxString message) {
+void GenerateOutput::SendChannelMessage(wxString message) {
     SocketData* output = new SocketData;
 
-    // Communication Protocoll
+    // generate Message
     output->setComProtocol(CHANNELMESSAGE);
-    //Message-Length
     output->setNumBytes((unsigned char)((wxStrlen(message) + 1) * sizeof(char)));
-    //Message
     output->setMessage(message);
 
-    return output;
+    m_sender->SendMessage(wxT("localhost"), 3000, output);
 }
 
 /*
  * Erstellt die Anfrage um von einem fremden Client die Kontaktliste abzufragen
  */
-SocketData* GenerateOutput::requestContacts() {
+SocketData* GenerateOutput::requestContacts(wxString hostname, int port) {
     SocketData* output = new SocketData;
     output->setComProtocol(REQUESTCONTACTS);
     output->setNumBytes(0);
@@ -68,6 +68,7 @@ SocketData* GenerateOutput::sendContacts() {
     output->setNumBytes((unsigned char)((wxStrlen(list) +1) * sizeof(char)));
     output->setMessage(list);
 
+    // answer client-request
     SocketServer* server = SocketServer::getInstance(3000);
     //server->AnswerRequest(
 

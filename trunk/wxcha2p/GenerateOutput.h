@@ -2,18 +2,20 @@
 #define GENERATEOUTPUT_H_INCLUDED
 
 #include <wx/string.h>
+#include "Sender.h"
 #include "SocketData.h"
 
 class GenerateOutput {
 public:
     static GenerateOutput* getInstance();
-    SocketData* requestContacts();
+    SocketData* requestContacts(wxString hostname, int port);
     SocketData* sendContacts();
-    SocketData* SendChannelMessage(wxString message);
+    void SendChannelMessage(wxString message);
 protected:
     GenerateOutput();
 private:
     static GenerateOutput* pinstance;
+    Sender* m_sender;
 
 };
 

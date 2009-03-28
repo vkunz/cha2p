@@ -11,10 +11,10 @@
  * Diese Methode analysiert das Paket und wendet je nach gesendetem Protokoll-Schlüssel die
  * richtigen Methoden zur Verarbeitung des Pakets an
  */
-void EvaluateInput::evaluate(SocketData* data) {
-    switch(*data->getComProtocol()) {
+void EvaluateInput::evaluate(MessageEvent& message) {
+    switch(*message.getSocketData()->getComProtocol()) {
         case CHANNELMESSAGE:
-            channelMessage(data);
+            channelMessage(message.getSocketData());
             break;
     }
 }
