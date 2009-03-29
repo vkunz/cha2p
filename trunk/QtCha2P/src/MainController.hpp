@@ -15,34 +15,34 @@ namespace QtCha2P
 	{
 		// QtMeta-Object-Compiler tags
 		Q_OBJECT
-		
+
 		private:
 			// LogInWindow
 			ConnectWindow* m_connectWindow;
-			
+
 			// listenerthread
 			ListenerThread* m_listener;
-			
+
 			// messageframe controller
 			MessageFrameController* m_mesfc;
 
 		public:
 			// ctor
 			MainController();
-			
+
 			// dtor
 			~MainController();
-			
+
 		public slots:
 			// slot: ChannelFrame send button pressed
 			void newInputMessage(QString inputMessage);
-			
+
 			// slot: ConnectWindow connect button pressed
-			void newConnection(QString host, QString nick);
-			
+			void requestContactList(QString host, QString nick);
+
 			// slot: new incoming channel message
 			void newIncomingChannelMessage(QString& message, QHostAddress& sender);
-			
+
 			// slot: new incoming private message
 			void newIncomingPrivateMessage(QString& message, QHostAddress& sender);
 

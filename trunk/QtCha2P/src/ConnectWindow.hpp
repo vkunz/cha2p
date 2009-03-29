@@ -39,7 +39,7 @@ namespace QtCha2P
 		~ConnectWindow();
 	
 	signals:
-		void connect(QString host, QString nickname);
+		void requestContactList(QString host, QString nickname);
 			
 	public slots:
 		void onBtnConnectPressed();
