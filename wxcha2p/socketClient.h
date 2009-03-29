@@ -12,7 +12,7 @@ public:
     ~SocketClient();
     void OpenConnection(wxString hostname, int port);
     void SendMessage(SocketData* output);
-    void SendWithAnswer(SocketData* output);
+    void ReadAnswer();
     void CloseConnection();
 
 private:

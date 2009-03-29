@@ -10,13 +10,10 @@
 /*
  * Versenden der Nachricht mit Hilfe der zuständigen Socket-Methode
  */
-void Sender::SendMessage(wxString hostname, int port, SocketData* output) {
+void Sender::SendMessage(wxString hostname, int port, SocketData* output, bool keepAlive) {
     m_socket.OpenConnection(hostname, port);
     m_socket.SendMessage(output);
-    m_socket.CloseConnection();
-}
-
-void Sender::SendWithAnswer(wxString hostname, int port, SocketData* output) {
-    m_socket.OpenConnection(hostname, port);
-    m_socket.SendWithAnswer(output);
+    if(!keepAlive) {
+        m_socket.CloseConnection();
+    }
 }

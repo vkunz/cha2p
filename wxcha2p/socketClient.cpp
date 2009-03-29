@@ -8,11 +8,11 @@
 
 #include <wx/string.h>
 
+const long SocketClient::SOCKET_ID = wxNewId();
+
 BEGIN_EVENT_TABLE(SocketClient,wxEvtHandler)
     EVT_SOCKET(SOCKET_ID, SocketClient::OnSocketEvent)
 END_EVENT_TABLE()
-
-const long SocketClient::SOCKET_ID = wxNewId();
 
 /*
  * Constructor
@@ -43,20 +43,19 @@ SocketClient::~SocketClient() {
  * Gegebenenfalls kann auf diese Fälle gesondert eingegangen werden
  */
 void SocketClient::OnSocketEvent(wxSocketEvent& event) {
-    wxString s = wxT("OnSocketEvent: ");
-
     switch(event.GetSocketEvent()) {
         case wxSOCKET_INPUT:
-            s.Append(wxT("wxSOCKET_INPUT\n"));
+            ReadAnswer();
+            //s.Append(wxT("wxSOCKET_INPUT\n"));
             break;
         case wxSOCKET_LOST:
-            s.Append(wxT("wxSOCKET_LOST\n"));
+            //s.Append(wxT("wxSOCKET_LOST\n"));
             break;
         case wxSOCKET_CONNECTION:
-            s.Append(wxT("wxSOCKET_CONNECTION\n"));
+            //s.Append(wxT("wxSOCKET_CONNECTION\n"));
             break;
         default:
-            s.Append(wxT("Unexpected event !\n"));
+            //s.Append(wxT("Unexpected event !\n"));
             break;
     }
 }
@@ -98,29 +97,24 @@ void SocketClient::SendMessage(SocketData* output) {
 /*
  * Sendet eine Nachricht zum Server und wartet auf eine Antwort
  */
-void SocketClient::SendWithAnswer(SocketData* output) {
-    // send message to server
-    m_sock->Write(output->getComProtocol(), 1);
-    m_sock->Write(output->getNumBytes(), 1);
-    m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
+void SocketClient::ReadAnswer() {
+    m_sock->SetFlags(wxSOCKET_WAITALL);
 
-    wxMessageBox(wxT("TODO: wait for answer"));
-
-    //read answer
-    m_sock->Read(output->getComProtocol(), 1);
+    SocketData* data = new SocketData;
+    m_sock->Read(data->getComProtocol(), 1);
 
     unsigned char len;
     m_sock->Read(&len, 1);
-    output->setNumBytes(len);
+    data->setNumBytes(len);
 
     char* buf = new char[len];
     m_sock->Read(buf, len);
-    output->setMessage(wxString::FromAscii(buf));
+    data->setMessage(wxString::FromAscii(buf));
     delete[] buf;
 
     // Send Event with Answer
     MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
-    myevent.setSocketData(output);
+    myevent.setSocketData(data);
     myevent.setSocket(m_sock);
     myevent.setMessageType(RECEIVE);
     myevent.SetEventObject(this);
