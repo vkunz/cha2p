@@ -14,7 +14,7 @@ namespace QtCha2P
 		m_connectWindow = new ConnectWindow();
 
 		// init listenerthread and run
-		m_listener = new ListenerThread(3000);
+		//m_listener = new ListenerThread(3000);
 
 		// connect Signal: connect(QString, QString) of ConnectWindow with Slot: newConnection(QString, QString)
 		QObject::connect(m_connectWindow, SIGNAL(connect(QString, QString)), this, SLOT(newConnection(QString, QString)));
@@ -66,7 +66,7 @@ namespace QtCha2P
 		// init the mainframecontroller
 		m_mesfc = new MessageFrameController();
 
-		QObject::connect(m_mesfc, SIGNAL(inputMessage(QString)), this, SLOT(newInputMessage(QString)));
+		//QObject::connect(m_mesfc, SIGNAL(inputMessage(QString)), this, SLOT(newInputMessage(QString)));
 	}
 	
 	// signal: new incoming channel message

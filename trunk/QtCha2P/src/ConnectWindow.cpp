@@ -10,7 +10,7 @@ namespace QtCha2P
 		// set object name
 		if (objectName().isEmpty())
 		{
-			setObjectName(QString::fromUtf8("LogInWindowClass"));
+			setObjectName(QString::fromUtf8("ConnectWindow"));
 		}
 
 		// QWidget: centralwidget
