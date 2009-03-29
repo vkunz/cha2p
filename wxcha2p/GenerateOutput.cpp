@@ -72,3 +72,16 @@ void GenerateOutput::SendChannelMessage(wxString message) {
 
     m_sender->SendMessage(wxT("localhost"), 3000, output, false);
 }
+
+/*
+ * Sagt an alle bekannten Clients HALLO, um in deren Liste aufgenommen zu werden
+ */
+void GenerateOutput::sayHello() {
+    SocketData* output = new SocketData;
+
+    output->setComProtocol(HELLO);
+    output->setNumBytes(0);
+    #warning "Nickname fehlt"
+
+    m_sender->SendMessage(wxT("localhost"), 3000, output, false);
+}

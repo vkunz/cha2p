@@ -13,16 +13,19 @@
  * Diese Methode analysiert das Paket und wendet je nach gesendetem Protokoll-Schlüssel die
  * richtigen Methoden zur Verarbeitung des Pakets an
  */
-void EvaluateInput::evaluate(MessageEvent& message) {
-    switch(*message.getSocketData()->getComProtocol()) {
+void EvaluateInput::evaluate(MessageEvent& event) {
+    switch(*event.getSocketData()->getComProtocol()) {
         case CHANNELMESSAGE:
-            channelMessage(message.getSocketData());
+            channelMessage(event.getSocketData());
             break;
         case REQUESTCONTACTS:
-            requestContacts(message);
+            requestContacts(event);
             break;
         case SENDCONTACTS:
-            sendContacts(message.getSocketData());
+            sendContacts(event.getSocketData());
+            break;
+        case HELLO:
+            sayHello(event);
             break;
     }
 }
@@ -55,4 +58,22 @@ void EvaluateInput::requestContacts(MessageEvent& message) {
 void EvaluateInput::sendContacts(SocketData* data) {
     ContactList* list = ContactList::getInstance();
     list->unserialize(data->getMessage());
+
+    // initiate SAYHELLO
+    GenerateOutput* out = GenerateOutput::getInstance();
+    out->sayHello();
+}
+
+/*
+ * Liest die IP-Adresse des sendenden Clients und fügt diese der Kontaktliste zu
+ */
+void EvaluateInput::sayHello(MessageEvent& event) {
+    // read client-ip
+    wxIPV4address addr;
+    event.getSocket()->GetLocal(addr);
+    wxString ip = addr.IPAddress();
+
+    // add ip to contact-list
+    ContactList* list = ContactList::getInstance();
+    list->add(ip, wxT(""));
 }

@@ -7,6 +7,8 @@ enum messageType    {   RECEIVE,
 
 enum protocol       {   REQUESTCONTACTS = 1,
                         SENDCONTACTS,
+                        HELLO,
+                        GOODBYE,
                         CHANNELMESSAGE
                     };
 

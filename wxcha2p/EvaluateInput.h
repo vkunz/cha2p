@@ -7,11 +7,12 @@
 
 class EvaluateInput: private wxEvtHandler {
 public:
-    void evaluate(MessageEvent& message);
+    void evaluate(MessageEvent& event);
 
 private:
     void channelMessage(SocketData* data);
     void requestContacts(MessageEvent& event);
+    void sayHello(MessageEvent& event);
     void sendContacts(SocketData* data);
 
 };
