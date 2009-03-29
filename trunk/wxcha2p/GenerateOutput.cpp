@@ -37,7 +37,7 @@ void GenerateOutput::requestContacts(wxString hostname, int port) {
     output->setComProtocol(REQUESTCONTACTS);
     output->setNumBytes(0);
 
-    m_sender->SendWithAnswer(hostname, port, output);
+    m_sender->SendMessage(hostname, port, output, true);
 }
 
 /*
@@ -70,5 +70,5 @@ void GenerateOutput::SendChannelMessage(wxString message) {
     output->setNumBytes((unsigned char)((wxStrlen(message) + 1) * sizeof(char)));
     output->setMessage(message);
 
-    m_sender->SendMessage(wxT("localhost"), 3000, output);
+    m_sender->SendMessage(wxT("localhost"), 3000, output, false);
 }

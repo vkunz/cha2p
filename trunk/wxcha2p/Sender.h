@@ -7,8 +7,7 @@
 
 class Sender {
 public:
-    void SendMessage(wxString hostname, int port, SocketData* output);
-    void SendWithAnswer(wxString hostname, int port, SocketData* output);
+    void SendMessage(wxString hostname, int port, SocketData* output, bool keepAlive);
 private:
     SocketClient m_socket;
 };
