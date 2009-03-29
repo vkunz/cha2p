@@ -12,6 +12,7 @@
 #include "ConnectDialog.h"
 
 //(*AppHeaders
+#include "wxcha2pMain.h"
 #include <wx/image.h>
 //*)
 
@@ -20,7 +21,7 @@ BEGIN_EVENT_TABLE(wxcha2pApp, wxApp)
 	EVT_GUI(0, wxcha2pApp::OnGUIEvent)
 END_EVENT_TABLE()
 
-IMPLEMENT_APP(wxcha2pApp);
+IMPLEMENT_APP(wxcha2pApp)
 
 bool wxcha2pApp::OnInit()
 {
@@ -29,7 +30,7 @@ bool wxcha2pApp::OnInit()
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	Frame = new wxcha2pFrame(0);
+    	wxcha2pFrame* Frame = new wxcha2pFrame(0);
     	Frame->Show();
     	SetTopWindow(Frame);
     }

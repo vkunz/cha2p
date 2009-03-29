@@ -115,3 +115,4 @@ namespace QtCha2P
 		emit connect(host, nick);
 	}
 } // namespaace QtCha2P
+

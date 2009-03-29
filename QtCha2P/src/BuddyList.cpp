@@ -50,7 +50,7 @@ namespace QtCha2P
 	}
 
 	// return Nickname of given ipAddress
-	QString getNickname(const QHostAddress* const ipaddress)
+	QString BuddyList::getNickname(const QHostAddress* const ipaddress)
 	{
 		// return value
 		QString ret;
@@ -67,3 +67,4 @@ namespace QtCha2P
 	}
 
 } // namespace Qtcha2P
+

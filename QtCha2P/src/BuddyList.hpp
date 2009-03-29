@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_BUDDYLIST_H_
-#define _QTCHA2P_BUDDYLIST_H_
+#ifndef _QTCHA2P_BUDDYLIST_HPP_
+#define _QTCHA2P_BUDDYLIST_HPP_
 
 #include <list>
 #include <QtCore/QString>
@@ -37,4 +37,5 @@ namespace QtCha2P
 	}; // class BuddyList
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_BUDDYLIST_H_
+#endif // _QTCHA2P_BUDDYLIST_HPP_
+

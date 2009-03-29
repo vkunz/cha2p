@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_RECEIVERTHREAD_H_
-#define _QTCHA2P_RECEIVERTHREAD_H_
+#ifndef _QTCHA2P_RECEIVERTHREAD_HPP_
+#define _QTCHA2P_RECEIVERTHREAD_HPP_
 
 #include <QtCore/QThread>
 #include <QtNetwork/QTcpSocket>
@@ -22,4 +22,5 @@ namespace QtCha2P
 	}; // class ReceiverThread
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_RECEIVERTHREAD_H_
+#endif // _QTCHA2P_RECEIVERTHREAD_HPP_
+

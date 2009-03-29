@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_LISTENERTHREAD_H_
-#define _QTCHA2P_LISTENERTHREAD_H_
+#ifndef _QTCHA2P_LISTENERTHREAD_HPP_
+#define _QTCHA2P_LISTENERTHREAD_HPP_
 
 #include <QtCore/QThread>
 #include <QtNetwork/QTcpServer>
@@ -29,4 +29,5 @@ namespace QtCha2P
 	}; // class ListenerThread
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_LISTENERTHREAD_H_
+#endif // _QTCHA2P_LISTENERTHREAD_HPP_
+

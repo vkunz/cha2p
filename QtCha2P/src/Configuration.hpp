@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_CONFIGURATION_H_
-#define _QTCHA2P_CONFIGURATION_H_
+#ifndef _QTCHA2P_CONFIGURATION_HPP_
+#define _QTCHA2P_CONFIGURATION_HPP_
 
 #include <QString>
 
@@ -36,5 +36,5 @@ namespace QtCha2P
 	}; // class Configuration
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_CONFIGURATION_H_
+#endif // _QTCHA2P_CONFIGURATION_HPP_
 

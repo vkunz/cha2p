@@ -37,4 +37,6 @@ class wxcha2pApp : public wxApp
         DECLARE_EVENT_TABLE();
 };
 
+//DECLARE_APP(wxcha2pApp)
+
 #endif // WXCHA2PAPP_H

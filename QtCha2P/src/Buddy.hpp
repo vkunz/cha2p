@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_BUDDY_H_
-#define _QTCHA2P_BUDDY_H_
+#ifndef _QTCHA2P_BUDDY_HPP_
+#define _QTCHA2P_BUDDY_HPP_
 
 #include <QHostAddress>
 #include <QString>
@@ -27,5 +27,5 @@ namespace QtCha2P
 	}; // class Buddy
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_BUDDY_H_
+#endif // _QTCHA2P_BUDDY_HPP_
 

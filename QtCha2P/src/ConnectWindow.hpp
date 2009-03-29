@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_CONNECTWINDOW_H_
-#define _QTCHA2P_CONNECTWINDOW_H_
+#ifndef _QTCHA2P_CONNECTWINDOW_HPP_
+#define _QTCHA2P_CONNECTWINDOW_HPP_
 
 #include <QtGui/QAction>
 #include <QtGui/QLabel>
@@ -43,7 +43,9 @@ namespace QtCha2P
 			
 	public slots:
 		void onBtnConnectPressed();
+
 	}; // class ConnectWindow
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_CONNECTWINDOW_H_
+#endif // _QTCHA2P_CONNECTWINDOW_HPP
+

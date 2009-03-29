@@ -1,15 +1,17 @@
-#include <QtGui/QSizePolicy>
 
-#include "ChannelFrame.hpp"
+#include <QtGui/QSizePolicy>
+#include <QtGui/QWidget>
+
+#include "MessageTab.hpp"
 
 namespace QtCha2P
 {
 	// ctor
-	ChannelFrame::ChannelFrame(QWidget* parent) : QFrame(parent)
+	MessageTab::MessageTab(QWidget* parent) : QWidget(parent)
 	{
 		if (objectName().isEmpty())
 		{
-            setObjectName(QString::fromUtf8("ChannelWindow"));	
+			setObjectName(QString::fromUtf8("MessageTab"));	
 		}
 		
 		// QPushButton: send
@@ -54,8 +56,8 @@ namespace QtCha2P
 		resize(600, 400);
         setMinimumSize(QSize(600, 400));
         setAcceptDrops(true);
-        setFrameShape(QFrame::Box);
-        setFrameShadow(QFrame::Raised);
+        //setFrameShape(QFrame::Box);
+        //setFrameShadow(QFrame::Raised);
 		setWindowTitle(QString::fromUtf8("Channel"));
 		
 		// connect signals and slots
@@ -63,12 +65,12 @@ namespace QtCha2P
 	}
 	
 	// dtor
-	ChannelFrame::~ChannelFrame()
+	MessageTab::~MessageTab()
 	{
 	}
 	
 	// public slots
-	void ChannelFrame::newInputMessage()
+	void MessageTab::newInputMessage()
 	{
 		// tmp string
 		QString tmp;
@@ -83,3 +85,4 @@ namespace QtCha2P
 		emit inputMessage(tmp);
 	}
 } // namespace QtCha2P
+

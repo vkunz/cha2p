@@ -3,6 +3,7 @@
 
 #include "ConnectWindow.hpp"
 #include "MainController.hpp"
+#include "MessageFrameController.hpp"
 
 namespace QtCha2P
 {
@@ -10,16 +11,16 @@ namespace QtCha2P
 	MainController::MainController()
 	{
 		// new loginwindow
-		m_liw = new ConnectWindow();
+		m_connectWindow = new ConnectWindow();
 
 		// init listenerthread and run
 		m_listener = new ListenerThread(3000);
 
-		// connect signals and slots
-		QObject::connect(m_liw, SIGNAL(connect(QString, QString)), this, SLOT(newConnection(QString, QString)));
-				
+		// connect Signal: connect(QString, QString) of ConnectWindow with Slot: newConnection(QString, QString)
+		QObject::connect(m_connectWindow, SIGNAL(connect(QString, QString)), this, SLOT(newConnection(QString, QString)));
+		
 		// show the window
-		m_liw->show();
+		m_connectWindow->show();
 	}
 	
 	// dtor
@@ -27,8 +28,7 @@ namespace QtCha2P
 	{
 	}
 	
-	
-	// public slots
+	// signal: ChannelFrame send button pressed
 	void MainController::newInputMessage(QString inputMessage)
 	{
 		/*
@@ -58,24 +58,27 @@ namespace QtCha2P
 		*/
 	}
 
+	// signal: ConnectWindow connect button pressed
 	void MainController::newConnection(QString host, QString nick)
-	{
-		/*
-		m_liw->close();
-		m_socket.connectToHost(host, 3000);
-		
-		if(!m_socket.waitForConnected(10000))
-		{
-			qDebug() << m_socket.errorString();
-		}		
-		
-		// new channelframe
-		m_cf = new ChannelFrame();
-		
-		QObject::connect(m_cf, SIGNAL(inputMessage(QString)), this, SLOT(newInputMessage(QString)));
-		
-		// show the frame
-		m_cf->show();
-		*/
+	{		
+		m_connectWindow->close();
+
+		// init the mainframecontroller
+		m_mesfc = new MessageFrameController();
+
+		QObject::connect(m_mesfc, SIGNAL(inputMessage(QString)), this, SLOT(newInputMessage(QString)));
 	}
+	
+	// signal: new incoming channel message
+	void MainController::newIncomingChannelMessage(QString& message, QHostAddress& sender)
+	{
+		// todo
+	}
+
+	// signal: new incoming private message
+	void MainController::newIncomingPrivateMessage(QString& message, QHostAddress& sender)
+	{
+		// todo
+	}
+
 } // namespace QtCha2P
