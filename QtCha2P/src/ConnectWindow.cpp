@@ -112,7 +112,7 @@ namespace QtCha2P
 		nick = m_lneNickname->text();
 		
 		// emit signal
-		emit connect(host, nick);
+		emit requestContactList(host, nick);
 	}
 } // namespaace QtCha2P
 
