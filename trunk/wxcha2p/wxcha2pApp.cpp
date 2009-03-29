@@ -72,8 +72,9 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
             // ask for server-ip
             ConnectDialog dialog(0);
             dialog.ShowModal();
-
+            // ask for contacts and say hello
             m_genOutput->requestContacts(dialog.getAddress(), 3000);
+            m_genOutput->sayHello();
             break;
     }
 }
