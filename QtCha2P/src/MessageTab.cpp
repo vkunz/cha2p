@@ -1,5 +1,6 @@
 
 #include <QtGui/QSizePolicy>
+#include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
 #include "MessageTab.hpp"
@@ -52,13 +53,15 @@ namespace QtCha2P
 
 		sipInputMessage.setHeightForWidth(m_txeInputMessage->sizePolicy().hasHeightForWidth());
 
-		// QFrame
-		resize(600, 400);
-        setMinimumSize(QSize(600, 400));
-        setAcceptDrops(true);
-        //setFrameShape(QFrame::Box);
-        //setFrameShadow(QFrame::Raised);
+		// mainlayout
+		//QVBoxLayout* tablayout = new QVBoxLayout();
+		//tablayout->addWidget(m_btnSend);
+		//tablayout->addWidget(m_txeChannelMessages);
+		//tablayout->addWidget(m_txeInputMessage);
+		
+		// MessageTab
 		setWindowTitle(QString::fromUtf8("Channel"));
+		//setLayout(tablayout);
 		
 		// connect signals and slots
 		QObject::connect(m_btnSend, SIGNAL(clicked()), this, SLOT(newInputMessage()));
