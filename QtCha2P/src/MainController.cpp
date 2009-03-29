@@ -13,8 +13,11 @@ namespace QtCha2P
 		// new loginwindow
 		m_connectWindow = new ConnectWindow();
 
-		// init listenerthread and run
-		//m_listener = new ListenerThread(3000);
+		// init listenerthread
+		m_listener = new ListenerThread(3000);
+		
+		// start thread
+		m_listener->start();
 
 		// connect Signal: connect(QString, QString) of ConnectWindow with Slot: newConnection(QString, QString)
 		QObject::connect(m_connectWindow, SIGNAL(connect(QString, QString)), this, SLOT(newConnection(QString, QString)));
