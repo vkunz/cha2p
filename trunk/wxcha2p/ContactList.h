@@ -8,7 +8,7 @@ public:
     static ContactList* getInstance();
     wxString serialize();
     void unserialize(wxString list);
-    void add();
+    void add(wxString ip, wxString nickname);
     bool inList(wxString ip);
 protected:
     ContactList();

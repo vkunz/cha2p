@@ -11,6 +11,7 @@ public:
     static GenerateOutput* getInstance();
     void requestContacts(wxString hostname, int port);
     void sendContacts(MessageEvent& event);
+    void sayHello();
     void SendChannelMessage(wxString message);
 protected:
     GenerateOutput();

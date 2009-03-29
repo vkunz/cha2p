@@ -42,3 +42,10 @@ wxString ContactList::serialize() {
 void ContactList::unserialize(wxString list) {
     wxMessageBox(list);
 }
+
+/*
+ * fuegt einen neuen Kontakt der Liste zu
+ */
+void ContactList::add(wxString ip, wxString nickname) {
+
+}
