@@ -19,9 +19,6 @@ namespace QtCha2P
 		m_server->listen(QHostAddress::Any, port);
 		
 		qDebug() << "Listener on";
-		
-		// run the thread
-		run();
 	}
 	
 	// dtor
