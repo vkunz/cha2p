@@ -47,5 +47,5 @@ void ContactList::unserialize(wxString list) {
  * fuegt einen neuen Kontakt der Liste zu
  */
 void ContactList::add(wxString ip, wxString nickname) {
-
+// !!!!! unbedingt prüfen, ob schon vorhanden!!!!!!!
 }

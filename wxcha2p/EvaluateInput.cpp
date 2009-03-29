@@ -58,10 +58,6 @@ void EvaluateInput::requestContacts(MessageEvent& message) {
 void EvaluateInput::sendContacts(SocketData* data) {
     ContactList* list = ContactList::getInstance();
     list->unserialize(data->getMessage());
-
-    // initiate SAYHELLO
-    GenerateOutput* out = GenerateOutput::getInstance();
-    out->sayHello();
 }
 
 /*
@@ -70,7 +66,7 @@ void EvaluateInput::sendContacts(SocketData* data) {
 void EvaluateInput::sayHello(MessageEvent& event) {
     // read client-ip
     wxIPV4address addr;
-    event.getSocket()->GetLocal(addr);
+    event.getSocket()->GetPeer(addr);
     wxString ip = addr.IPAddress();
 
     // add ip to contact-list
