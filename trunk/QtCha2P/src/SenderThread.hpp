@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_SENDERTHREAD_H_
-#define _QTCHA2P_SENDERTHREAD_H_
+#ifndef _QTCHA2P_SENDERTHREAD_HPP_
+#define _QTCHA2P_SENDERTHREAD_HPP_
 
 #include <QtCore/QThread>
 #include <QtNetwork/QTcpSocket>
@@ -26,4 +26,4 @@ namespace QtCha2P
 	}; // class SenderThread
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_SENDERTHREAD_H_
+#endif // _QTCHA2P_SENDERTHREAD_HPP_

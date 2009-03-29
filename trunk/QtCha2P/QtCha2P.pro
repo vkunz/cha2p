@@ -18,22 +18,30 @@ TARGET = QtCha2P
 
 TEMPLATE = app
 
-SOURCES  += src\main.cpp\
+SOURCES  += src\main.cpp
 
-SOURCES  += src\ChannelFrame.cpp\
-            src\ConnectWindow.cpp\
+SOURCES  += src\Buddy.cpp\
+			src\BuddyList.cpp\
 			src\Configuration.cpp\
+			src\ConnectWindow.cpp\
 			src\DispatcherThread.cpp\
 			src\ListenerThread.cpp\
 			src\MainController.cpp\
+			src\MessageFrame.cpp\
+			src\MessageFrameController.cpp\
+			src\MessageTab.cpp\
 			src\ReceiverThread.cpp\
 			src\SenderThread.cpp
 
-HEADERS  += src\ChannelFrame.hpp\
-			src\ConnectWindow.hpp\
+HEADERS  += src\Buddy.hpp\
+			src\BuddyList.hpp\
 			src\Configuration.hpp\
+			src\ConnectWindow.hpp\
 			src\DispatcherThread.hpp\
 			src\ListenerThread.hpp\
 			src\MainController.hpp\
+			src\MessageFrame.hpp\
+			src\MessageFrameController.hpp\
+			src\MessageTab.hpp\
 			src\ReceiverThread.hpp\
 			src\SenderThread.hpp

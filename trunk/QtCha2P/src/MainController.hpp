@@ -1,12 +1,12 @@
-#ifndef _QTCHA2P_MAINCONTROLLER_H_
-#define _QTCHA2P_MAINCONTROLLER_H_
+#ifndef _QTCHA2P_MAINCONTROLLER_HPP_
+#define _QTCHA2P_MAINCONTROLLER_HPP_
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtNetwork/QTcpSocket>
 
-#include "ChannelFrame.hpp"
 #include "ConnectWindow.hpp"
+#include "MessageFrameController.hpp"
 #include "ListenerThread.hpp"
 
 namespace QtCha2P
@@ -17,15 +17,15 @@ namespace QtCha2P
 		Q_OBJECT
 		
 		private:
-			// pointer to LogInWindow
-			ConnectWindow* m_liw;
+			// LogInWindow
+			ConnectWindow* m_connectWindow;
 			
-			// pointer to ChannelFrame
-			ChannelFrame* m_cf;
+			// listenerthread
+			ListenerThread* m_listener;
 			
-			// pointer to listenerthread
-			ListenerThread* m_listener;		
-			
+			// messageframe controller
+			MessageFrameController* m_mesfc;
+
 		public:
 			// ctor
 			MainController();
@@ -34,13 +34,20 @@ namespace QtCha2P
 			~MainController();
 			
 		public slots:
-			// signal: ChannelFrame send button pressed
+			// slot: ChannelFrame send button pressed
 			void newInputMessage(QString inputMessage);
 			
-			// signal: LogInWindow connect button pressed
+			// slot: ConnectWindow connect button pressed
 			void newConnection(QString host, QString nick);
+			
+			// slot: new incoming channel message
+			void newIncomingChannelMessage(QString& message, QHostAddress& sender);
+			
+			// slot: new incoming private message
+			void newIncomingPrivateMessage(QString& message, QHostAddress& sender);
 
 	}; // class MainController
 } // namespace
 
-#endif // _QTCHA2P_MAINCONTROLLER_H_
+#endif // _QTCHA2P_MAINCONTROLLER_HPP_
+

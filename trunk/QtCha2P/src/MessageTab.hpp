@@ -1,13 +1,13 @@
-#ifndef _QTCHA2P_CHANNELFRAME_H_
-#define _QTCHA2P_CHANNELFRAME_H_
+#ifndef _QTCHA2P_MESSAGETAB_HPP_
+#define _QTCHA2P_MESSAGETAB_HPP_
 
-#include <QtGui/QFrame>
 #include <QtGui/QPushButton>
 #include <QtGui/QTextEdit>
+#include <QtGui/QWidget>
 
 namespace QtCha2P
 {
-	class ChannelFrame : public QFrame
+	class MessageTab : public QWidget
 	{
 		// QtMeta-Object-Compiler tags
 		Q_OBJECT
@@ -20,17 +20,19 @@ namespace QtCha2P
 
 	public:
 		// ctor
-		ChannelFrame(QWidget* parent = 0);
+		MessageTab(QWidget* parent = 0);
 		
 		// dtor
-		~ChannelFrame();
+		~MessageTab();
 		
 	signals:
 		void inputMessage(QString inputMessage);
 		
 	public slots:
 		void newInputMessage();
-	}; // class ChannelFrame
+
+	}; // class MessageTab
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_CHANNELFRAME_H_
+#endif // _QTCHA2P_MESSAGETAB_HPP_
+

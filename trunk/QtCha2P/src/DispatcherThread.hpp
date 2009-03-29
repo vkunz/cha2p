@@ -1,5 +1,5 @@
-#ifndef _QTCHA2P_DISPATCHERTHREAD_H_
-#define _QTCHA2P_DISPATCHERTHREAD_H_
+#ifndef _QTCHA2P_DISPATCHERTHREAD_HPP_
+#define _QTCHA2P_DISPATCHERTHREAD_HPP_
 
 #include <QtCore/QByteArray>
 #include <QtCore/QThread>
@@ -26,4 +26,5 @@ namespace QtCha2P
 	}; // class DispatcherThread
 } // namespace QtCha2P
 
-#endif // _QTCHA2P_DISPATCHERTHREAD_H_
+#endif // _QTCHA2P_DISPATCHERTHREAD_HPP_
+

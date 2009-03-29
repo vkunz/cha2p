@@ -24,3 +24,4 @@ namespace QtCha2P
 	{
 	}
 } // namespace QtCha2P
+
