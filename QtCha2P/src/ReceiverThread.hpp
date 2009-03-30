@@ -16,30 +16,30 @@ namespace QtCha2P
 		private:
 			// pointer to socket
 			QTcpSocket* m_socket;
-			
+
 			// get peer address
 			QHostAddress m_peerAddress;
-			
+
 			// store incoming message
 			QByteArray m_incomingData;
-			
+
 		public:
 			// ctor
 			ReceiverThread(QTcpSocket* socket);
-			
+
 			// dtor
 			~ReceiverThread();
-			
+
 		signals:
 			void newIncomingMessageReceived(QHostAddress, QByteArray);
-			
+
 		public slots:
 			// theread termination
 			void terminateThread();
-			
+
 			// reads data available on socket
 			void readSocketData();
-			
+
 	}; // class ReceiverThread
 } // namespace QtCha2P
 
