@@ -13,29 +13,29 @@ namespace QtCha2P
 
 		// get peerAdress and store
 		m_peerAddress = m_socket->peerAddress();		
-		
+
 		// connect socket-disconnect-signal with terminateThread
-		QObject::connect(m_socket, SIGNAL(disconnect()), this, SLOT(terminateThread()));
-		
+		connect(m_socket, SIGNAL(disconnect()), this, SLOT(terminateThread()));
+
 		// connect socket-readyRead-signal with readSocketData
-		QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocketData()));
+		connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocketData()));
 	}
 
 	// dtor
 	ReceiverThread::~ReceiverThread()
 	{
 	}
-	
+
 	// terminateThread slot
 	void ReceiverThread::terminateThread()
 	{
 		// emit signal and send all data
 		emit newIncomingMessageReceived(m_peerAddress, m_incomingData);
-		
+
 		// terminate thread
 		quit();
 	}
-	
+
 	// read socket data
 	void ReceiverThread::readSocketData()
 	{

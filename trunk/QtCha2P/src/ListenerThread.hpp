@@ -21,11 +21,14 @@ namespace QtCha2P
 			
 			// dtor
 			~ListenerThread();
-			
+
+		signals:
+			void newDataReceived();		
+		
 		public slots:
 			// new connecion slot
 			void newConnection();
-			
+		
 	}; // class ListenerThread
 } // namespace QtCha2P
 

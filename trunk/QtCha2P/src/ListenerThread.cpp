@@ -3,6 +3,7 @@
 #include <QtNetwork/QHostAddress>
 
 #include "ListenerThread.hpp"
+#include "ReceiverThread.hpp"
 
 namespace QtCha2P
 {
@@ -13,12 +14,12 @@ namespace QtCha2P
 		m_server = new QTcpServer();
 
 		// connect signals and slots
-		QObject::connect(m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
+		connect(m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 
 		// start listening on given port, accespt every host
 		m_server->listen(QHostAddress::Any, port);
 	}
-	
+
 	// dtor
 	ListenerThread::~ListenerThread()
 	{
@@ -29,6 +30,13 @@ namespace QtCha2P
 	// new connection slot
 	void ListenerThread::newConnection()
 	{
-	}
+		// create a new receiverthread and assign the new connection
+		ReceiverThread* receiver = new ReceiverThread(m_server->nextPendingConnection());
 
+		// start the new thread
+		receiver->start();
+		
+		// connect ReceiverThread Signal: newDataReceived with Signal newDataReceived
+		connect(receiver, SIGNAL(newDataReceived()), this, SIGNAL(newDataReceived()));
+	}
 } // namespace QtCha2P
