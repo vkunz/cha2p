@@ -20,8 +20,10 @@ TEMPLATE = app
 
 SOURCES  += src\main.cpp
 
-SOURCES  += src\Buddy.cpp\
+SOURCES  += src\AbstractProtocol.cpp\
+			src\Buddy.cpp\
 			src\BuddyList.cpp\
+			src\Cha2PProtocol.cpp\
 			src\Configuration.cpp\
 			src\ConnectWindow.cpp\
 			src\DispatcherThread.cpp\
@@ -33,8 +35,10 @@ SOURCES  += src\Buddy.cpp\
 			src\ReceiverThread.cpp\
 			src\SenderThread.cpp
 
-HEADERS  += src\Buddy.hpp\
+HEADERS  += src\AbstractProtocol.hpp\
+			src\Buddy.hpp\
 			src\BuddyList.hpp\
+			src\Cha2PProtocol.hpp\
 			src\Configuration.hpp\
 			src\ConnectWindow.hpp\
 			src\DispatcherThread.hpp\
