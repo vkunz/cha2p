@@ -47,6 +47,8 @@ namespace QtCha2P
 		{
 			// todo
 		}
+		
+		return true;
 	}
 
 	// return Nickname of given ipAddress
