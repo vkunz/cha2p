@@ -31,7 +31,7 @@ namespace QtCha2P
 			~ReceiverThread();
 
 		signals:
-			void newIncomingMessageReceived(QHostAddress, QByteArray);
+			void newIncMessRecv(QHostAddress, QByteArray);
 
 		public slots:
 			// theread termination

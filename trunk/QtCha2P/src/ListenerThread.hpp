@@ -23,7 +23,7 @@ namespace QtCha2P
 			~ListenerThread();
 
 		signals:
-			void newDataReceived();		
+			void newIncMessRecv(QHostAddress, QByteArray);		
 		
 		public slots:
 			// new connecion slot
