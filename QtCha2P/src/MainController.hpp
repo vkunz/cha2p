@@ -5,6 +5,7 @@
 #include <QtCore/QString>
 #include <QtNetwork/QTcpSocket>
 
+#include "Cha2PProtocol.hpp"
 #include "ConnectWindow.hpp"
 #include "MessageFrameController.hpp"
 #include "ListenerThread.hpp"
@@ -25,7 +26,10 @@ namespace QtCha2P
 
 			// messageframe controller
 			MessageFrameController* m_mesfc;
-
+			
+			// cha2p-protocol
+			Cha2PProtocol* m_protocol;
+			
 		public:
 			// ctor
 			MainController();
@@ -34,6 +38,9 @@ namespace QtCha2P
 			~MainController();
 
 		public slots:
+			// slot: new Data arrived
+			void newIncMessRecv(QHostAddress peer, QByteArray data);
+			
 			// slot: ChannelFrame send button pressed
 			void newInputMessage(QString inputMessage);
 

@@ -1,6 +1,7 @@
 #include <QtGlobal>
 #include <QtCore/QString>
 
+#include "Cha2PProtocol.hpp"
 #include "ConnectWindow.hpp"
 #include "MainController.hpp"
 #include "MessageFrameController.hpp"
@@ -18,9 +19,15 @@ namespace QtCha2P
 
 		// start thread
 		m_listener->start();
+		
+		// new protocol
+		m_protocol = new Cha2PProtocol();
 
 		// connect Signal: requestContactList(QString, QString) of ConnectWindow with Slot: requestContactList(QString, QString)
-		QObject::connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)), this, SLOT(requestContactList(QString, QString)));
+		connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)), this, SLOT(requestContactList(QString, QString)));
+		
+		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread with Slot: newIncMessRecv(QHostAddress, QByteArray)
+		connect(m_listener, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)), this, SLOT(newIncMessRecv(QHostAddress, QByteArray)));
 
 		// show the window
 		m_connectWindow->show();
@@ -28,6 +35,11 @@ namespace QtCha2P
 
 	// dtor
 	MainController::~MainController()
+	{
+	}
+
+	// slot: new Data arrived
+	void MainController::newIncMessRecv(QHostAddress peer, QByteArray data)
 	{
 	}
 

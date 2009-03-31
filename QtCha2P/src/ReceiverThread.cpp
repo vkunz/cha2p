@@ -19,6 +19,8 @@ namespace QtCha2P
 
 		// connect socket-readyRead-signal with readSocketData
 		connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocketData()));
+		
+		qDebug() << "ReceiverThread started";
 	}
 
 	// dtor
@@ -30,7 +32,7 @@ namespace QtCha2P
 	void ReceiverThread::terminateThread()
 	{
 		// emit signal and send all data
-		emit newIncomingMessageReceived(m_peerAddress, m_incomingData);
+		emit newIncMessRecv(m_peerAddress, m_incomingData);
 
 		// terminate thread
 		quit();
@@ -41,6 +43,8 @@ namespace QtCha2P
 	{
 		// append new data into the bytearray
 		m_incomingData += m_socket->readAll();
+		
+		qDebug() << "Data: " << m_incomingData;
 	}
 } // namespace QtCha2P
 
