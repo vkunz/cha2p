@@ -15,6 +15,7 @@ namespace QtCha2P
 			
 			// dtor
 			~AbstractProtocol();
+
 	}; // class AbstractProtocol
 } // namespace QtCha2P 
 #endif // _QTCHA2P_ABSTRACTPROTOCOL_HPP_

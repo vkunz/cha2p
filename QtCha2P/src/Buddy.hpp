@@ -19,10 +19,16 @@ namespace QtCha2P
 
 	public:
 		// ctor
+		Buddy();
+		
+		// ctor create from ip and nickname
 		Buddy(QString ip, QString nickname);
 	
 		// dtor
-		virtual ~Buddy();	
+		virtual ~Buddy();
+		
+		// return nickname
+		QString getNickName();
 
 	}; // class Buddy
 } // namespace QtCha2P

@@ -1,4 +1,4 @@
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QHostAddress>
 
@@ -40,7 +40,5 @@ namespace QtCha2P
 		
 		// connect ReceiverThread Signal: newDataReceived with Signal newDataReceived
 		connect(receiver, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)), this, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)));
-		
-		qDebug() << "New Connection arrived";
 	}
 } // namespace QtCha2P

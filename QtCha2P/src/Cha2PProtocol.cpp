@@ -1,7 +1,9 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>
+#include <QDebug>
 #include <QtCore/QIODevice>
 #include <QtCore/QString>
+#include <QtCore/QtGlobal>
 
 #include "Cha2PProtocol.hpp"
 
@@ -10,6 +12,10 @@ namespace QtCha2P
 	// ctor
 	Cha2PProtocol::Cha2PProtocol()
 	{
+		// set baseport
+		m_basePort = 3000;
+		
+		qDebug() << "Cha2PProtocol created!";
 	}
 	
 	// dtor
@@ -22,33 +28,34 @@ namespace QtCha2P
 	{
 		// QByteArray to store the data
 		QByteArray array;
-		
+
 		// QDataStream to convert into datastream
-		QDataStream datastream(&array, QIODevice::WriteOnly);
+		QDataStream datastream(&array, QIODevice::ReadWrite);
 		
 		// big-fat-switch-case of all protocol bits
+		// the protocol-bits need to be cast into an unsigned char because of the protocol
 		switch(bits)
 		{
 			case REQUESTCONTACTS:
-				datastream << REQUESTCONTACTS;
+				datastream << static_cast<unsigned char>(REQUESTCONTACTS);
 				break;
 			case SENDCONTACTS:
-				datastream << SENDCONTACTS;
+				datastream << static_cast<unsigned char>(SENDCONTACTS);
 				break;
 			case HELLO:
-				datastream << HELLO;
+				datastream << static_cast<unsigned char>(HELLO);
 				break;
 			case GOODBYE:
-				datastream << GOODBYE;
+				datastream << static_cast<unsigned char>(GOODBYE);
 				break;
 			case CHANNELMESSAGE:
-				datastream << CHANNELMESSAGE;
+				datastream << static_cast<unsigned char>(CHANNELMESSAGE);
 				break;
 			case PRIVATEMESSAGE:
-				datastream << PRIVATEMESSAGE;
+				datastream << static_cast<unsigned char>(PRIVATEMESSAGE);
 				break;
  		}
-		
+
 		return array;
 	}
 
@@ -60,6 +67,9 @@ namespace QtCha2P
 		
 		// QDataStream to convert into datastream
 		QDataStream datastream(&array, QIODevice::WriteOnly);
+		
+		// add message length as unsigned char
+		datastream << static_cast<unsigned char>(message.size());
 		
 		// add message to the ByteArray
 		datastream << message;
@@ -107,5 +117,10 @@ namespace QtCha2P
 	{
 		// generate
 		return generateOutput(PRIVATEMESSAGE, message);
+	}
+	
+	unsigned int Cha2PProtocol::getBasePort()
+	{
+		return m_basePort;
 	}
 } // namespace QtCha2P

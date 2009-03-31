@@ -4,6 +4,11 @@
 namespace QtCha2P
 {
 	// ctor
+	Buddy::Buddy()
+	{
+	}
+	
+	// ctor create from ip and nickname
 	Buddy::Buddy(QString ip, QString nickname)
 	{
 		// set ipaddress
@@ -16,6 +21,11 @@ namespace QtCha2P
 	// dtor
 	Buddy::~Buddy()
 	{
+	}
+	
+	QString Buddy::getNickName()
+	{
+		return m_nickname;
 	}
 
 } // namespace QtCha2P
