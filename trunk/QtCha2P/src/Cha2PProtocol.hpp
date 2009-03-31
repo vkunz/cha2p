@@ -10,7 +10,7 @@ namespace QtCha2P
 {
 	class Cha2PProtocol : public AbstractProtocol
 	{
-		public:
+		private:
 			// enumeration of all protocoll bits
 			enum ProtocolBits
 			{
@@ -22,52 +22,57 @@ namespace QtCha2P
 				PRIVATEMESSAGE,					// flag to sign message as PrivateMessage sent to one contact
 			};
 
-		private:
 			// protocol consists of 3 parts
 			// first part is an unsigned char with protocolbits as flags of what kind of message
 			// second part is an unsigned char, this value stores information how long the message is
 			// third part is the message consists of a string of ansi-bytes
-			
+
 			// unsigned char to store protocolbits
 			unsigned char m_protocolBits;
-			
+
 			// unsigned char to store the message-length
 			unsigned char m_messageLength;
-			
+
 			// QString to store the message
 			QString m_Message;
-			
+
+			// stores the baseport this protocol is working on
+			unsigned int m_basePort;
+
 			// generates output of an given protocolrequst without message
 			QByteArray generateOutput(ProtocolBits bits);
-			
+
 			// generates output of an given protocolrequst with given message
 			QByteArray generateOutput(ProtocolBits bits, QString message);
 
 		public:
 			// ctor
 			Cha2PProtocol();
-			
+
 			// dtor
 			~Cha2PProtocol();
-			
+
 			// generates a requestContactList byte
 			QByteArray generateRequestContacts();
-			
+
 			// generates a replyContactList byte
 			QByteArray generateSendContacts(QString contacts);
 
 			// generates a hello byte
 			QByteArray generateHello(QString nickname);
-			
+
 			// generates a goodbye byte
 			QByteArray generateGoodBye();
-			
+
 			// generates a channelmessage
 			QByteArray generateChannelMessage(QString message);
-			
+
 			// generates a privatemessage
 			QByteArray generatePrivateMessage(QString message);
-			
+
+			// return baseport
+			unsigned int getBasePort();
+
 	}; // class Cha2PProtocol
 } // namespace QtCha2P
 #endif // _QTCHA2P_CHA2PPROTOCOL_HPP_

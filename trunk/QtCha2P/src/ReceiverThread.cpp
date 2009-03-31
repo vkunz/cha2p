@@ -15,7 +15,7 @@ namespace QtCha2P
 		m_peerAddress = m_socket->peerAddress();		
 
 		// connect socket-disconnect-signal with terminateThread
-		connect(m_socket, SIGNAL(disconnect()), this, SLOT(terminateThread()));
+		connect(m_socket, SIGNAL(disconnected()), this, SLOT(terminateThread()));
 
 		// connect socket-readyRead-signal with readSocketData
 		connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocketData()));
@@ -43,8 +43,6 @@ namespace QtCha2P
 	{
 		// append new data into the bytearray
 		m_incomingData += m_socket->readAll();
-		
-		qDebug() << "Data: " << m_incomingData;
 	}
 } // namespace QtCha2P
 

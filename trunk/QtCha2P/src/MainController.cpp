@@ -1,6 +1,8 @@
-#include <QtGlobal>
+#include <QtCore/QByteArray>
 #include <QtCore/QString>
+#include <QtCore/QtGlobal>
 
+#include "BuddyList.hpp"
 #include "Cha2PProtocol.hpp"
 #include "ConnectWindow.hpp"
 #include "MainController.hpp"
@@ -11,18 +13,27 @@ namespace QtCha2P
 	// ctor
 	MainController::MainController()
 	{
+		// new buddylist
+		m_buddylist = new BuddyList();
+	
 		// new loginwindow
 		m_connectWindow = new ConnectWindow();
+		
+		// new dispatcherthread
+		m_dispatcher = new DispatcherThread();
 
-		// init listenerthread
-		m_listener = new ListenerThread(3000);
+		// new protocol
+		m_protocol = new Cha2PProtocol();
+
+		// get baseport
+		m_basePort = m_protocol->getBasePort();
+
+		// new listenerthread
+		m_listener = new ListenerThread(m_basePort);
 
 		// start thread
 		m_listener->start();
 		
-		// new protocol
-		m_protocol = new Cha2PProtocol();
-
 		// connect Signal: requestContactList(QString, QString) of ConnectWindow with Slot: requestContactList(QString, QString)
 		connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)), this, SLOT(requestContactList(QString, QString)));
 		
@@ -41,43 +52,52 @@ namespace QtCha2P
 	// slot: new Data arrived
 	void MainController::newIncMessRecv(QHostAddress peer, QByteArray data)
 	{
+		qDebug() << "Test!";
 	}
 
-	// signal: ChannelFrame send button pressed
-	void MainController::newInputMessage(QString inputMessage)
+	// executed when new channel text arrives
+	void MainController::newInputChannelMessage(QString inputMessage)
 	{
-		/*
-		qDebug() << inputMessage;
+		// ByteArray where data to send are stored
+		QByteArray array;
 
-		QByteArray arr;
+		// generate bytearray
+		array = m_protocol->generateChannelMessage(inputMessage);
 
-		QDataStream dstream(&arr, QIODevice::WriteOnly);
-
-		const unsigned char proto = 0;
-		const unsigned char len = inputMessage.length();
-
-		dstream << proto << len;
-
-		qDebug() << "len normal: " << len;
-
-		qDebug() << "len gecastet: " << (char)len;
-
-		m_socket.write(arr);
-
-		m_socket.write(inputMessage.toAscii());
-
-		qDebug() << inputMessage.toAscii();
-
-		qDebug() << m_socket.bytesToWrite();
-		qDebug() << m_socket.bytesAvailable();
-		*/
+		// send data to the dispatcherthread
+		m_dispatcher->send(m_buddylist, m_basePort, array);
+	}
+	
+	// executed when new private text arrives
+	void MainController::newInputPrivateMessage(Buddy buddy, QString inputMessage)
+	{
+		// ByteArray where data to send are stored
+		QByteArray array;
+		
+		// generate bytearray
+		array = m_protocol->generatePrivateMessage(inputMessage);
+		
+		// send data to the dispatcherthread
+		m_dispatcher->send(buddy, m_basePort, array);
 	}
 
 	// signal: ConnectWindow connect button pressed
 	void MainController::requestContactList(QString host, QString nick)
 	{
 		// close the connectwindow
-		//m_connectWindow->close();
+		m_connectWindow->close();
+		
+		// set nickname
+		m_nickname = nick;
+		
+		// send requestcontactlist flag
+		QByteArray array = m_protocol->generateRequestContacts();
+		
+		// generat hostaddress
+		QHostAddress address(host);
+		
+		// send data
+		m_dispatcher->send(address, m_basePort, array);
 
 		// init the mainframecontroller
 		m_mesfc = new MessageFrameController();

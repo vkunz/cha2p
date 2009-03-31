@@ -1,18 +1,26 @@
+#include <QtCore/QIODevice>
 #include <QtCore/QThread>
-#include <QtNetwork/QTcpServer>
+#include <QtNetwork/QTcpSocket>
+#include <QtCore/QtGlobal>
 
 #include "SenderThread.hpp"
 
 namespace QtCha2P
 {
 	// ctor
-	SenderThread::SenderThread(QTcpSocket* socket, QByteArray* data)
+	SenderThread::SenderThread(QHostAddress& host, unsigned int port, QByteArray& data)
 	{
-		// assign socket
-		m_socket = socket;
-		
-		// connect slots and signals
-		//QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(readReady()));
+		// new socket
+		m_socket = new QTcpSocket();
+
+		// assign hostaddress
+		m_address = host;
+
+		// assign port
+		m_port = port;
+
+		// assign data
+		m_data = data;
 	}
 
 	// dtor
@@ -20,22 +28,20 @@ namespace QtCha2P
 	{
 		delete m_socket;
 	}
-
-	// run function
-	void SenderThread::run()
-	{
-		//qDebug() << "SenderThread on";
-	}
 	
-	void SenderThread::readReady()
+	// start thread
+	void SenderThread::start()
 	{
-		/*
-		qDebug() << "Read()";
-
-		// read all
-		QByteArray arr = m_socket->readAll();
-
-		qDebug() << "Inhalt: " << arr;
-		*/
+		// start thread
+		QThread::start();
+		
+		// connect to host
+		m_socket->connectToHost(m_address, m_port, QIODevice::WriteOnly);
+		
+		// write data
+		m_socket->write(m_data.data());
+		
+		// data written, close connection
+		m_socket->close();
 	}
 } // namespace QtCha2P

@@ -5,8 +5,10 @@
 #include <QtCore/QString>
 #include <QtNetwork/QTcpSocket>
 
+#include "BuddyList.hpp"
 #include "Cha2PProtocol.hpp"
 #include "ConnectWindow.hpp"
+#include "DispatcherThread.hpp"
 #include "MessageFrameController.hpp"
 #include "ListenerThread.hpp"
 
@@ -18,18 +20,30 @@ namespace QtCha2P
 		Q_OBJECT
 
 		private:
+			// baseport
+			unsigned int m_basePort;			
+
+			// buddylist
+			BuddyList* m_buddylist;
+
 			// LogInWindow
 			ConnectWindow* m_connectWindow;
+
+			// dispatcherthread
+			DispatcherThread* m_dispatcher;
 
 			// listenerthread
 			ListenerThread* m_listener;
 
 			// messageframe controller
 			MessageFrameController* m_mesfc;
-			
+
 			// cha2p-protocol
 			Cha2PProtocol* m_protocol;
 			
+			// string to store own nick
+			QString m_nickname;
+
 		public:
 			// ctor
 			MainController();
@@ -40,9 +54,12 @@ namespace QtCha2P
 		public slots:
 			// slot: new Data arrived
 			void newIncMessRecv(QHostAddress peer, QByteArray data);
+
+			// slot: input text from channel tab
+			void newInputChannelMessage(QString inputMessage);
 			
-			// slot: ChannelFrame send button pressed
-			void newInputMessage(QString inputMessage);
+			// slot: input text from an other tab
+			void newInputPrivateMessage(Buddy buddy, QString inputMessage);
 
 			// slot: ConnectWindow connect button pressed
 			void requestContactList(QString host, QString nick);
