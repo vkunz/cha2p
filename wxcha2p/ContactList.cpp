@@ -42,9 +42,9 @@ wxString ContactList::serialize()
     {
         if ( ! serialized.IsEmpty() )
         {
-            serialized += wxT(";");
+            serialized += wxT(SEPARATOR_BUDDIES);
         }
-        serialized += (*it)->m_ip + wxT(":") + (*it)->m_nickname;
+        serialized += (*it)->m_ip + wxT(SEPARATOR_IP_NAME) + (*it)->m_nickname;
     }
 
     return serialized;
@@ -57,16 +57,24 @@ wxString ContactList::serialize()
 void ContactList::unserialize(wxString list)
 {
     wxString ip, name, token;
-    wxStringTokenizer btok(list, wxT(";"));
+    wxStringTokenizer btok(list, wxT(SEPARATOR_BUDDIES));
 
     while ( btok.HasMoreTokens() )
     {
-        /*hole naechsten token IP:NAME aus dem string*/
+        /*hole naechsten token <IP:NAME> aus dem string*/
         token = btok.GetNextToken();
 
-        /*annahme dass token immer IP:NAME ist*/
-        wxStringTokenizer dtok(token, wxT(":"));
+        /*annahme dass token immer <IP>SEPARATOR_IP_NAME<NAME> ist*/
+        wxStringTokenizer dtok(token, wxT(SEPARATOR_IP_NAME));
+
+        #warning "Nicknames duerfen KEINEN der verwendeten Separatoren enthalten!!"
+
+        /*falls fehlformatiert rest skippen*/
+        if ( ! dtok.HasMoreTokens() ) continue;
         ip   = dtok.GetNextToken();
+
+        /*falls fehlformatiert rest skippen*/
+        if ( ! dtok.HasMoreTokens() ) continue;
         name = dtok.GetNextToken();
 
         /*trage buddy in liste ein*/
