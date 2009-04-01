@@ -44,7 +44,7 @@ wxString ContactList::serialize()
         {
             serialized += wxT(";");
         }
-        serialized += (*it)->m_ip + wxT(":") + (*it)->m_name;
+        serialized += (*it)->m_ip + wxT(":") + (*it)->m_nickname;
     }
 
     return serialized;
@@ -79,11 +79,41 @@ void ContactList::unserialize(wxString list)
  */
 void ContactList::add(wxString ip, wxString nickname)
 {
-    /* falls ip nocht nicht in der liste, fuege buddy ein */
+    /* falls ip noch nicht in der liste, fuege buddy ein */
     if ( ! inList(ip) )
     {
         buddy_list.push_back( new Buddy( ip, nickname ) );
     }
+}
+
+/*
+ * loescht einen Kontakt aus der Liste
+ */
+void ContactList::remove(wxString ip)
+{
+    wxString nickname = getName(ip);
+
+    /* falls kein name gefunden muss auch nicht geloescht werden */
+    if ( ! nickname.IsEmpty() )
+    {
+        buddy_list.remove( new Buddy( ip, nickname ) );
+    }
+}
+
+/*
+ * ip zu nickname aufloesung
+ */
+wxString ContactList::getName(wxString ip)
+{
+    /* falls ip in der liste, gib name zurueck */
+    for ( it = buddy_list.begin() ; it != buddy_list.end(); it++ )
+    {
+        if ((*it)->m_ip == ip )
+        {
+            return (*it)->m_nickname;
+        }
+    }
+    return wxT("");
 }
 
 /*

@@ -33,6 +33,7 @@ class wxcha2pFrame: public wxFrame
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
         void OnButton_SendClick(wxCommandEvent& event);
+        void OnListBox1Select(wxCommandEvent& event);
         //*)
         void OnConnect(wxCommandEvent& event);
 
