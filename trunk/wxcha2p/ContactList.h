@@ -1,6 +1,10 @@
 #ifndef CONTACTLIST_H_INCLUDED
 #define CONTACTLIST_H_INCLUDED
 
+/* some global defines for specific things */
+#define SEPARATOR_BUDDIES ";"
+#define SEPARATOR_IP_NAME ":"
+
 #include <wx/string.h>
 #include <wx/tokenzr.h>
 #include <list>
