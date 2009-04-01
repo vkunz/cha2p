@@ -66,5 +66,29 @@ namespace QtCha2P
 		
 		return ret;
 	}
+	
+	Buddy BuddyList::getBuddy(QString nickname)
+	{
+		// return object
+		Buddy ret;
+
+		// iterator
+		std::list<Buddy>::iterator it;
+
+		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
+		{
+			// check if proper nickname
+			if((*it).getNickName() == nickname)
+			{
+				// set return
+				ret = (*it);
+
+				// leave loop
+				break;
+			}
+		}
+
+		return ret;
+	}
 } // namespace Qtcha2P
 

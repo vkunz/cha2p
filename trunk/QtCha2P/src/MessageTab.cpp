@@ -62,6 +62,12 @@ namespace QtCha2P
 	{
 	}
 	
+	void MessageTab::addMessage(QString message)
+	{
+		// add message
+		m_txeChannelMessages->append(message);
+	}
+	
 	// public slots
 	void MessageTab::newInputMessage()
 	{

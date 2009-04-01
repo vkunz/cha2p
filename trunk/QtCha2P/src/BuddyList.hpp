@@ -33,6 +33,9 @@ namespace QtCha2P
 		
 		// return Nickname of given ipAddress
 		QString getNickname(const QHostAddress* const ipaddress);
+		
+		// return Buddy of given nickname
+		Buddy getBuddy(QString nickname);
 
 	}; // class BuddyList
 } // namespace QtCha2P

@@ -25,6 +25,9 @@ namespace QtCha2P
 		// dtor
 		~MessageTab();
 		
+		// add new text to ChannelMessages
+		void addMessage(QString message);
+		
 	signals:
 		void inputMessage(QString inputMessage);
 		

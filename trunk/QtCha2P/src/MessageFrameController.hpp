@@ -40,6 +40,12 @@ namespace QtCha2P
 			// new private chat
 			void addPrivateChatTab(Buddy buddy);
 			
+			// add new channelmessage
+			void addChannelMessage(Buddy sender, QString message);
+			
+			// add new privateMessage
+			void addPrivateMessage(Buddy sender, QString message);
+			
 		signals:
 			// this signal is emmited, when a new input text was typed in into the channel tab
 			void newChannelMessage(QString message);

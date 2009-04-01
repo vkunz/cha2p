@@ -29,6 +29,11 @@ namespace QtCha2P
 		
 		// return nickname
 		QString getNickName();
+		
+		// assign-operator
+		Buddy& operator=(Buddy buddy);
+		
+		bool operator==(Buddy buddy);
 
 	}; // class Buddy
 } // namespace QtCha2P

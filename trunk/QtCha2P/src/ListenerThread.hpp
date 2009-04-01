@@ -2,6 +2,7 @@
 #define _QTCHA2P_LISTENERTHREAD_HPP_
 
 #include <QtCore/QThread>
+#include <QtNetwork/QHostAddress>
 #include <QtNetwork/QTcpServer>
 
 namespace QtCha2P

@@ -103,7 +103,10 @@ namespace QtCha2P
 
 		// set nickname
 		m_nickname = nick;
-
+		
+		// new socket
+		QTcpSocket socket;
+		
 		// send requestcontactlist flag
 		QByteArray array = m_protocol->generateRequestContacts();
 
@@ -118,6 +121,9 @@ namespace QtCha2P
 
 		// init the buddylistframecontroller
 		m_buddyListFrameController = new BuddyListFrameController();
+		
+		// connect signal newAddPrivateTab with slot: newPrivatetab
+		connect(m_buddyListFrameController, SIGNAL(addNewPrivateTab(QString)), this, SLOT(newPrivateTab(QString)));
 	}
 
 	// signal: new incoming channel message
@@ -130,5 +136,15 @@ namespace QtCha2P
 	void MainController::newIncomingPrivateMessage(QString& message, QHostAddress& sender)
 	{
 		// todo
+	}
+	
+	// slot: new private tab
+	void MainController::newPrivateTab(QString nickname)
+	{
+		// get Buddy
+		Buddy buddy = m_buddyList->getBuddy(nickname);	
+
+		// add new tab
+		m_mesfc->addPrivateChatTab(buddy);
 	}
 } // namespace QtCha2P
