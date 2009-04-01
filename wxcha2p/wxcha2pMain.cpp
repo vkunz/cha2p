@@ -64,10 +64,9 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     wxMenuItem* MenuItem2;
     wxMenuItem* MenuItem1;
     wxMenu* Menu1;
-    wxMenuItem* MenuItem3;
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
-
+    
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
     SetClientSize(wxSize(400,490));
     m_text_output = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxPoint(0,0), wxSize(400,320), wxTE_MULTILINE|wxTE_READONLY, wxDefaultValidator, _T("ID_TEXTCTRL1"));
@@ -91,7 +90,7 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
     StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
     SetStatusBar(StatusBar1);
-
+    
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&wxcha2pFrame::OnButton_SendClick);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnAbout);
