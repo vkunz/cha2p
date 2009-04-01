@@ -30,6 +30,8 @@ SOURCES  += src\main.cpp
 SOURCES  += src\AbstractProtocol.cpp\
 			src\Buddy.cpp\
 			src\BuddyList.cpp\
+			src\BuddyListFrame.cpp\
+			src\BuddyListFrameController.cpp\
 			src\Cha2PProtocol.cpp\
 			src\Configuration.cpp\
 			src\ConnectWindow.cpp\
@@ -45,6 +47,8 @@ SOURCES  += src\AbstractProtocol.cpp\
 HEADERS  += src\AbstractProtocol.hpp\
 			src\Buddy.hpp\
 			src\BuddyList.hpp\
+			src\BuddyListFrame.hpp\
+			src\BuddyListFrameController.hpp\
 			src\Cha2PProtocol.hpp\
 			src\Configuration.hpp\
 			src\ConnectWindow.hpp\

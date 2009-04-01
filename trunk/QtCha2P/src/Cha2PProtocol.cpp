@@ -14,8 +14,6 @@ namespace QtCha2P
 	{
 		// set baseport
 		m_basePort = 3000;
-		
-		qDebug() << "Cha2PProtocol created!";
 	}
 	
 	// dtor

@@ -6,6 +6,7 @@
 #include <QtNetwork/QTcpSocket>
 
 #include "BuddyList.hpp"
+#include "BuddyListFrameController.hpp"
 #include "Cha2PProtocol.hpp"
 #include "ConnectWindow.hpp"
 #include "DispatcherThread.hpp"
@@ -24,7 +25,10 @@ namespace QtCha2P
 			unsigned int m_basePort;			
 
 			// buddylist
-			BuddyList* m_buddylist;
+			BuddyList* m_buddyList;
+			
+			// buddylistframe controller
+			BuddyListFrameController* m_buddyListFrameController;
 
 			// LogInWindow
 			ConnectWindow* m_connectWindow;
@@ -41,7 +45,7 @@ namespace QtCha2P
 			// cha2p-protocol
 			Cha2PProtocol* m_protocol;
 			
-			// string to store own nick
+			// string to store own nickname
 			QString m_nickname;
 
 		public:
