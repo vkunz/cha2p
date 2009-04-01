@@ -2,6 +2,17 @@
 #define CONTACTLIST_H_INCLUDED
 
 #include <wx/string.h>
+#include <wx/tokenzr.h>
+#include <list>
+
+struct Buddy
+{
+    Buddy(wxString ip,wxString nickname) : m_ip(ip), m_name(nickname){};
+    wxString m_ip;
+    wxString m_name;
+};
+
+typedef std::list<Buddy*> Buddies;
 
 class ContactList {
 public:
@@ -14,7 +25,8 @@ protected:
     ContactList();
 private:
     static ContactList* pinstance;
-
+    std::list<Buddy*> buddy_list;
+    Buddies::iterator it;
 };
 
 #endif // CONTACTLIST_H_INCLUDED

@@ -49,6 +49,7 @@ class wxcha2pFrame: public wxFrame
         //(*Declarations(wxcha2pFrame)
         wxButton* Button_Send;
         wxTextCtrl* m_text_output;
+        wxMenuItem* MenuItem3;
         wxStatusBar* StatusBar1;
         wxTextCtrl* m_text_input;
         //*)
