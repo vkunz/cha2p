@@ -7,9 +7,9 @@
 
 struct Buddy
 {
-    Buddy(wxString ip,wxString nickname) : m_ip(ip), m_name(nickname){};
+    Buddy(wxString ip,wxString nickname) : m_ip(ip), m_nickname(nickname){};
     wxString m_ip;
-    wxString m_name;
+    wxString m_nickname;
 };
 
 typedef std::list<Buddy*> Buddies;
@@ -20,7 +20,9 @@ public:
     wxString serialize();
     void unserialize(wxString list);
     void add(wxString ip, wxString nickname);
+    void remove(wxString ip);
     bool inList(wxString ip);
+    wxString getName(wxString ip);
 protected:
     ContactList();
 private:
