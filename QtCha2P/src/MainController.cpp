@@ -14,11 +14,11 @@ namespace QtCha2P
 	MainController::MainController()
 	{
 		// new buddylist
-		m_buddylist = new BuddyList();
-	
+		m_buddyList = new BuddyList();
+
 		// new loginwindow
 		m_connectWindow = new ConnectWindow();
-		
+
 		// new dispatcherthread
 		m_dispatcher = new DispatcherThread();
 
@@ -33,10 +33,10 @@ namespace QtCha2P
 
 		// start thread
 		m_listener->start();
-		
+
 		// connect Signal: requestContactList(QString, QString) of ConnectWindow with Slot: requestContactList(QString, QString)
 		connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)), this, SLOT(requestContactList(QString, QString)));
-		
+
 		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread with Slot: newIncMessRecv(QHostAddress, QByteArray)
 		connect(m_listener, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)), this, SLOT(newIncMessRecv(QHostAddress, QByteArray)));
 
@@ -52,7 +52,21 @@ namespace QtCha2P
 	// slot: new Data arrived
 	void MainController::newIncMessRecv(QHostAddress peer, QByteArray data)
 	{
+		unsigned char proto;
+		unsigned char length;
+		QString message;
+
+		QDataStream stream(&data, QIODevice::ReadWrite);
+
+		stream >> proto;
+		stream >> length;
+		stream >> message;
+
 		qDebug() << "Test!";
+		qDebug() << "PeerAddress: " << peer;
+		qDebug() << "Protocol: " << proto;
+		qDebug() << "Length: " << length;
+		qDebug() << "Message: " << message;		
 	}
 
 	// executed when new channel text arrives
@@ -65,18 +79,18 @@ namespace QtCha2P
 		array = m_protocol->generateChannelMessage(inputMessage);
 
 		// send data to the dispatcherthread
-		m_dispatcher->send(m_buddylist, m_basePort, array);
+		m_dispatcher->send(m_buddyList, m_basePort, array);
 	}
-	
+
 	// executed when new private text arrives
 	void MainController::newInputPrivateMessage(Buddy buddy, QString inputMessage)
 	{
 		// ByteArray where data to send are stored
 		QByteArray array;
-		
+
 		// generate bytearray
 		array = m_protocol->generatePrivateMessage(inputMessage);
-		
+
 		// send data to the dispatcherthread
 		m_dispatcher->send(buddy, m_basePort, array);
 	}
@@ -86,21 +100,24 @@ namespace QtCha2P
 	{
 		// close the connectwindow
 		m_connectWindow->close();
-		
+
 		// set nickname
 		m_nickname = nick;
-		
+
 		// send requestcontactlist flag
 		QByteArray array = m_protocol->generateRequestContacts();
-		
+
 		// generat hostaddress
 		QHostAddress address(host);
-		
+
 		// send data
 		m_dispatcher->send(address, m_basePort, array);
 
 		// init the mainframecontroller
 		m_mesfc = new MessageFrameController();
+
+		// init the buddylistframecontroller
+		m_buddyListFrameController = new BuddyListFrameController();
 	}
 
 	// signal: new incoming channel message

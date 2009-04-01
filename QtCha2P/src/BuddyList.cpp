@@ -1,4 +1,3 @@
-
 #include "BuddyList.hpp"
 
 namespace QtCha2P
@@ -67,6 +66,5 @@ namespace QtCha2P
 		
 		return ret;
 	}
-
 } // namespace Qtcha2P
 
