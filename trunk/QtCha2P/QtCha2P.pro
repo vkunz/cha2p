@@ -14,6 +14,13 @@ CONFIG(debug, debug|release) {
 	DESTDIR  = "../bin/release"
 }
 
+# add a debug console in debug mode on windows
+win32{
+    debug {
+        CONFIG += console
+    }
+}
+
 TARGET = QtCha2P
 
 TEMPLATE = app
