@@ -12,16 +12,16 @@ namespace QtCha2P
 		m_frame = new BuddyListFrame();
 
 		// new listitem
-		m_buddylist = new QListWidget(m_frame);
+		m_buddyList = new QListWidget(m_frame);
 
 		// set object name
-		m_buddylist->setObjectName(QString::fromUtf8("Buddies"));
+		m_buddyList->setObjectName(QString::fromUtf8("Buddies"));
 
 		// set Geometry
-		m_buddylist->setGeometry(QRect(0, 0, 200, 600));
+		m_buddyList->setGeometry(QRect(0, 0, 200, 600));
 
 		// connect doubleclicked with slot onItemDoubleClicked()
-		connect(m_buddylist, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(onItemDoubleClicked(QListWidgetItem*)));
+		connect(m_buddyList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(onItemDoubleClicked(QListWidgetItem*)));
 
 		// show frame
 		m_frame->show();
@@ -45,7 +45,7 @@ namespace QtCha2P
 		m_buddies.insert(std::pair<QString, QListWidgetItem*>(nickname, newItem));
 
 		// add item
-		m_buddylist->addItem(nickname);
+		m_buddyList->addItem(nickname);
 	}
 
 	// remove Buddy
@@ -55,7 +55,7 @@ namespace QtCha2P
 		std::map<QString, QListWidgetItem*>::iterator it;
 
 		// remove item
-		m_buddylist->removeItemWidget(m_buddies[nickname]);
+		m_buddyList->removeItemWidget(m_buddies[nickname]);
 	}
 
 	// slot: onItemDoubleClicked(QListWidgetItem*)
