@@ -1,4 +1,4 @@
-
+#include <QtCore/QTime>
 #include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 
@@ -69,6 +69,69 @@ namespace QtCha2P
 			// emit new privatemessage, buddy from map
 			emit newPrivateMessage(m_tabs[m_widget->currentIndex()], inputMessage);
 		}
+	}
+	
+	// add new channelmessage
+	void MessageFrameController::addChannelMessage(Buddy sender, QString message)
+	{
+		// tmp string
+		QString tmp;
+
+		// time
+		QTime time;
+
+		// MessageTab pointer
+		MessageTab* tab = static_cast<MessageTab*>(m_widget->widget(0));
+
+		// prepare message	(timestamp) blanc Nickname: newline message
+		time = QTime::currentTime();
+
+		tmp = "(" + time.toString("hh:mm:ss:") + ") ";
+		tmp += sender.getNickName();
+		tmp += "\n" + message;
+
+		// add message
+		tab->addMessage(tmp);
+	}
+
+	// add new privateMessage
+	void MessageFrameController::addPrivateMessage(Buddy sender, QString message)
+	{
+		// tmp string
+		QString tmp;
+
+		// time
+		QTime time;
+
+		// iterator
+		std::map<unsigned int, Buddy>::iterator it;
+
+		// MessageTab pointer
+		MessageTab* tab = NULL;
+
+		// iterate through the list
+		for(it = m_tabs.begin(); it != m_tabs.end(); it++)
+		{
+			if((*it).second == sender)
+			{
+				// set widget
+				tab = static_cast<MessageTab*>(m_widget->widget((*it).first));
+				
+				// found
+				break;
+			}
+		}
+
+		// prepare message	(timestamp) blanc Nickname: newline message
+		time = QTime::currentTime();
+
+		tmp = "(" + time.toString("hh:mm:ss:") + ") ";
+		tmp += sender.getNickName();
+		tmp += "\n" + message;
+
+		// add message
+		tab->addMessage(tmp);
+
 	}
 } // namespace QtCha2P
 

@@ -47,6 +47,9 @@ namespace QtCha2P
 			
 			// string to store own nickname
 			QString m_nickname;
+			
+			// QHostAddress to store own address
+			QHostAddress m_address;
 
 		public:
 			// ctor
@@ -73,6 +76,9 @@ namespace QtCha2P
 
 			// slot: new incoming private message
 			void newIncomingPrivateMessage(QString& message, QHostAddress& sender);
+			
+			// slot: new private tab
+			void newPrivateTab(QString nickname);
 
 	}; // class MainController
 } // namespace

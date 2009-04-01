@@ -64,6 +64,7 @@ namespace QtCha2P
 		// get text
 		QString tmp = item->text();
 
-		// todo
+		// emit newNewPrivateTab signal
+		emit addNewPrivateTab(tmp);
 	}
 } // namespace QtCha2P
