@@ -3,6 +3,7 @@
  * Schritte ein, wie das Senden einer Antwort oder das Aktuallisieren der GUI
  */
 
+#include "Configuration.h"
 #include "ContactList.h"
 #include "EvaluateInput.h"
 #include "enum.h"
@@ -42,20 +43,28 @@ void EvaluateInput::channelMessage(SocketData* data) {
     myevent.SetEventObject(this);
     ProcessEvent(myevent);
 }
-
+#include <wx/msgdlg.h>
+#include <iostream>
 /*
  * Verarbeitung einer Anfrage nach der eigenen Kontaktliste. Veranlassung der Antwort
  * mit dieser Liste
  */
 void EvaluateInput::requestContacts(MessageEvent& message) {
+    //read local ip
+    Configuration* config = Configuration::getInstance();
+    ContactList* contList = ContactList::getInstance();
+    contList->add(message.getSocketData()->getMessage(), config->getNickname());
+
+    // initiate output-generation
     GenerateOutput* genOut = GenerateOutput::getInstance();
-    genOut->sendContacts(message);
+    genOut->sendContacts(message.getClientIP(), 3000);
 }
 
 /*
  * Verarbeitung des Eintreffens einer fremden Kontaktliste und Aufnahme in die eigene
  */
 void EvaluateInput::sendContacts(SocketData* data) {
+    std::cout << "Eval:SendContacts: received list: " << data->getMessage().mb_str() << std::endl;
     ContactList* list = ContactList::getInstance();
     list->unserialize(data->getMessage());
 }
@@ -64,12 +73,7 @@ void EvaluateInput::sendContacts(SocketData* data) {
  * Liest die IP-Adresse des sendenden Clients und fügt diese der Kontaktliste zu
  */
 void EvaluateInput::sayHello(MessageEvent& event) {
-    // read client-ip
-    wxIPV4address addr;
-    event.getSocket()->GetPeer(addr);
-    wxString ip = addr.IPAddress();
-
     // add ip to contact-list
     ContactList* list = ContactList::getInstance();
-    list->add(ip, wxT(""));
+    list->add(event.getClientIP(), event.getMessage());
 }

@@ -12,6 +12,7 @@
 
 #include <wx/app.h>
 
+#include "Configuration.h"
 #include "EvaluateInput.h"
 #include "GenerateOutput.h"
 #include "GUIEvent.h"
@@ -29,6 +30,7 @@ class wxcha2pApp : public wxApp
         void OnGUIEvent(GUIEvent& event);
 
         wxcha2pFrame* Frame;
+        Configuration* m_config;
         SocketServer* m_server;
         GenerateOutput* m_genOutput;
         EvaluateInput* m_evalInput;

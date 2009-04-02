@@ -5,17 +5,18 @@
 
 class SocketData {
 public:
+    SocketData();
+
     void setComProtocol(unsigned char com);
-    void setNumBytes(unsigned char num);
     void setMessage(wxString message);
 
     unsigned char* getComProtocol();
-    unsigned char* getNumBytes();
+    unsigned int* getNumBytes();
     wxString getMessage();
 
 private:
     unsigned char m_comProtocol;
-    unsigned char m_numBytes;
+    unsigned int m_numBytes;
     wxString m_message;
 
 };

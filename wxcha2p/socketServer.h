@@ -10,7 +10,6 @@ class SocketServer : private wxEvtHandler {
 public:
     static SocketServer* getInstance(int port);
     ~SocketServer();
-    void AnswerRequest(wxSocketBase* sock, SocketData* output);
 
 protected:
     SocketServer(int port);

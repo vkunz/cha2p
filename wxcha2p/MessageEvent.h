@@ -3,7 +3,6 @@
 
 #include <wx/event.h>
 #include <wx/string.h>
-#include <wx/socket.h>
 #include "enum.h"
 #include "SocketData.h"
 
@@ -11,9 +10,9 @@ class MessageEvent : public wxNotifyEvent
 {
 private:
 	wxString m_message;
+	wxString m_clientIP;
 	messageType m_type;
 	SocketData* m_socketData;
-	wxSocketBase* m_socket;
 
 public:
 	MessageEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
@@ -21,14 +20,14 @@ public:
 	virtual wxEvent* Clone() const;
 
 	void setMessage(wxString message);
-	void setSocket(wxSocketBase* socket);
 	void setSocketData(SocketData* data);
 	void setMessageType(messageType type);
+	void setClientIP(wxString ip);
 
 	wxString getMessage();
-	wxSocketBase* getSocket();
 	SocketData* getSocketData();
 	messageType getMessageType();
+	wxString getClientIP();
 
 	DECLARE_DYNAMIC_CLASS(MessageEvent);
 };

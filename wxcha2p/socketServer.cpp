@@ -71,7 +71,7 @@ void SocketServer::OnServerEvent(wxSocketEvent& event) {
     sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
     sock->Notify(true);
 }
-
+#include <iostream>
 /*
  * Reagiert auf Events, die an einem bereits verbundenen Socket entstehen. Hierzu
  * zählen das Empfangen einer Nachricht, ein Verbindungsabbruch, ...
@@ -94,9 +94,8 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             sock->Read(data->getComProtocol(), 1);
 
             // read the size
-            unsigned char len;
-            sock->Read(&len, 1);
-            data->setNumBytes(len);
+            unsigned int len;
+            sock->Read(&len, sizeof(int));
 
             // Read the data
             char* buf = new char[len];
@@ -104,10 +103,23 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             data->setMessage(wxString::FromAscii(buf));
             delete[] buf;
 
+            std::cout << "-----------------------------------" << std::endl;
+            std::cout << "Protokoll: " << (unsigned int) *data->getComProtocol() << std::endl;
+            std::cout << "Laenge: " << len << std::endl;
+            std::cout << "Message: " << data->getMessage().mb_str() << std::endl;
+            std::cout << "-----------------------------------" << std::endl;
+
+            // get client ip
+            wxIPV4address addr;
+            sock->GetPeer(addr);
+            wxString ip = addr.IPAddress();
+
+            //std::cout << "Client-IP: " << ip.mb_str() << std::endl;
+
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
             myevent.setSocketData(data);
-            myevent.setSocket(sock);
+            myevent.setClientIP(ip);
             myevent.setMessageType(RECEIVE);
             myevent.SetEventObject(this);
             ProcessEvent(myevent);
@@ -123,14 +135,4 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
         }
         default: ;
     }
-}
-
-/*
- * Antwortet auf eine Anfrage mit den gewünschten Daten
- */
-void SocketServer::AnswerRequest(wxSocketBase* sock, SocketData* output) {
-    // send message to client
-    sock->Write(output->getComProtocol(), 1);
-    sock->Write(output->getNumBytes(), 1);
-    sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
 }

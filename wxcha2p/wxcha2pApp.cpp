@@ -38,6 +38,8 @@ bool wxcha2pApp::OnInit()
 
     wxSocketBase::Initialize(); //needed to get sockets in other threads working
 
+    m_config = Configuration::getInstance();
+
     // Server-Socket erstellen
     m_server = SocketServer::getInstance(3000);
 
@@ -75,7 +77,7 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
             dialog.ShowModal();
             // ask for contacts and say hello
             m_genOutput->requestContacts(dialog.getAddress(), 3000);
-            m_genOutput->sayHello();
+            //m_genOutput->sayHello();
             break;
     }
 }

@@ -39,13 +39,6 @@ void MessageEvent::setMessage(wxString message)
 }
 
 /*
- * Setzt den Pointer auf einen aktiven Socket
- */
-void MessageEvent::setSocket(wxSocketBase* socket) {
-    m_socket = socket;
-}
-
-/*
  * Setzt den Pointer auf ein SocketData-Objekt
  */
 void MessageEvent::setSocketData(SocketData* data) {
@@ -60,18 +53,18 @@ void MessageEvent::setMessageType(messageType type) {
 }
 
 /*
+ * Setzt die IP des verbundenen Clients
+ */
+void MessageEvent::setClientIP(wxString ip) {
+    m_clientIP = ip;
+}
+
+/*
  * Liest die Nachricht des Event-Objekts
  */
 wxString MessageEvent::getMessage()
 {
 	return m_message;
-}
-
-/*
- * Liest den Pointer auf einen Socket
- */
-wxSocketBase* MessageEvent::getSocket() {
-    return m_socket;
 }
 
 /*
@@ -86,4 +79,11 @@ SocketData* MessageEvent::getSocketData() {
  */
 messageType MessageEvent::getMessageType() {
     return m_type;
+}
+
+/*
+ * Liest die Client-IP
+ */
+wxString MessageEvent::getClientIP() {
+    return m_clientIP;
 }
