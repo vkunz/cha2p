@@ -45,7 +45,6 @@ SocketClient::~SocketClient() {
 void SocketClient::OnSocketEvent(wxSocketEvent& event) {
     switch(event.GetSocketEvent()) {
         case wxSOCKET_INPUT:
-            ReadAnswer();
             //s.Append(wxT("wxSOCKET_INPUT\n"));
             break;
         case wxSOCKET_LOST:
@@ -86,39 +85,11 @@ void SocketClient::SendMessage(SocketData* output) {
     // send communication protocoll
     m_sock->Write(output->getComProtocol(), 1);
     // send message-length
-    m_sock->Write(output->getNumBytes(), 1);
+    m_sock->Write(output->getNumBytes(), sizeof(int));
     // send message
     m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
 
     delete output;
-}
-
-#include <wx/msgdlg.h>
-/*
- * Sendet eine Nachricht zum Server und wartet auf eine Antwort
- */
-void SocketClient::ReadAnswer() {
-    m_sock->SetFlags(wxSOCKET_WAITALL);
-
-    SocketData* data = new SocketData;
-    m_sock->Read(data->getComProtocol(), 1);
-
-    unsigned char len;
-    m_sock->Read(&len, 1);
-    data->setNumBytes(len);
-
-    char* buf = new char[len];
-    m_sock->Read(buf, len);
-    data->setMessage(wxString::FromAscii(buf));
-    delete[] buf;
-
-    // Send Event with Answer
-    MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
-    myevent.setSocketData(data);
-    myevent.setSocket(m_sock);
-    myevent.setMessageType(RECEIVE);
-    myevent.SetEventObject(this);
-    ProcessEvent(myevent);
 }
 
 /*

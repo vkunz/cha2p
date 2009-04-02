@@ -8,7 +8,9 @@ Configuration* Configuration::pinstance = 0;
  * protected Constructor, der wegen der Singleton-Eigenschaft nicht von auﬂen
  * aufgerufen werden darf
  */
-Configuration::Configuration() {}
+Configuration::Configuration() {
+    m_nickname = wxT("Nick");
+}
 
 /*
  * statische Funktion um eine Instanz der Singleton-Klasse zu bekommen
@@ -20,10 +22,10 @@ Configuration* Configuration::getInstance() {
 	return pinstance;
 }
 
-wxString Configuration::getLocalIP() {
-    wxIPV4address addr;
-    addr.Hostname(wxGetFullHostName());
-    wxString ipAddr = addr.IPAddress();
-    return ipAddr;
-    #warning "Testen, ob richtige IP gefunden wird"
+void Configuration::setNickname(wxString nick) {
+    m_nickname = nick;
+}
+
+wxString Configuration::getNickname() {
+    return m_nickname;
 }

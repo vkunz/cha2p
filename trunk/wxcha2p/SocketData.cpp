@@ -4,23 +4,24 @@
 
 #include "SocketData.h"
 
+SocketData::SocketData() {
+    m_numBytes = 0;
+}
+
 void SocketData::setComProtocol(unsigned char com) {
     m_comProtocol = com;
 }
 
-void SocketData::setNumBytes(unsigned char num) {
-    m_numBytes = num;
-}
-
 void SocketData::setMessage(wxString message) {
     m_message = message;
+    m_numBytes = (unsigned int)((wxStrlen(message) +1) * sizeof(char));
 }
 
 unsigned char* SocketData::getComProtocol() {
     return &m_comProtocol;
 }
 
-unsigned char* SocketData::getNumBytes() {
+unsigned int* SocketData::getNumBytes() {
     return &m_numBytes;
 }
 

@@ -10,7 +10,7 @@ class GenerateOutput {
 public:
     static GenerateOutput* getInstance();
     void requestContacts(wxString hostname, int port);
-    void sendContacts(MessageEvent& event);
+    void sendContacts(wxString hostname, int ip);
     void sayHello();
     void SendChannelMessage(wxString message);
 protected:

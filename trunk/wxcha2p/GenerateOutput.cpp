@@ -28,22 +28,22 @@ GenerateOutput* GenerateOutput::getInstance() {
 	}
 	return pinstance;
 }
-
+#include <iostream>
 /*
  * Erstellt die Anfrage um von einem fremden Client die Kontaktliste abzufragen
  */
 void GenerateOutput::requestContacts(wxString hostname, int port) {
     SocketData* output = new SocketData;
     output->setComProtocol(REQUESTCONTACTS);
-    output->setNumBytes(0);
+    output->setMessage(hostname);
 
-    m_sender->SendMessage(hostname, port, output, true);
+    m_sender->SendMessage(hostname, port, output);
 }
 
 /*
  * Sendet an einen fremden Client die Kontaktliste in serialisierter Form
  */
-void GenerateOutput::sendContacts(MessageEvent& event) {
+void GenerateOutput::sendContacts(wxString hostname, int port) {
     // serialize ContactList
     ContactList* contact = ContactList::getInstance();
     wxString list = contact->serialize();
@@ -51,12 +51,10 @@ void GenerateOutput::sendContacts(MessageEvent& event) {
     // generate socket-data
     SocketData* output = new SocketData;
     output->setComProtocol(SENDCONTACTS);
-    output->setNumBytes((unsigned char)((wxStrlen(list) +1) * sizeof(char)));
     output->setMessage(list);
 
     // answer client-request
-    SocketServer* server = SocketServer::getInstance(3000);
-    server->AnswerRequest(event.getSocket(), output);
+    m_sender->SendMessage(hostname, port, output);
 }
 
 /*
@@ -67,7 +65,6 @@ void GenerateOutput::SendChannelMessage(wxString message) {
 
     // generate Message
     output->setComProtocol(CHANNELMESSAGE);
-    output->setNumBytes((unsigned char)((wxStrlen(message) + 1) * sizeof(char)));
     output->setMessage(message);
 
     m_sender->SendMessage(wxT("localhost"), 3000, output, false);
@@ -80,7 +77,6 @@ void GenerateOutput::sayHello() {
     SocketData* output = new SocketData;
 
     output->setComProtocol(HELLO);
-    output->setNumBytes(0);
     #warning "Nickname fehlt"
 
     m_sender->SendMessage(wxT("localhost"), 3000, output, false);
