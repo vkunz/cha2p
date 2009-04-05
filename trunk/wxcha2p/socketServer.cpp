@@ -103,11 +103,11 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             data->setMessage(wxString::FromAscii(buf));
             delete[] buf;
 
-            std::cout << "-----------------------------------" << std::endl;
+            /*std::cout << "-----------------------------------" << std::endl;
             std::cout << "Protokoll: " << (unsigned int) *data->getComProtocol() << std::endl;
             std::cout << "Laenge: " << len << std::endl;
             std::cout << "Message: " << data->getMessage().mb_str() << std::endl;
-            std::cout << "-----------------------------------" << std::endl;
+            std::cout << "-----------------------------------" << std::endl;*/
 
             // get client ip
             wxIPV4address addr;

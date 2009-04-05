@@ -43,7 +43,6 @@ void EvaluateInput::channelMessage(SocketData* data) {
     myevent.SetEventObject(this);
     ProcessEvent(myevent);
 }
-#include <wx/msgdlg.h>
 #include <iostream>
 /*
  * Verarbeitung einer Anfrage nach der eigenen Kontaktliste. Veranlassung der Antwort
@@ -75,5 +74,5 @@ void EvaluateInput::sendContacts(SocketData* data) {
 void EvaluateInput::sayHello(MessageEvent& event) {
     // add ip to contact-list
     ContactList* list = ContactList::getInstance();
-    list->add(event.getClientIP(), event.getMessage());
+    list->add(event.getClientIP(), event.getSocketData()->getMessage());
 }

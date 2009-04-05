@@ -75,9 +75,11 @@ void GenerateOutput::SendChannelMessage(wxString message) {
  */
 void GenerateOutput::sayHello() {
     SocketData* output = new SocketData;
+    Configuration* config = Configuration::getInstance();
+    ContactList* contList = ContactList::getInstance();
 
     output->setComProtocol(HELLO);
-    #warning "Nickname fehlt"
+    output->setMessage(config->getNickname());
 
     m_sender->SendMessage(wxT("localhost"), 3000, output, false);
 }
