@@ -21,8 +21,8 @@ unsigned char* SocketData::getComProtocol() {
     return &m_comProtocol;
 }
 
-unsigned int* SocketData::getNumBytes() {
-    return &m_numBytes;
+unsigned int SocketData::getNumBytes() {
+    return m_numBytes;
 }
 
 wxString SocketData::getMessage() {

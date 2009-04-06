@@ -86,7 +86,6 @@ void ContactList::unserialize(wxString list)
  */
 void ContactList::add(wxString ip, wxString nickname)
 {
-    std::cout << "ContactList:add add to contact-list " << ip.mb_str() << "   " << nickname.mb_str() << std::endl;
     /* falls ip noch nicht in der liste, fuege buddy ein */
     if ( ! inList(ip) )
     {

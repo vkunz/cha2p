@@ -6,6 +6,7 @@
 
 #include "GenerateOutput.h"
 
+#include "Configuration.h"
 #include "ContactList.h"
 #include "enum.h"
 #include "socketServer.h"

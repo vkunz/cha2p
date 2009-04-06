@@ -95,26 +95,29 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
 
             // read the size
             unsigned int len;
-            sock->Read(&len, sizeof(int));
+            sock->Read(&len, 4);
+            len = ntohl(len);
+
+            std::cout << sock->LastCount() << std::endl;
 
             // Read the data
             char* buf = new char[len];
             sock->Read(buf, len);
-            data->setMessage(wxString::FromAscii(buf));
-            delete[] buf;
-
-            /*std::cout << "-----------------------------------" << std::endl;
-            std::cout << "Protokoll: " << (unsigned int) *data->getComProtocol() << std::endl;
-            std::cout << "Laenge: " << len << std::endl;
-            std::cout << "Message: " << data->getMessage().mb_str() << std::endl;
-            std::cout << "-----------------------------------" << std::endl;*/
+            data->setMessage(wxString::From8BitData(buf));
 
             // get client ip
             wxIPV4address addr;
             sock->GetPeer(addr);
             wxString ip = addr.IPAddress();
 
-            //std::cout << "Client-IP: " << ip.mb_str() << std::endl;
+            std::cout << "----------SERVER-SOCKET------------" << std::endl;
+            std::cout << "Protokoll: " << (int) *data->getComProtocol() << std::endl;
+            std::cout << "Laenge: " << len << std::endl;
+            std::cout << "Message: " << buf << std::endl;
+            std::cout << "Client-IP: " << ip.mb_str() << std::endl;
+            std::cout << "-----------------------------------" << std::endl;
+
+            delete[] buf;
 
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
