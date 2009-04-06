@@ -63,7 +63,6 @@ void EvaluateInput::requestContacts(MessageEvent& message) {
  * Verarbeitung des Eintreffens einer fremden Kontaktliste und Aufnahme in die eigene
  */
 void EvaluateInput::sendContacts(SocketData* data) {
-    std::cout << "Eval:SendContacts: received list: " << data->getMessage().mb_str() << std::endl;
     ContactList* list = ContactList::getInstance();
     list->unserialize(data->getMessage());
 }

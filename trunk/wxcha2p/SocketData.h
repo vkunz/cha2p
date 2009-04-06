@@ -11,7 +11,7 @@ public:
     void setMessage(wxString message);
 
     unsigned char* getComProtocol();
-    unsigned int* getNumBytes();
+    unsigned int getNumBytes();
     wxString getMessage();
 
 private:

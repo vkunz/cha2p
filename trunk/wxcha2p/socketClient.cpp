@@ -64,7 +64,6 @@ void SocketClient::OnSocketEvent(wxSocketEvent& event) {
  */
 void SocketClient::OpenConnection(wxString hostname, int port) {
   wxIPV4address addr;
-
   addr.Hostname(hostname);
   addr.Service(port);
 
@@ -76,19 +75,29 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
     m_sock->Close();
   }
 }
-
+#include <iostream>
 /*
  * Sendet eine übergegebene Nachricht zum Server
  * Momentan werden hier auch noch Protokoll-Aufgaben mit übernommen
  */
 void SocketClient::SendMessage(SocketData* output) {
+    m_sock->SetFlags(wxSOCKET_WAITALL);
+
     // send communication protocoll
     m_sock->Write(output->getComProtocol(), 1);
-    // send message-length
-    m_sock->Write(output->getNumBytes(), sizeof(int));
-    // send message
-    m_sock->Write(output->getMessage().mb_str(), *output->getNumBytes());
 
+    // send message-length
+    unsigned int len = output->getNumBytes();
+    len = htonl(len);
+    m_sock->Write(&len, 4);
+
+    char* buf = new char[output->getNumBytes()];
+    strcpy(buf, (const char*)output->getMessage().mb_str(wxConvUTF8));
+
+    // send message
+    m_sock->Write(buf, output->getNumBytes());
+
+    delete[] buf;
     delete output;
 }
 
