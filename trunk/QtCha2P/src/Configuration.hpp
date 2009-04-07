@@ -11,6 +11,12 @@ namespace QtCha2P
 		// pointer to instance
 		static Configuration* m_instance;
 
+		// own nickname
+		QString m_nickName;
+
+		// own ipAddress
+		QHostAddress m_ipAddress;
+
 	protected:
 		// ctor
 		Configuration();
@@ -32,6 +38,12 @@ namespace QtCha2P
 
 		// read config file and store its data
 		void readConfigFile(QString filename);
+
+		// return own nicknName
+		const QString getNickName();
+
+		// return own ipAddress
+		const QHostController getIpAddress();
 
 	}; // class Configuration
 } // namespace QtCha2P

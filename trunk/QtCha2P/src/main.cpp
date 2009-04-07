@@ -2,7 +2,6 @@
 #include <QtGui/QApplication>
 
 #include "MainController.hpp"
-#include "BuddyListFrame.hpp"
 
 int main(int argc, char *argv[])
 {

@@ -67,7 +67,7 @@ namespace QtCha2P
 		QDataStream datastream(&array, QIODevice::WriteOnly);
 		
 		// add message length as unsigned char
-		datastream << static_cast<unsigned char>(message.size());
+		datastream << static_cast<unsigned int>(message.size());
 		
 		// add message to the ByteArray
 		datastream << message;
