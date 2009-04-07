@@ -110,9 +110,6 @@ namespace QtCha2P
 		// send requestcontactlist flag
 		QByteArray array = m_protocol->generateRequestContacts();
 
-		// generat hostaddress
-		QHostAddress address(host);
-
 		// send data
 		m_dispatcher->send(address, m_basePort, array);
 

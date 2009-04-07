@@ -31,7 +31,7 @@ namespace QtCha2P
 			unsigned char m_protocolBits;
 
 			// unsigned char to store the message-length
-			unsigned char m_messageLength;
+			unsigned int m_messageLength;
 
 			// QString to store the message
 			QString m_Message;

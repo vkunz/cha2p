@@ -3,7 +3,6 @@
 
 namespace QtCha2P
 {
-
 	// static initialization
 	Configuration* Configuration::m_instance = 0;
 
@@ -34,5 +33,14 @@ namespace QtCha2P
 	{
 	}
 
+	const QString Configuration::getNickName()
+	{
+		return m_nickName;
+	}
+
+	const QHostAddress Configuration::getIpAddress()
+	{
+		return m_ipAddress;
+	}
 } // namespace QtCha2P
 
