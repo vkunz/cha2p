@@ -60,19 +60,37 @@ namespace QtCha2P
 	// generates output of an given protocolrequst with given message
 	QByteArray Cha2PProtocol::generateOutput(Cha2PProtocol::ProtocolBits bits, QString message)
 	{
-		// QByteArray to store the data
-		QByteArray array = generateOutput(bits);
-		
+		// QByteArray to store the whole protocol-frame
+		QByteArray protocolFrame;
+
+		// get protocol bit into array
+		QByteArray protocolBit = generateOutput(bits);
+
+		// QByteArray to store size
+		QByteArray protocolSize;
+
+		// QByteArray to store message
+		QByteArray protocolMessage;
+
 		// QDataStream to convert into datastream
-		QDataStream datastream(&array, QIODevice::WriteOnly);
-		
+		QDataStream sizestream(&protocolSize, QIODevice::ReadWrite);
+
 		// add message length as unsigned char
-		datastream << static_cast<unsigned int>(message.size());
+		sizestream << static_cast<unsigned int>(message.size());
+
+		// Bytearray of the message
+		protocolMessage = message.toAscii();
+
+		// add bit to frame
+		protocolFrame += protocolBit;
+
+		// add size to frame
+		protocolFrame += protocolSize;
 		
-		// add message to the ByteArray
-		datastream << message;
-		
-		return array;
+		// add message to frame
+		protocolFrame += protocolMessage;
+
+		return protocolFrame;
 	}
 	
 	// generates a requestContactList byte

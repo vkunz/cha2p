@@ -34,16 +34,16 @@ namespace QtCha2P
 	{
 		// start thread
 		QThread::start();
-		
+
 		// connect to host
 		m_socket->connectToHost(m_address, m_port, QIODevice::WriteOnly);
-		
+
 		// try to connect, timeout: 10 ms
 		if(m_socket->waitForConnected(10000))
 		{
 			// write data
-			m_socket->write(m_data.data());
-		
+			m_socket->write(m_data);
+
 			// data written, close connection
 			m_socket->close();
 		}

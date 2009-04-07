@@ -57,17 +57,20 @@ namespace QtCha2P
 		unsigned int length;
 		QString message;
 
+		// data stream to extract protbit and length
 		QDataStream stream(&data, QIODevice::ReadWrite);
 
-		stream >> proto;
-		stream >> length;
-		stream >> message;
+		// get message and store into bytearray
+		QByteArray tmp = data.right(data.length() - (sizeof(unsigned char) + sizeof(unsigned int)));
 
-		qDebug() << "PeerAddress: " << peer.toString();
-		qDebug() << "ArraySize: " << data.size();
-		qDebug() << "Protocol: " << proto;
-		qDebug() << "Length: " << length;
-		qDebug() << "Message: " << message;
+		// extract protbit
+		stream >> proto;
+
+		// extract length
+		stream >> length;
+
+		// get message
+		message = tmp;
 	}
 
 	// executed when new channel text arrives
@@ -104,16 +107,16 @@ namespace QtCha2P
 
 		// get config object
 		QtCha2P::Configuration* config = QtCha2P::Configuration::getInstance();
-		
+
 		// set own nickname
 		config->setNickName(nick);
-		
+
 		// send requestcontactlist flag
 		QByteArray array = m_protocol->generateRequestContacts(host);
-		
+
 		// convert string to QHostAddress
 		QHostAddress address(host);
-		
+
 		// send data
 		m_dispatcher->send(address, m_basePort, array);
 
@@ -122,7 +125,7 @@ namespace QtCha2P
 
 		// init the buddylistframecontroller
 		m_buddyListFrameController = new BuddyListFrameController();
-		
+
 		// connect signal newAddPrivateTab with slot: newPrivatetab
 		connect(m_buddyListFrameController, SIGNAL(addNewPrivateTab(QString)), this, SLOT(newPrivateTab(QString)));
 	}
