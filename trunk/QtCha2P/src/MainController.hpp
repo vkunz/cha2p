@@ -44,12 +44,6 @@ namespace QtCha2P
 
 			// cha2p-protocol
 			Cha2PProtocol* m_protocol;
-			
-			// string to store own nickname
-			QString m_nickname;
-			
-			// QHostAddress to store own address
-			QHostAddress m_address;
 
 		public:
 			// ctor

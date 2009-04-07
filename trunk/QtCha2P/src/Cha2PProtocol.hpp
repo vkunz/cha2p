@@ -53,7 +53,7 @@ namespace QtCha2P
 			~Cha2PProtocol();
 
 			// generates a requestContactList byte
-			QByteArray generateRequestContacts();
+			QByteArray generateRequestContacts(QString ip);
 
 			// generates a replyContactList byte
 			QByteArray generateSendContacts(QString contacts);

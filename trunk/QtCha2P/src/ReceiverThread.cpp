@@ -19,8 +19,6 @@ namespace QtCha2P
 
 		// connect socket-readyRead-signal with readSocketData
 		connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocketData()));
-		
-		qDebug() << "ReceiverThread started";
 	}
 
 	// dtor

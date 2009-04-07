@@ -4,6 +4,7 @@
 
 #include "BuddyList.hpp"
 #include "Cha2PProtocol.hpp"
+#include "Configuration.hpp"
 #include "ConnectWindow.hpp"
 #include "MainController.hpp"
 #include "MessageFrameController.hpp"
@@ -53,7 +54,7 @@ namespace QtCha2P
 	void MainController::newIncMessRecv(QHostAddress peer, QByteArray data)
 	{
 		unsigned char proto;
-		unsigned char length;
+		unsigned int length;
 		QString message;
 
 		QDataStream stream(&data, QIODevice::ReadWrite);
@@ -62,11 +63,11 @@ namespace QtCha2P
 		stream >> length;
 		stream >> message;
 
-		qDebug() << "Test!";
-		qDebug() << "PeerAddress: " << peer;
+		qDebug() << "PeerAddress: " << peer.toString();
+		qDebug() << "ArraySize: " << data.size();
 		qDebug() << "Protocol: " << proto;
 		qDebug() << "Length: " << length;
-		qDebug() << "Message: " << message;		
+		qDebug() << "Message: " << message;
 	}
 
 	// executed when new channel text arrives
@@ -101,15 +102,18 @@ namespace QtCha2P
 		// close the connectwindow
 		m_connectWindow->close();
 
-		// set nickname
-		m_nickname = nick;
+		// get config object
+		QtCha2P::Configuration* config = QtCha2P::Configuration::getInstance();
 		
-		// new socket
-		QTcpSocket socket;
+		// set own nickname
+		config->setNickName(nick);
 		
 		// send requestcontactlist flag
-		QByteArray array = m_protocol->generateRequestContacts();
-
+		QByteArray array = m_protocol->generateRequestContacts(host);
+		
+		// convert string to QHostAddress
+		QHostAddress address(host);
+		
 		// send data
 		m_dispatcher->send(address, m_basePort, array);
 
