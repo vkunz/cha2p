@@ -1,7 +1,8 @@
 #ifndef _QTCHA2P_CONFIGURATION_HPP_
 #define _QTCHA2P_CONFIGURATION_HPP_
 
-#include <QString>
+#include <QtCore/QString>
+#include <QtNetwork/QHostAddress>
 
 namespace QtCha2P
 {
@@ -39,11 +40,17 @@ namespace QtCha2P
 		// read config file and store its data
 		void readConfigFile(QString filename);
 
+		// return own ipAddress
+		const QHostAddress getIpAddress();
+
 		// return own nicknName
 		const QString getNickName();
 
-		// return own ipAddress
-		const QHostController getIpAddress();
+		// set own ipAddress
+		void setIpAddress(const QHostAddress ipAdress);
+
+		// set own nickName
+		void setNickName(const QString nick);
 
 	}; // class Configuration
 } // namespace QtCha2P

@@ -76,10 +76,10 @@ namespace QtCha2P
 	}
 	
 	// generates a requestContactList byte
-	QByteArray Cha2PProtocol::generateRequestContacts()
+	QByteArray Cha2PProtocol::generateRequestContacts(QString ip)
 	{
 		// generate
-		return generateOutput(REQUESTCONTACTS);
+		return generateOutput(REQUESTCONTACTS, ip);
 	}
 	
 	// generates a replyContactList byte

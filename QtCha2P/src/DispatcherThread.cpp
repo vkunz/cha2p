@@ -12,7 +12,6 @@ namespace QtCha2P
 	// ctor
 	DispatcherThread::DispatcherThread()
 	{
-		qDebug() << "DispatcherThread started!";
 	}
 			
 	// dtor
@@ -25,15 +24,11 @@ namespace QtCha2P
 	{
 		// new senderthread
 		//m_sender = new SenderThread();
-			
-		qDebug() << "DispatcherThread: send(Buddy, uint, QByteArray)";
 	}
 
 	// send function to whole buddylist
 	void DispatcherThread::send(BuddyList* buddylist, unsigned int port, QByteArray& data)
 	{
-
-		qDebug() << "DispatcherThread: send(BuddyList, uint, QByteArray)";
 	}
 	
 	// send function to send to one host
@@ -45,7 +40,7 @@ namespace QtCha2P
 		// start thread
 		m_sender->start();
 		
-		qDebug() << "DispatcherThread: send(QHostAddress, uint, QByteArray)";	
+		qDebug() << "Host: " << host.toString() << "Port: " << port << "Data: " << data;
 	}
 } // namespace QtCha2P
 

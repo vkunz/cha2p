@@ -38,10 +38,14 @@ namespace QtCha2P
 		// connect to host
 		m_socket->connectToHost(m_address, m_port, QIODevice::WriteOnly);
 		
-		// write data
-		m_socket->write(m_data.data());
+		// try to connect, timeout: 10 ms
+		if(m_socket->waitForConnected(10000))
+		{
+			// write data
+			m_socket->write(m_data.data());
 		
-		// data written, close connection
-		m_socket->close();
+			// data written, close connection
+			m_socket->close();
+		}
 	}
 } // namespace QtCha2P

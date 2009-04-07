@@ -18,8 +18,6 @@ namespace QtCha2P
 
 		// start listening on given port, accespt every host
 		m_server->listen(QHostAddress::Any, port);
-		
-		qDebug() << "ListenerThread started";
 	}
 
 	// dtor
@@ -37,8 +35,6 @@ namespace QtCha2P
 
 		// start the new thread
 		receiver->start();
-		
-		qDebug() << m_server->serverAddress();
 		
 		// connect ReceiverThread Signal: newDataReceived with Signal newDataReceived
 		connect(receiver, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)), this, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)));
