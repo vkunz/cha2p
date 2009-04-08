@@ -128,6 +128,9 @@ namespace QtCha2P
 
 		// connect signal newAddPrivateTab with slot: newPrivatetab
 		connect(m_buddyListFrameController, SIGNAL(addNewPrivateTab(QString)), this, SLOT(newPrivateTab(QString)));
+		
+		// add myself to BuddyList
+		m_buddyListFrameController->addBuddy(config->getNickName());
 	}
 
 	// signal: new incoming channel message

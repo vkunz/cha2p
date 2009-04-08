@@ -39,8 +39,6 @@ namespace QtCha2P
 		
 		// start thread
 		m_sender->start();
-		
-		qDebug() << "Host: " << host.toString() << "Port: " << port << "Data: " << data;
 	}
 } // namespace QtCha2P
 
