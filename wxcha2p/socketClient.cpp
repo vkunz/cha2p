@@ -6,7 +6,14 @@
 #include "socketClient.h"
 #include "MessageEvent.h"
 
+#include <iostream>
 #include <wx/string.h>
+
+#if defined(__WXLINUX__)
+
+#include <netinet/in.h>
+
+#endif
 
 const long SocketClient::SOCKET_ID = wxNewId();
 
@@ -75,7 +82,7 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
     m_sock->Close();
   }
 }
-#include <iostream>
+
 /*
  * Sendet eine übergegebene Nachricht zum Server
  * Momentan werden hier auch noch Protokoll-Aufgaben mit übernommen

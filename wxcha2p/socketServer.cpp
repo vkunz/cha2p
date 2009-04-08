@@ -9,6 +9,12 @@
 #include "SocketData.h"
 #include "enum.h"
 
+#if defined(__WXLINUX__)
+
+#include <netinet/in.h>
+
+#endif
+
 SocketServer* SocketServer::pinstance = 0;
 const long SocketServer::SERVER_ID = wxNewId();
 const long SocketServer::SOCKET_ID = wxNewId();
