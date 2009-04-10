@@ -17,7 +17,7 @@ GenerateOutput* GenerateOutput::pinstance = 0;
  * Protected Constructor fuer Singleton-Klasse
  */
 GenerateOutput::GenerateOutput() {
-    m_sender = new Sender;
+    m_dispatcher = NULL;
 }
 
 /*
@@ -25,11 +25,18 @@ GenerateOutput::GenerateOutput() {
  */
 GenerateOutput* GenerateOutput::getInstance() {
     if (pinstance == 0) {
-		pinstance = new GenerateOutput;
+		pinstance = new GenerateOutput();
 	}
 	return pinstance;
 }
-#include <iostream>
+
+/*
+ * Speichert einen Pointer zur verwendeten Dispatcher-Instanz ab
+ */
+void GenerateOutput::setDispatcher(Dispatcher* dis) {
+    m_dispatcher = dis;
+}
+
 /*
  * Erstellt die Anfrage um von einem fremden Client die Kontaktliste abzufragen
  */
@@ -38,7 +45,7 @@ void GenerateOutput::requestContacts(wxString hostname, int port) {
     output->setComProtocol(REQUESTCONTACTS);
     output->setMessage(hostname);
 
-    m_sender->SendMessage(hostname, port, output);
+    m_dispatcher->sendToOne(hostname, port, output);
 }
 
 /*
@@ -55,7 +62,7 @@ void GenerateOutput::sendContacts(wxString hostname, int port) {
     output->setMessage(list);
 
     // answer client-request
-    m_sender->SendMessage(hostname, port, output);
+    m_dispatcher->sendToOne(hostname, port, output);
 }
 
 /*
@@ -63,20 +70,12 @@ void GenerateOutput::sendContacts(wxString hostname, int port) {
  */
 void GenerateOutput::SendChannelMessage(wxString message) {
     SocketData* output = new SocketData;
-    ContactList* list = ContactList::getInstance();
 
     // generate Message
     output->setComProtocol(CHANNELMESSAGE);
     output->setMessage(message);
 
-    std::list<Buddy*>::iterator it;
-
-    for(it = list->getBuddyList()->begin(); it != list->getBuddyList()->end(); it++) {
-        m_sender->SendMessage((*it)->m_ip, 3000, output, false);
-        //break;
-    }
-
-    //m_sender->SendMessage(wxT("localhost"), 3000, output, false);
+    m_dispatcher->sendToAll(output);
 }
 
 /*
@@ -85,10 +84,9 @@ void GenerateOutput::SendChannelMessage(wxString message) {
 void GenerateOutput::sayHello() {
     SocketData* output = new SocketData;
     Configuration* config = Configuration::getInstance();
-    ContactList* contList = ContactList::getInstance();
 
     output->setComProtocol(HELLO);
     output->setMessage(config->getNickname());
 
-    m_sender->SendMessage(wxT("localhost"), 3000, output, false);
+    m_dispatcher->sendToAll(output);
 }

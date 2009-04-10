@@ -8,6 +8,12 @@ SocketData::SocketData() {
     m_numBytes = 0;
 }
 
+SocketData::SocketData(const SocketData& data) {
+    m_comProtocol = data.m_comProtocol;
+    m_numBytes = data.m_numBytes;
+    m_message = data.m_message;
+}
+
 void SocketData::setComProtocol(unsigned char com) {
     m_comProtocol = com;
 }

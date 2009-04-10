@@ -10,6 +10,7 @@
 #include "wxcha2pApp.h"
 
 #include "ConnectDialog.h"
+#include "Dispatcher.h"
 
 //(*AppHeaders
 #include "wxcha2pMain.h"
@@ -40,11 +41,15 @@ bool wxcha2pApp::OnInit()
 
     m_config = Configuration::getInstance();
 
-    // Server-Socket erstellen
+    // create Server-Socket
     m_server = new SocketServer(3000);
 
     m_genOutput = GenerateOutput::getInstance();
     m_evalInput = new EvaluateInput;
+
+    //create Dispatcher and tell GenerateOutput
+    Dispatcher* dis = new Dispatcher();
+    m_genOutput->setDispatcher(dis);
 
     return wxsOK;
 }

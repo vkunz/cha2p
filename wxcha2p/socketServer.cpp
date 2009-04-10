@@ -73,10 +73,11 @@ void SocketServer::OnServerEvent(wxSocketEvent& event) {
 void SocketServer::OnSocketEvent(wxSocketEvent& event) {
     wxSocketBase* sock = event.GetSocket();
     // Now we process the event
-    switch(event.GetSocketEvent())
-    {
-        case wxSOCKET_INPUT:
-        {
+    switch(event.GetSocketEvent()) {
+        case wxSOCKET_INPUT: {
+            break;
+        }
+        case wxSOCKET_LOST: {
             // We disable input events, so that it doesn't trigger
             // wxSocketEvent again.
             sock->SetNotify(wxSOCKET_LOST_FLAG);
@@ -103,7 +104,7 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             sock->GetPeer(addr);
             wxString ip = addr.IPAddress();
 
-            std::cout << "----------SERVER-SOCKET------------" << std::endl;
+            std::cout << "-------------INCOMING--------------" << std::endl;
             std::cout << "Protokoll: " << (int) *data->getComProtocol() << std::endl;
             std::cout << "Laenge: " << len << std::endl;
             std::cout << "Message: " << buf << std::endl;
@@ -124,11 +125,6 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
 
             sock->Destroy();
-            break;
-        }
-        case wxSOCKET_LOST:
-        {
-            //sock->Destroy();
             break;
         }
         default: ;
