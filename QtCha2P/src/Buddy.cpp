@@ -17,6 +17,15 @@ namespace QtCha2P
 		m_nickname = nickname;
 	}
 	
+	Buddy::Buddy(QHostAddress ipAddress, QString nickname)
+	{
+		// set ipaddress
+		m_ipAddress = ipAddress;
+		
+		// set nickname
+		m_nickname = nickname;
+	}
+	
 	// dtor
 	Buddy::~Buddy()
 	{
@@ -34,7 +43,6 @@ namespace QtCha2P
 		// return host
 		return m_ipAddress;
 	}
-
 	
 	// assign-operator
 	Buddy& Buddy::operator=(const Buddy buddy)
@@ -59,5 +67,13 @@ namespace QtCha2P
 		
 		return ret;
 	}
+	
+	// return Buddy as String
+	QString Buddy::serializeBuddy()
+	{
+		// return 'ip:nickname'
+		return m_ipAddress.toString() + ":" + m_nickname;
+	}
+
 } // namespace QtCha2P
 

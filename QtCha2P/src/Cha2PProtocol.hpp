@@ -3,6 +3,7 @@
 
 #include <QtCore/QByteArray>
 #include <QtCore/QString>
+#include <QtNetwork/QHostAddress>
 
 #include "AbstractProtocol.hpp"
 
@@ -10,6 +11,9 @@ namespace QtCha2P
 {
 	class Cha2PProtocol : public AbstractProtocol
 	{
+		// QtMeta-Object-Compiler tags
+		Q_OBJECT
+
 		private:
 			// enumeration of all protocoll bits
 			enum ProtocolBits
@@ -34,7 +38,7 @@ namespace QtCha2P
 			unsigned int m_messageLength;
 
 			// QString to store the message
-			QString m_Message;
+			QString m_message;
 
 			// stores the baseport this protocol is working on
 			unsigned int m_basePort;
@@ -44,6 +48,11 @@ namespace QtCha2P
 
 			// generates output of an given protocolrequst with given message
 			QByteArray generateOutput(ProtocolBits bits, QString message);
+			
+#if defined(_QTCHA2P_DEBUG_)
+			void debug(bool inc, QHostAddress host = QHostAddress::Null);
+#endif
+
 
 		public:
 			// ctor
@@ -51,6 +60,9 @@ namespace QtCha2P
 
 			// dtor
 			~Cha2PProtocol();
+
+			// analyze incoming protocol Frame
+			void analyzeInput(QHostAddress& host, QByteArray& input);
 
 			// generates a requestContactList byte
 			QByteArray generateRequestContacts(QString ip);
@@ -72,7 +84,25 @@ namespace QtCha2P
 
 			// return baseport
 			unsigned int getBasePort();
+			
+		signals:
+			// signal: protocolbit REQUESTCONTACTS arrived
+			void sendContactsList(QString ownAddress, QHostAddress peer);
 
+			// signal: protocolbit SENDCONTACTS arrived
+			void receivedContactList(QString contacts);
+
+			// signal: protocolbit HELLO arrived
+			void receivedHello(QHostAddress peer, QString nick);
+
+			// signal: protocolbit GOODBYE arrived
+			void receivedGoodBye(QHostAddress peer);
+
+			// signal: protocolbit CHANNELMESSAGE arrived
+			void receivedChannelMessage(QHostAddress peer, QString message);
+
+			// signal: protocolbit PRIVATEMESSAGE arrived
+			void receivedPrivateMessage(QHostAddress peer, QString message);
 	}; // class Cha2PProtocol
 } // namespace QtCha2P
 #endif // _QTCHA2P_CHA2PPROTOCOL_HPP_

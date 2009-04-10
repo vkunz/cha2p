@@ -31,11 +31,35 @@ namespace QtCha2P
 		// start thread
 		m_listener->start();
 
-		// connect Signal: requestContactList(QString, QString) of ConnectWindow with Slot: requestContactList(QString, QString)
-		connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)), this, SLOT(requestContactList(QString, QString)));
+		// connect Signal: requestContactList(QString, QString) of ConnectWindow
+		// with Slot: requestContactList(QString, QString)
+		connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)),
+		this, SLOT(requestContactList(QString, QString)));
 
-		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread with Slot: newIncMessRecv(QHostAddress, QByteArray)
-		connect(m_listener, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)), this, SLOT(newIncMessRecv(QHostAddress, QByteArray)));
+		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread
+		// with Slot: newIncMessRecv(QHostAddress, QByteArray)
+		connect(m_listener, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)),
+		this, SLOT(newIncMessRecv(QHostAddress, QByteArray)));
+		
+		// connect Signal: receivedChannelMessage(QHostAddress, QString) of Cha2PProtocol
+		// with Slot: newIncomingChannelMessage(QHostAddress&, QString&)
+		connect(m_protocol, SIGNAL(receivedChannelMessage(QHostAddress, QString)),
+		this, SLOT(newIncomingChannelMessage(QHostAddress, QString)));
+		
+		// connect Signal: receivedPrivateMessage(QHostAddress, QString) of Cha2PProtocol
+		// with Slot: newIncomingPrivateMessage(QHostAddress&, QString&)
+		connect(m_protocol, SIGNAL(receivedPrivateMessage(QHostAddress, QString)),
+		this, SLOT(newIncomingPrivateMessage(QHostAddress, QString)));
+		
+		// connect Signal: receivedContactList(QString) of Cha2PProtocol
+		// with Slot: receivedContactList(QString)
+		connect(m_protocol, SIGNAL(receivedContactList(QString)),
+		this, SLOT(receivedContactList(QString)));
+
+		// connect Signal: sendContactsList(QString, QHostAddress) of Cha2PProtocol
+		// with Slot: sendContactList(QString, QHostAddress)
+		connect(m_protocol, SIGNAL(sendContactsList(QString, QHostAddress)),
+		this, SLOT(sendContactList(QString, QHostAddress)));
 
 		// show the window
 		m_connectWindow->show();
@@ -49,34 +73,8 @@ namespace QtCha2P
 	// slot: new Data arrived
 	void MainController::newIncMessRecv(QHostAddress peer, QByteArray data)
 	{
-		unsigned char proto;
-		unsigned int length;
-		QString message;
-
-		// data stream to extract protbit and length
-		QDataStream stream(&data, QIODevice::ReadWrite);
-
-		// get message and store into bytearray
-		QByteArray tmp = data.right(data.length() - (sizeof(unsigned char) + sizeof(unsigned int)));
-
-		// extract protbit
-		stream >> proto;
-
-		// extract length
-		stream >> length;
-
-		// get message
-		message = tmp;
-
-#if defined(_QTCHA2P_DEBUG_)
-		qDebug() << "----------INCOMING-----------------";
-		qDebug() << "Protocol: " << proto;
-		qDebug() << "Length: " << length;
-		qDebug() << "Message: " << message;
-		qDebug() << "Client-IP: " << peer.toString();
-		qDebug() << "-----------------------------------";
-#endif
-
+		// proceed to protocol
+		m_protocol->analyzeInput(peer, data);
 	}
 
 	// executed when new channel text arrives
@@ -88,8 +86,11 @@ namespace QtCha2P
 		// generate bytearray
 		array = m_protocol->generateChannelMessage(inputMessage);
 
+		// new dispatcher
+		DispatcherThread* dispatcher = new DispatcherThread();
+
 		// send data to the dispatcherthread
-		m_dispatcher->dispatch(m_buddyList, m_basePort, array);
+		dispatcher->dispatch(m_buddyList, m_basePort, array);
 	}
 
 	// executed when new private text arrives
@@ -101,14 +102,14 @@ namespace QtCha2P
 		// generate bytearray
 		array = m_protocol->generatePrivateMessage(inputMessage);
 
-		// new dispatcherthread
-		m_dispatcher = new DispatcherThread();
+		// new dispatcher
+		DispatcherThread* dispatcher = new DispatcherThread();
 
 		// send data to the dispatcherthread
-		m_dispatcher->dispatch(buddy, m_basePort, array);
+		dispatcher->dispatch(buddy, m_basePort, array);
 	}
 
-	// signal: ConnectWindow connect button pressed
+	// slot: ConnectWindow connect button pressed
 	void MainController::requestContactList(QString host, QString nick)
 	{
 		// close the connectwindow
@@ -126,8 +127,11 @@ namespace QtCha2P
 		// convert string to QHostAddress
 		QHostAddress address(host);
 
+		// new dispatcher
+		DispatcherThread* dispatcher = new DispatcherThread();
+
 		// send data
-		m_dispatcher->dispatch(address, m_basePort, array);
+		dispatcher->dispatch(address, m_basePort, array);
 
 		// init the mainframecontroller
 		m_mesfc = new MessageFrameController();
@@ -136,22 +140,96 @@ namespace QtCha2P
 		m_buddyListFrameController = new BuddyListFrameController();
 
 		// connect signal newAddPrivateTab with slot: newPrivatetab
-		connect(m_buddyListFrameController, SIGNAL(addNewPrivateTab(QString)), this, SLOT(newPrivateTab(QString)));
+		connect(m_buddyListFrameController, SIGNAL(addNewPrivateTab(QString)),
+		this, SLOT(newPrivateTab(QString)));
 		
+		// connect Signal: newChannelMessage(QString) of MessageFrameController with
+		// Slot: newInputChannelMessage(QString)
+		connect(m_mesfc, SIGNAL(newChannelMessage(QString)),
+		this, SLOT(newInputChannelMessage(QString)));
+		
+		// connect Signal: newPrivateMessage(Buddy, QString) of MessageFrameController with
+		// Slot: newInputPrivateMessage(Buddy, QString)
+		connect(m_mesfc, SIGNAL(newPrivateMessage(Buddy, QString)),
+		this, SLOT(newInputPrivateMessage(Buddy, QString)));
+
 		// add myself to BuddyList
 		m_buddyListFrameController->addBuddy(config->getNickName());
 	}
-
-	// signal: new incoming channel message
-	void MainController::newIncomingChannelMessage(QString& message, QHostAddress& sender)
+	
+	// slot: receivedContactList
+	void MainController::receivedContactList(QString contacts)
 	{
-		// todo
+		// import contacts
+		m_buddyList->buildContactList(contacts);
+
+		// sync contact list
+		m_buddyListFrameController->syncContactList(m_buddyList);
 	}
 
-	// signal: new incoming private message
-	void MainController::newIncomingPrivateMessage(QString& message, QHostAddress& sender)
+	// slot: receivedHello
+	void MainController::receivedHello(QHostAddress peer, QString nick)
 	{
-		// todo
+		// add new buddy to buddylist
+		m_buddyList->addBuddy(new Buddy(peer, nick));
+		
+		// add buddy to buddylistframe
+		m_buddyListFrameController->addBuddy(nick);
+	}
+
+	// slot: receivedGoodBye
+	void MainController::receivedGoodBye(QHostAddress peer)
+	{
+		// remove buddy from buddylistframe
+		m_buddyListFrameController->removeBuddy(m_buddyList->getNickname(&peer));
+
+		// remove buddy
+		m_buddyList->removeBuddy(&peer);
+	}
+
+	// slot: sendContactsList
+	void MainController::sendContactList(QString ownAddress, QHostAddress peer)
+	{
+		// QString to store contacts list, including myself
+		QString contacts = "";
+		
+		// get config
+		Configuration* config = Configuration::getInstance();
+
+		// add ownAddress
+		config->setIpAddress(QHostAddress(ownAddress));
+		
+		// get serialized contactlist
+		contacts += m_buddyList->serializeContactList();
+		
+		// add myself to contactlist
+		contacts += Buddy(config->getIpAddress(), config->getNickName()).serializeBuddy();
+		
+		// ByteArray
+		QByteArray array;
+
+		// generate protocolframe
+		array = m_protocol->generateSendContacts(contacts);
+
+		// new dispatcher
+		DispatcherThread* dispatcher = new DispatcherThread();
+
+		// send data
+		dispatcher->dispatch(peer, m_basePort, array);
+	}
+
+	// slot: new incoming channel message
+	void MainController::newIncomingChannelMessage(QHostAddress sender, QString message)
+	{
+		// add ChannelMessage
+		m_mesfc->addChannelMessage(m_buddyList->getBuddy(sender), message);
+	}
+
+	// slot: new incoming private message
+	void MainController::newIncomingPrivateMessage(QHostAddress sender, QString message)
+	{
+		// add PrivateMessage
+		m_mesfc->addChannelMessage(m_buddyList->getBuddy(sender), message);
 	}
 	
 	// slot: new private tab

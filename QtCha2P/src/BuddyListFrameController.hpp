@@ -6,6 +6,7 @@
 #include <QtCore/QString>
 #include <QtGui/QListWidget>
 
+#include "BuddyList.hpp"
 #include "BuddyListFrame.hpp"
 
 namespace QtCha2P
@@ -37,6 +38,9 @@ namespace QtCha2P
 
 			// remove Buddy
 			void removeBuddy(QString nickname);
+			
+			// sync with internal buddylist
+			void syncContactList(BuddyList* list);
 
 		signals:
 			void addNewPrivateTab(QString nickname);
