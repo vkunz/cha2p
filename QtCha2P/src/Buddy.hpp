@@ -28,12 +28,16 @@ namespace QtCha2P
 		virtual ~Buddy();
 		
 		// return nickname
-		QString getNickName();
+		const QString getNickName();
+		
+		// return HostAddress
+		const QHostAddress getHostAddress();
 		
 		// assign-operator
-		Buddy& operator=(Buddy buddy);
+		Buddy& operator=(const Buddy buddy);
 		
-		bool operator==(Buddy buddy);
+		// compare-operator
+		bool operator==(const Buddy buddy);
 
 	}; // class Buddy
 } // namespace QtCha2P

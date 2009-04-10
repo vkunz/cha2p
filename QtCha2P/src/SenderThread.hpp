@@ -25,7 +25,7 @@ namespace QtCha2P
 		QByteArray m_data;
 	public:
 		// ctor
-		SenderThread(QHostAddress& host, unsigned int port, QByteArray& data);
+		SenderThread(const QHostAddress& host, const unsigned int port, const QByteArray& data);
 
 		// dtor
 		~SenderThread();
