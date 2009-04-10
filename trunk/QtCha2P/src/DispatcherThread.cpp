@@ -24,20 +24,36 @@ namespace QtCha2P
 		// start dispatcher
 		QThread::start();
 	}
+	
+	// send data
+	void DispatcherThread::send(QHostAddress& host, unsigned int port, QByteArray& data)
+	{
+		// new senderthread
+		m_sender = new SenderThread(host, port, data);
+		
+		// start sender
+		m_sender->start();
+	}
 
 	// function to send data to buddy
 	void DispatcherThread::dispatch(Buddy& buddy, unsigned int port, QByteArray& data)
 	{
+		// start thread
+		start();
+
 		// host
 		QHostAddress host = buddy.getHostAddress();
 
-		// dispatch
-		dispatch(host, port, data);
+		// send
+		send(host, port, data);
 	}
 
 	// function to send to whole buddylist
 	void DispatcherThread::dispatch(BuddyList* buddylist, unsigned int port, QByteArray& data)
 	{
+		// start thread
+		start();
+
 		// TODO
 	}
 
@@ -47,8 +63,8 @@ namespace QtCha2P
 		// start thread
 		start();
 
-		// new senderthread
-		m_sender = new SenderThread(host, port, data);
+		// send
+		send(host, port, data);
 	}
 } // namespace QtCha2P
 

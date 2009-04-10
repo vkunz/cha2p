@@ -18,18 +18,21 @@ namespace QtCha2P
 			
 			// functions
 			void start();
+			
+			// send data
+			void send(QHostAddress& host, unsigned int port, QByteArray& data);
 
 		public:
 			// ctor
 			DispatcherThread();
 
-			// constructor to send data to a buddy
+			// function to send data to buddy
 			void dispatch(Buddy& buddy, unsigned int port, QByteArray& data);
 
-			// constructor to send to whole buddylist
+			// function to send to whole buddylist
 			void dispatch(BuddyList* buddylist, unsigned int port, QByteArray& data);
 			
-			// constructor to send to one host
+			// function to send to one host
 			void dispatch(QHostAddress& host, unsigned int port, QByteArray& data);
 
 			// dtor
