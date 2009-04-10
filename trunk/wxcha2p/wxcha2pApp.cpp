@@ -41,7 +41,7 @@ bool wxcha2pApp::OnInit()
     m_config = Configuration::getInstance();
 
     // Server-Socket erstellen
-    m_server = SocketServer::getInstance(3000);
+    m_server = new SocketServer(3000);
 
     m_genOutput = GenerateOutput::getInstance();
     m_evalInput = new EvaluateInput;
