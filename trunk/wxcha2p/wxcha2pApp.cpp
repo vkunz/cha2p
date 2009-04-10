@@ -84,10 +84,12 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
             if(dialog.getNickname() != wxT("")) {
                 // save own nickname
                 m_config->setNickname(dialog.getNickname());
-
+            }
+            if(dialog.getAddress() != wxT("...")) {
                 // ask for contacts
                 m_genOutput->requestContacts(dialog.getAddress(), 3000);
             }
+
             break;
         }
         case DISCONNECT:

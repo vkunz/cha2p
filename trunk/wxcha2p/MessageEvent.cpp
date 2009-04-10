@@ -60,6 +60,13 @@ void MessageEvent::setClientIP(wxString ip) {
 }
 
 /*
+ * Setzt die IP des Host-Clients
+ */
+void MessageEvent::setHostIP(wxString ip) {
+    m_HostIP = ip;
+}
+
+/*
  * Liest die Nachricht des Event-Objekts
  */
 wxString MessageEvent::getMessage()
@@ -86,4 +93,11 @@ messageType MessageEvent::getMessageType() {
  */
 wxString MessageEvent::getClientIP() {
     return m_clientIP;
+}
+
+/*
+ * Liest die Host-IP
+ */
+wxString MessageEvent::getHostIP() {
+    return m_HostIP;
 }

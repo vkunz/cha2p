@@ -11,6 +11,7 @@ class MessageEvent : public wxNotifyEvent
 private:
 	wxString m_message;
 	wxString m_clientIP;
+	wxString m_HostIP;
 	messageType m_type;
 	SocketData* m_socketData;
 
@@ -23,11 +24,13 @@ public:
 	void setSocketData(SocketData* data);
 	void setMessageType(messageType type);
 	void setClientIP(wxString ip);
+	void setHostIP(wxString ip);
 
 	wxString getMessage();
 	SocketData* getSocketData();
 	messageType getMessageType();
 	wxString getClientIP();
+	wxString getHostIP();
 
 	DECLARE_DYNAMIC_CLASS(MessageEvent);
 };
