@@ -63,8 +63,13 @@ void EvaluateInput::requestContacts(MessageEvent& message) {
  * Verarbeitung des Eintreffens einer fremden Kontaktliste und Aufnahme in die eigene
  */
 void EvaluateInput::sendContacts(SocketData* data) {
+    // store received contact-list
     ContactList* list = ContactList::getInstance();
     list->unserialize(data->getMessage());
+
+    //initiate say hello
+    GenerateOutput* genOut = GenerateOutput::getInstance();
+    genOut->sayHello();
 }
 
 /*

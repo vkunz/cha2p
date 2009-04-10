@@ -2,13 +2,14 @@
 #define GENERATEOUTPUT_H_INCLUDED
 
 #include <wx/string.h>
+#include "Dispatcher.h"
 #include "MessageEvent.h"
-#include "Sender.h"
 #include "SocketData.h"
 
 class GenerateOutput {
 public:
     static GenerateOutput* getInstance();
+    void setDispatcher(Dispatcher* dis);
     void requestContacts(wxString hostname, int port);
     void sendContacts(wxString hostname, int ip);
     void sayHello();
@@ -17,7 +18,7 @@ protected:
     GenerateOutput();
 private:
     static GenerateOutput* pinstance;
-    Sender* m_sender;
+    Dispatcher* m_dispatcher;
 
 };
 

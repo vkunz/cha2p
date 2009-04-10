@@ -6,6 +6,7 @@
 class SocketData {
 public:
     SocketData();
+    SocketData(const SocketData& data);
 
     void setComProtocol(unsigned char com);
     void setMessage(wxString message);

@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="WindowsDebug">
-				<Option output="../bin/debug/wxcha2p" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin" />
-				<Option object_output="obj/Debug/" />
+				<Option output="..\bin\debug\wxcha2p" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
+				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
@@ -17,10 +17,10 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-D__WXDEBUG__" />
-					<Add directory="$(#wx)/lib/gcc_lib/mswud" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="$(#wx)/lib/gcc_lib/mswud" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="libwxmsw28ud_core.a" />
@@ -30,23 +30,23 @@
 					<Add library="libwxtiffd.a" />
 					<Add library="libwxzlibd.a" />
 					<Add library="libwxbase28ud_net.a" />
-					<Add directory="$(#wx)/lib/gcc_lib" />
+					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
 			<Target title="WindowsRelease">
-				<Option output="../bin/release/wxcha2p" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin" />
-				<Option object_output="obj/Release/" />
+				<Option output="..\bin\release\wxcha2p" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
+				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="$(#wx)/lib/gcc_lib/mswu" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="$(#wx)/lib/gcc_lib/mswu" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -57,13 +57,13 @@
 					<Add library="libwxtiff.a" />
 					<Add library="libwxzlib.a" />
 					<Add library="libwxbase28u_net.a" />
-					<Add directory="$(#wx)/lib/gcc_lib" />
+					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
 			<Target title="LinuxDebug">
 				<Option platforms="Unix;" />
-				<Option output="../bin/debug/wxCha2p" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin" />
+				<Option output="..\bin\debug\wxCha2p" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
@@ -90,8 +90,8 @@
 			</Target>
 			<Target title="LinuxRelease">
 				<Option platforms="Unix;" />
-				<Option output="../bin/release/wxCha2p" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin" />
+				<Option output="..\bin\release\wxCha2p" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectCompilerOptionsRelation="1" />
@@ -105,8 +105,8 @@
 					<Add option="-D__WXGTK__" />
 					<Add option="-D__WXLINUX__" />
 					<Add option="-DwxUSE_UNICODE" />
-					<Add directory="../../../../../usr/include/wx-2.8/" />
-					<Add directory="../../../../../usr/lib/wx/include/gtk2-unicode-debug-2.8/" />
+					<Add directory="..\..\..\..\..\usr\include\wx-2.8\" />
+					<Add directory="..\..\..\..\..\usr\lib\wx\include\gtk2-unicode-debug-2.8\" />
 				</Compiler>
 				<Linker>
 					<Add option="`wx-config --libs`" />
@@ -121,11 +121,11 @@
 			<Add option="-D__GNUWIN32__" />
 			<Add option="-D__WXMSW__" />
 			<Add option="-DwxUSE_UNICODE" />
-			<Add directory="$(#wx)/include" />
-			<Add directory="$(#wx)/contrib/include" />
+			<Add directory="$(#wx)\include" />
+			<Add directory="$(#wx)\contrib\include" />
 		</Compiler>
 		<ResourceCompiler>
-			<Add directory="$(#wx)/include" />
+			<Add directory="$(#wx)\include" />
 		</ResourceCompiler>
 		<Linker>
 			<Add library="libkernel32.a" />
@@ -148,6 +148,8 @@
 		<Unit filename="ConnectDialog.h" />
 		<Unit filename="ContactList.cpp" />
 		<Unit filename="ContactList.h" />
+		<Unit filename="Dispatcher.cpp" />
+		<Unit filename="Dispatcher.h" />
 		<Unit filename="EvaluateInput.cpp" />
 		<Unit filename="EvaluateInput.h" />
 		<Unit filename="GUIEvent.cpp" />
@@ -172,8 +174,8 @@
 		<Unit filename="wxcha2pApp.h" />
 		<Unit filename="wxcha2pMain.cpp" />
 		<Unit filename="wxcha2pMain.h" />
-		<Unit filename="wxsmith/ConnectDialog.wxs" />
-		<Unit filename="wxsmith/wxcha2pframe.wxs" />
+		<Unit filename="wxsmith\ConnectDialog.wxs" />
+		<Unit filename="wxsmith\wxcha2pframe.wxs" />
 		<Extensions>
 			<code_completion />
 			<debugger />
