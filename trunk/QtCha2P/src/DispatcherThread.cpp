@@ -12,32 +12,43 @@ namespace QtCha2P
 	DispatcherThread::DispatcherThread()
 	{
 	}
-			
+
 	// dtor
 	DispatcherThread::~DispatcherThread()
 	{
 	}
-	
-	// send function to one buddy (privatemessage)
-	void DispatcherThread::send(Buddy& buddy, unsigned int port, QByteArray& data)
+
+	// start thread
+	void DispatcherThread::start()
 	{
-		// new senderthread
-		//m_sender = new SenderThread();
+		// start dispatcher
+		QThread::start();
 	}
 
-	// send function to whole buddylist
-	void DispatcherThread::send(BuddyList* buddylist, unsigned int port, QByteArray& data)
+	// function to send data to buddy
+	void DispatcherThread::dispatch(Buddy& buddy, unsigned int port, QByteArray& data)
 	{
+		// host
+		QHostAddress host = buddy.getHostAddress();
+
+		// dispatch
+		dispatch(host, port, data);
 	}
-	
-	// send function to send to one host
-	void DispatcherThread::send(QHostAddress& host, unsigned int port, QByteArray& data)
+
+	// function to send to whole buddylist
+	void DispatcherThread::dispatch(BuddyList* buddylist, unsigned int port, QByteArray& data)
 	{
+		// TODO
+	}
+
+	// function to send to one host
+	void DispatcherThread::dispatch(QHostAddress& host, unsigned int port, QByteArray& data)
+	{
+		// start thread
+		start();
+
 		// new senderthread
 		m_sender = new SenderThread(host, port, data);
-		
-		// start thread
-		m_sender->start();
 	}
 } // namespace QtCha2P
 

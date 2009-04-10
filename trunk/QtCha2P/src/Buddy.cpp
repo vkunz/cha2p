@@ -6,7 +6,7 @@ namespace QtCha2P
 	Buddy::Buddy()
 	{
 	}
-	
+
 	// ctor create from ip and nickname
 	Buddy::Buddy(QString ip, QString nickname)
 	{
@@ -22,13 +22,22 @@ namespace QtCha2P
 	{
 	}
 	
-	QString Buddy::getNickName()
+	const QString Buddy::getNickName()
 	{
+		// return nick
 		return m_nickname;
 	}
 	
+	// return HostAddress
+	const QHostAddress Buddy::getHostAddress()
+	{
+		// return host
+		return m_ipAddress;
+	}
+
+	
 	// assign-operator
-	Buddy& Buddy::operator=(Buddy buddy)
+	Buddy& Buddy::operator=(const Buddy buddy)
 	{
 		// ip address
 		m_ipAddress = buddy.m_ipAddress;
@@ -39,7 +48,7 @@ namespace QtCha2P
 		return *this;
 	}
 	
-	bool Buddy::operator==(Buddy buddy)
+	bool Buddy::operator==(const Buddy buddy)
 	{
 		bool ret = false;
 

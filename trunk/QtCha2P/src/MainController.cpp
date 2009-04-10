@@ -19,9 +19,6 @@ namespace QtCha2P
 		// new loginwindow
 		m_connectWindow = new ConnectWindow();
 
-		// new dispatcherthread
-		m_dispatcher = new DispatcherThread();
-
 		// new protocol
 		m_protocol = new Cha2PProtocol();
 
@@ -70,7 +67,7 @@ namespace QtCha2P
 
 		// get message
 		message = tmp;
-		
+
 #if defined(_QTCHA2P_DEBUG_)
 		qDebug() << "----------INCOMING-----------------";
 		qDebug() << "Protocol: " << proto;
@@ -79,6 +76,7 @@ namespace QtCha2P
 		qDebug() << "Client-IP: " << peer.toString();
 		qDebug() << "-----------------------------------";
 #endif
+
 	}
 
 	// executed when new channel text arrives
@@ -91,7 +89,7 @@ namespace QtCha2P
 		array = m_protocol->generateChannelMessage(inputMessage);
 
 		// send data to the dispatcherthread
-		m_dispatcher->send(m_buddyList, m_basePort, array);
+		m_dispatcher->dispatch(m_buddyList, m_basePort, array);
 	}
 
 	// executed when new private text arrives
@@ -103,8 +101,11 @@ namespace QtCha2P
 		// generate bytearray
 		array = m_protocol->generatePrivateMessage(inputMessage);
 
+		// new dispatcherthread
+		m_dispatcher = new DispatcherThread();
+
 		// send data to the dispatcherthread
-		m_dispatcher->send(buddy, m_basePort, array);
+		m_dispatcher->dispatch(buddy, m_basePort, array);
 	}
 
 	// signal: ConnectWindow connect button pressed
@@ -126,7 +127,7 @@ namespace QtCha2P
 		QHostAddress address(host);
 
 		// send data
-		m_dispatcher->send(address, m_basePort, array);
+		m_dispatcher->dispatch(address, m_basePort, array);
 
 		// init the mainframecontroller
 		m_mesfc = new MessageFrameController();

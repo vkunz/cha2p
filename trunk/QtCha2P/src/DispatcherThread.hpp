@@ -15,22 +15,25 @@ namespace QtCha2P
 		private:
 			// senderthread
 			SenderThread* m_sender;
+			
+			// functions
+			void start();
+
 		public:
 			// ctor
 			DispatcherThread();
 
+			// constructor to send data to a buddy
+			void dispatch(Buddy& buddy, unsigned int port, QByteArray& data);
+
+			// constructor to send to whole buddylist
+			void dispatch(BuddyList* buddylist, unsigned int port, QByteArray& data);
+			
+			// constructor to send to one host
+			void dispatch(QHostAddress& host, unsigned int port, QByteArray& data);
+
 			// dtor
 			~DispatcherThread();
-
-			// send function to one buddy (privatemessage)
-			void send(Buddy& buddy, unsigned int port, QByteArray& data);
-
-			// send function to whole buddylist
-			void send(BuddyList* buddylist, unsigned int port, QByteArray& data);
-			
-			// send function to send to one host
-			void send(QHostAddress& host, unsigned int port, QByteArray& data);
-
 	}; // class DispatcherThread
 } // namespace QtCha2P
 

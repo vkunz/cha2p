@@ -7,7 +7,7 @@
 namespace QtCha2P
 {
 	// ctor
-	SenderThread::SenderThread(QHostAddress& host, unsigned int port, QByteArray& data)
+	SenderThread::SenderThread(const QHostAddress& host,const unsigned int port,const QByteArray& data)
 	{
 		// new socket
 		m_socket = new QTcpSocket();
@@ -27,7 +27,7 @@ namespace QtCha2P
 		QString message;
 
 		// data stream to extract protbit and length
-		QDataStream stream(&data, QIODevice::ReadWrite);
+		QDataStream stream(data);
 
 		// get message and store into bytearray
 		QByteArray tmp = data.right(data.length() - (sizeof(unsigned char) + sizeof(unsigned int)));
