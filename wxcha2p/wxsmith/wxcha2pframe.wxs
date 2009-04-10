@@ -22,6 +22,11 @@
 				<label>&amp;File</label>
 				<object class="wxMenuItem" name="idMenuConnect" variable="MenuItem3" member="yes">
 					<label>Connect</label>
+					<accel>Alt-C</accel>
+				</object>
+				<object class="wxMenuItem" name="idMenuDisconnect" variable="MenuItem4" member="yes">
+					<label>Disconnect</label>
+					<accel>Alt-D</accel>
 				</object>
 				<object class="wxMenuItem" name="idMenuQuit" variable="MenuItem1" member="no">
 					<label>Quit</label>

@@ -36,12 +36,14 @@ class wxcha2pFrame: public wxFrame
         void OnListBox1Select(wxCommandEvent& event);
         //*)
         void OnConnect(wxCommandEvent& event);
+        void OnDisconnect(wxCommandEvent& event);
 
         //(*Identifiers(wxcha2pFrame)
         static const long ID_TEXTCTRL1;
         static const long ID_TEXTCTRL2;
         static const long ID_BUTTON1;
         static const long idMenuConnect;
+        static const long idMenuDisconnect;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;

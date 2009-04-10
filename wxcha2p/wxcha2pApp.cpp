@@ -76,7 +76,7 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
         case DISPLAYMESSAGE:
             Frame->addMessage(event.getText());
             break;
-        case CONNECT:
+        case CONNECT: {
             // ask for server-ip
             ConnectDialog dialog(0);
             dialog.ShowModal();
@@ -87,7 +87,11 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
 
                 // ask for contacts
                 m_genOutput->requestContacts(dialog.getAddress(), 3000);
-                break;
             }
+            break;
+        }
+        case DISCONNECT:
+            m_genOutput->sayGoodbye();
+            break;
     }
 }

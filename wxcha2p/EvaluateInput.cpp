@@ -17,7 +17,7 @@
 void EvaluateInput::evaluate(MessageEvent& event) {
     switch(*event.getSocketData()->getComProtocol()) {
         case CHANNELMESSAGE:
-            channelMessage(event.getSocketData());
+            channelMessage(event);
             break;
         case REQUESTCONTACTS:
             requestContacts(event);
@@ -28,22 +28,23 @@ void EvaluateInput::evaluate(MessageEvent& event) {
         case HELLO:
             sayHello(event);
             break;
+        case GOODBYE:
+            sayGoodbye(event);
+            break;
     }
 }
 
 /*
  * Hier wird ein neues Event erzeugt um der GUI mitzuteilen, dass die neue Nachricht
- * angezeigy     werden soll.
+ * angezeigt     werden soll.
  */
-void EvaluateInput::channelMessage(SocketData* data) {
-    // Send Event to display Text
-    GUIEvent myevent(wxEVT_COMMAND_GUIEvent);
-    myevent.setEventType(DISPLAYMESSAGE);
-    myevent.setText(data->getMessage());
-    myevent.SetEventObject(this);
-    ProcessEvent(myevent);
+void EvaluateInput::channelMessage(MessageEvent& event) {
+    ContactList* contList = ContactList::getInstance();
+
+    wxString msg = contList->getName(event.getClientIP()) + wxT(": ") + event.getSocketData()->getMessage();
+    sendDisplayEvent(msg);
 }
-#include <iostream>
+
 /*
  * Verarbeitung einer Anfrage nach der eigenen Kontaktliste. Veranlassung der Antwort
  * mit dieser Liste
@@ -79,4 +80,32 @@ void EvaluateInput::sayHello(MessageEvent& event) {
     // add ip to contact-list
     ContactList* list = ContactList::getInstance();
     list->add(event.getClientIP(), event.getSocketData()->getMessage());
+
+    //prepare GUI-Text
+    wxString msg = event.getSocketData()->getMessage() + wxT(" connected...");
+    sendDisplayEvent(msg);
+}
+
+/*
+ * Loescht den sendenden Client von der Contaktliste
+ */
+void EvaluateInput::sayGoodbye(MessageEvent& event) {
+    ContactList* list = ContactList::getInstance();
+    list->remove(event.getClientIP());
+
+    //prepare GUI-Text
+    wxString msg = list->getName(event.getClientIP()) + wxT(" disconnected...");
+    sendDisplayEvent(msg);
+}
+
+/*
+ * Sendet ein Event um eine Nachricht in der GUI anzuzeigen
+ */
+void EvaluateInput::sendDisplayEvent(wxString message) {
+    // Send Event to display Text
+    GUIEvent myevent(wxEVT_COMMAND_GUIEvent);
+    myevent.setEventType(DISPLAYMESSAGE);
+    myevent.setText(message);
+    myevent.SetEventObject(this);
+    ProcessEvent(myevent);
 }

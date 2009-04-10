@@ -48,6 +48,7 @@ const long wxcha2pFrame::ID_TEXTCTRL1 = wxNewId();
 const long wxcha2pFrame::ID_TEXTCTRL2 = wxNewId();
 const long wxcha2pFrame::ID_BUTTON1 = wxNewId();
 const long wxcha2pFrame::idMenuConnect = wxNewId();
+const long wxcha2pFrame::idMenuDisconnect = wxNewId();
 const long wxcha2pFrame::idMenuQuit = wxNewId();
 const long wxcha2pFrame::idMenuAbout = wxNewId();
 const long wxcha2pFrame::ID_STATUSBAR1 = wxNewId();
@@ -63,6 +64,7 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     //(*Initialize(wxcha2pFrame)
     wxMenuItem* MenuItem2;
     wxMenuItem* MenuItem1;
+    wxMenuItem* MenuItem4;
     wxMenu* Menu1;
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
@@ -74,8 +76,10 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     Button_Send = new wxButton(this, ID_BUTTON1, _("Send"), wxPoint(352,336), wxSize(48,112), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
-    MenuItem3 = new wxMenuItem(Menu1, idMenuConnect, _("Connect"), wxEmptyString, wxITEM_NORMAL);
+    MenuItem3 = new wxMenuItem(Menu1, idMenuConnect, _("Connect\tAlt-C"), wxEmptyString, wxITEM_NORMAL);
     Menu1->Append(MenuItem3);
+    MenuItem4 = new wxMenuItem(Menu1, idMenuDisconnect, _("Disconnect\tAlt-D"), wxEmptyString, wxITEM_NORMAL);
+    Menu1->Append(MenuItem4);
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     Menu1->Append(MenuItem1);
     MenuBar1->Append(Menu1, _("&File"));
@@ -96,6 +100,7 @@ wxcha2pFrame::wxcha2pFrame(wxWindow* parent,wxWindowID id)
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnAbout);
     //*)
     Connect(idMenuConnect,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnConnect);
+    Connect(idMenuDisconnect,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&wxcha2pFrame::OnDisconnect);
 }
 
 wxcha2pFrame::~wxcha2pFrame()
@@ -143,6 +148,14 @@ void wxcha2pFrame::OnConnect(wxCommandEvent& event) {
     // Event senden
     GUIEvent myevent(wxEVT_COMMAND_GUIEvent);
     myevent.setEventType(CONNECT);
+    myevent.SetEventObject(this);
+    GetEventHandler()->ProcessEvent(myevent);
+}
+
+void wxcha2pFrame::OnDisconnect(wxCommandEvent& event) {
+    // Event senden
+    GUIEvent myevent(wxEVT_COMMAND_GUIEvent);
+    myevent.setEventType(DISCONNECT);
     myevent.SetEventObject(this);
     GetEventHandler()->ProcessEvent(myevent);
 }

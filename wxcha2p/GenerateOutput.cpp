@@ -90,3 +90,12 @@ void GenerateOutput::sayHello() {
 
     m_dispatcher->sendToAll(output);
 }
+/*
+ * sagt allen bekannten Clients Goodbye, um von deren Liste geloescht zu werden
+ */
+void GenerateOutput::sayGoodbye() {
+    SocketData* output = new SocketData;
+    output->setComProtocol(GOODBYE);
+
+    m_dispatcher->sendToAll(output);
+}
