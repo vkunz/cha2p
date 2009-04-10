@@ -92,7 +92,6 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             // We disable input events, so that it doesn't trigger
             // wxSocketEvent again.
             sock->SetNotify(wxSOCKET_LOST_FLAG);
-            sock->SetFlags(wxSOCKET_WAITALL);
 
             SocketData* data = new SocketData;
 
@@ -135,11 +134,13 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
 
             // Enable input events again.
             sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
+
+            sock->Destroy();
             break;
         }
         case wxSOCKET_LOST:
         {
-            sock->Destroy();
+            //sock->Destroy();
             break;
         }
         default: ;

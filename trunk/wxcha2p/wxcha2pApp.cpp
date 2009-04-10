@@ -30,7 +30,7 @@ bool wxcha2pApp::OnInit()
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	wxcha2pFrame* Frame = new wxcha2pFrame(0);
+    	Frame = new wxcha2pFrame(0);
     	Frame->Show();
     	SetTopWindow(Frame);
     }

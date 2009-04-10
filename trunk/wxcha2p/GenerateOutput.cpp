@@ -63,12 +63,20 @@ void GenerateOutput::sendContacts(wxString hostname, int port) {
  */
 void GenerateOutput::SendChannelMessage(wxString message) {
     SocketData* output = new SocketData;
+    ContactList* list = ContactList::getInstance();
 
     // generate Message
     output->setComProtocol(CHANNELMESSAGE);
     output->setMessage(message);
 
-    m_sender->SendMessage(wxT("localhost"), 3000, output, false);
+    std::list<Buddy*>::iterator it;
+
+    for(it = list->getBuddyList()->begin(); it != list->getBuddyList()->end(); it++) {
+        m_sender->SendMessage((*it)->m_ip, 3000, output, false);
+        //break;
+    }
+
+    //m_sender->SendMessage(wxT("localhost"), 3000, output, false);
 }
 
 /*
