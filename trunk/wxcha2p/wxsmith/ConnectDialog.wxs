@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxDialog" name="ConnectDialog">
-		<size>389,104</size>
+		<size>389,131</size>
 		<id_arg>0</id_arg>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="TextCtrl1" member="yes">
 			<pos>80,48</pos>
@@ -42,7 +42,15 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
 			<label>Verbinden</label>
-			<pos>280,48</pos>
+			<pos>288,80</pos>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
+			<label>Nickname:</label>
+			<pos>16,88</pos>
+		</object>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="TextCtrl5" member="yes">
+			<pos>80,84</pos>
+			<size>128,21</size>
 		</object>
 	</object>
 </wxsmith>

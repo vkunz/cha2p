@@ -18,21 +18,24 @@ class ConnectDialog: public wxDialog
 		virtual ~ConnectDialog();
 
 		wxString getAddress();
+		wxString getNickname();
 
-		//(*Declarations(ConnectDialog)
+	protected:
+
+        //(*Declarations(ConnectDialog)
 		wxTextCtrl* TextCtrl4;
 		wxStaticText* StaticText2;
 		wxButton* Button1;
+		wxStaticText* StaticText6;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText3;
 		wxStaticText* StaticText5;
 		wxTextCtrl* TextCtrl2;
 		wxTextCtrl* TextCtrl1;
+		wxTextCtrl* TextCtrl5;
 		wxStaticText* StaticText4;
 		wxTextCtrl* TextCtrl3;
 		//*)
-
-	protected:
 
 		//(*Identifiers(ConnectDialog)
 		static const long ID_TEXTCTRL1;
@@ -45,6 +48,8 @@ class ConnectDialog: public wxDialog
 		static const long ID_STATICTEXT4;
 		static const long ID_STATICTEXT5;
 		static const long ID_BUTTON1;
+		static const long ID_STATICTEXT6;
+		static const long ID_TEXTCTRL5;
 		//*)
 
 	private:
