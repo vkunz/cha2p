@@ -18,9 +18,12 @@ void Sender::SendMessage(wxString hostname, int port, SocketData* output, bool k
     std::cout << "Message: " << output->getMessage().mb_str() << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 
-    m_socket.OpenConnection(hostname, port);
-    m_socket.SendMessage(output);
-    if(!keepAlive) {
-        m_socket.CloseConnection();
+    if (m_socket.OpenConnection(hostname, port)) {
+        m_socket.SendMessage(output);
+        if(!keepAlive) {
+            m_socket.CloseConnection();
+        }
+    } else {
+        std::cout << "Connection timed out" << std::endl;
     }
 }
