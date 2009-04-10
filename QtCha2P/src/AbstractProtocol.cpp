@@ -1,4 +1,3 @@
-
 #include "AbstractProtocol.hpp"
 
 namespace QtCha2P

@@ -1,5 +1,4 @@
 #include <QtCore/QByteArray>
-#include <QtCore/QtGlobal>
 #include <QtCore/QThread>
 
 #include "Buddy.hpp"

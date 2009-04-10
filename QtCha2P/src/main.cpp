@@ -1,4 +1,3 @@
-
 #include <QtGui/QApplication>
 
 #include "MainController.hpp"

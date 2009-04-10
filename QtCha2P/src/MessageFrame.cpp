@@ -1,4 +1,3 @@
-
 #include "MessageFrame.hpp"
 
 namespace QtCha2P

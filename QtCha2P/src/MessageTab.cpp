@@ -1,4 +1,3 @@
-
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
