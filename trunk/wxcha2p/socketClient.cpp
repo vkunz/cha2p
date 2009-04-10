@@ -69,18 +69,22 @@ void SocketClient::OnSocketEvent(wxSocketEvent& event) {
 /*
  * Baut eine Verbindung zum angegebenen Host auf
  */
-void SocketClient::OpenConnection(wxString hostname, int port) {
+bool SocketClient::OpenConnection(wxString hostname, int port) {
   wxIPV4address addr;
   addr.Hostname(hostname);
   addr.Service(port);
 
   m_sock->Connect(addr, false);
 
-  while ( !m_sock->WaitOnConnect(0, 200) ) {}
+  // wait for connect or timeout
+  m_sock->WaitOnConnect(5, 0);
 
   if (! m_sock->IsConnected()) {
     m_sock->Close();
+    return false;
   }
+
+  return true;
 }
 
 /*

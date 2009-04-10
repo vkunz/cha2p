@@ -10,7 +10,7 @@ class SocketClient : private wxEvtHandler{
 public:
     SocketClient();
     ~SocketClient();
-    void OpenConnection(wxString hostname, int port);
+    bool OpenConnection(wxString hostname, int port);
     void SendMessage(SocketData* output);
     void CloseConnection();
 
