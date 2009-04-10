@@ -30,7 +30,7 @@ SocketClient::SocketClient() {
     m_sock = new wxSocketClient();
 
     // set timeout
-    m_sock->SetTimeout(20);
+    m_sock->SetTimeout(10);
 
     // Setup the event handler and subscribe to most events
     m_sock->SetEventHandler(*this, SOCKET_ID);
@@ -88,6 +88,8 @@ void SocketClient::OpenConnection(wxString hostname, int port) {
  * Momentan werden hier auch noch Protokoll-Aufgaben mit übernommen
  */
 void SocketClient::SendMessage(SocketData* output) {
+    while(!m_sock->WaitForWrite(0, 200)) {}
+
     m_sock->SetFlags(wxSOCKET_WAITALL);
 
     // send communication protocoll

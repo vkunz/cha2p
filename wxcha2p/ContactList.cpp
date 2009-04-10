@@ -138,3 +138,10 @@ bool ContactList::inList(wxString ip)
     }
     return false;
 }
+
+/*
+ * Gibt einen Const-Pointer auf die interne Buddy-Liste zurück
+ */
+std::list<Buddy*>* ContactList::getBuddyList() {
+    return &buddy_list;
+}

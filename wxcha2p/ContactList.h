@@ -27,6 +27,7 @@ public:
     void remove(wxString ip);
     bool inList(wxString ip);
     wxString getName(wxString ip);
+    std::list<Buddy*>* getBuddyList();
 protected:
     ContactList();
 private:
