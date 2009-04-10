@@ -13,7 +13,8 @@ enum protocol       {   REQUESTCONTACTS = 1,
                     };
 
 enum guiEventType   {   DISPLAYMESSAGE,
-                        CONNECT
+                        CONNECT,
+                        DISCONNECT
                     };
 
 #endif // ENUM_H_INCLUDED

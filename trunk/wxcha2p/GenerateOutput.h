@@ -13,6 +13,7 @@ public:
     void requestContacts(wxString hostname, int port);
     void sendContacts(wxString hostname, int ip);
     void sayHello();
+    void sayGoodbye();
     void SendChannelMessage(wxString message);
 protected:
     GenerateOutput();

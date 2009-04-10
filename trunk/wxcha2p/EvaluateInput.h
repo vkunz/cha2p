@@ -10,10 +10,13 @@ public:
     void evaluate(MessageEvent& event);
 
 private:
-    void channelMessage(SocketData* data);
+    void channelMessage(MessageEvent& event);
     void requestContacts(MessageEvent& event);
     void sayHello(MessageEvent& event);
+    void sayGoodbye(MessageEvent& event);
     void sendContacts(SocketData* data);
+
+    void sendDisplayEvent(wxString message);
 
 };
 
