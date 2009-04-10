@@ -102,13 +102,17 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             // get client ip
             wxIPV4address addr;
             sock->GetPeer(addr);
-            wxString ip = addr.IPAddress();
+            wxString clientIP = addr.IPAddress();
+
+            // get host ip
+            sock->GetLocal(addr);
+            wxString hostIP = addr.IPAddress();
 
             std::cout << "-------------INCOMING--------------" << std::endl;
             std::cout << "Protokoll: " << (int) *data->getComProtocol() << std::endl;
             std::cout << "Laenge: " << len << std::endl;
             std::cout << "Message: " << buf << std::endl;
-            std::cout << "Client-IP: " << ip.mb_str() << std::endl;
+            std::cout << "Client-IP: " << clientIP.mb_str() << std::endl;
             std::cout << "-----------------------------------" << std::endl;
 
             delete[] buf;
@@ -116,7 +120,8 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
             // Send Event with Message
             MessageEvent myevent(wxEVT_COMMAND_MESSAGE);
             myevent.setSocketData(data);
-            myevent.setClientIP(ip);
+            myevent.setClientIP(clientIP);
+            myevent.setHostIP(hostIP);
             myevent.setMessageType(RECEIVE);
             myevent.SetEventObject(this);
             ProcessEvent(myevent);

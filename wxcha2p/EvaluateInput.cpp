@@ -23,7 +23,7 @@ void EvaluateInput::evaluate(MessageEvent& event) {
             requestContacts(event);
             break;
         case SENDCONTACTS:
-            sendContacts(event.getSocketData());
+            sendContacts(event);
             break;
         case HELLO:
             sayHello(event);
@@ -63,10 +63,14 @@ void EvaluateInput::requestContacts(MessageEvent& message) {
 /*
  * Verarbeitung des Eintreffens einer fremden Kontaktliste und Aufnahme in die eigene
  */
-void EvaluateInput::sendContacts(SocketData* data) {
+void EvaluateInput::sendContacts(MessageEvent& event) {
     // store received contact-list
     ContactList* list = ContactList::getInstance();
-    list->unserialize(data->getMessage());
+    list->unserialize(event.getSocketData()->getMessage());
+
+    // add yourself to contactlist
+    Configuration* config = Configuration::getInstance();
+    list->add(event.getHostIP(), config->getNickname());
 
     //initiate say hello
     GenerateOutput* genOut = GenerateOutput::getInstance();
