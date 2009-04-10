@@ -8,24 +8,19 @@
 
 class SocketServer : private wxEvtHandler {
 public:
-    static SocketServer* getInstance(int port);
+    SocketServer(int port);
     ~SocketServer();
 
 protected:
-    SocketServer(int port);
+
 private:
     void OnServerEvent(wxSocketEvent& event);
     void OnSocketEvent(wxSocketEvent& event);
 
     wxSocketServer* m_server;
 
-    static SocketServer* pinstance;
     static const long SERVER_ID;
     static const long SOCKET_ID;
-
-//    wxMenu         *m_menuFile;  //???????????????????????
-//    wxMenuBar      *m_menuBar;  //?????????????????????
-//    bool            m_busy;  //???????????
 
     DECLARE_EVENT_TABLE();
 };
