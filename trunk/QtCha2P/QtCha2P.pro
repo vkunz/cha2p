@@ -4,14 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += network
+QT += network
 
-CONFIG   += debug_and_release
+CONFIG += debug_and_release
 
 CONFIG(debug, debug|release) {
-	DESTDIR  = "../bin/debug"
+	DESTDIR = "../bin/debug"
+    DEFINES += _QTCHA2P_DEBUG_
 } else {
-	DESTDIR  = "../bin/release"
+	DESTDIR = "../bin/release"
 }
 
 # add a debug console in debug mode on windows
