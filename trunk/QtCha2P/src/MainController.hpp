@@ -33,9 +33,6 @@ namespace QtCha2P
 			// LogInWindow
 			ConnectWindow* m_connectWindow;
 
-			// dispatcherthread
-			DispatcherThread* m_dispatcher;
-
 			// listenerthread
 			ListenerThread* m_listener;
 
@@ -64,16 +61,27 @@ namespace QtCha2P
 
 			// slot: ConnectWindow connect button pressed
 			void requestContactList(QString host, QString nick);
+			
+			// slot: receivedContactList
+			void receivedContactList(QString contacts);
+			
+			// slot: receivedHello
+			void receivedHello(QHostAddress peer, QString nick);
+			
+			// slot: receivedGoodBye
+			void receivedGoodBye(QHostAddress peer);
+			
+			// slot: sendContactList
+			void sendContactList(QString ownAddress, QHostAddress peer);
 
 			// slot: new incoming channel message
-			void newIncomingChannelMessage(QString& message, QHostAddress& sender);
+			void newIncomingChannelMessage(QHostAddress sender, QString message);
 
 			// slot: new incoming private message
-			void newIncomingPrivateMessage(QString& message, QHostAddress& sender);
+			void newIncomingPrivateMessage(QHostAddress sender, QString message);
 			
 			// slot: new private tab
 			void newPrivateTab(QString nickname);
-
 	}; // class MainController
 } // namespace
 

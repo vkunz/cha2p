@@ -46,6 +46,9 @@ namespace QtCha2P
 
 		// send
 		send(host, port, data);
+		
+		// terminate thread
+		quit();
 	}
 
 	// function to send to whole buddylist
@@ -55,6 +58,9 @@ namespace QtCha2P
 		start();
 
 		// TODO
+
+		// terminate thread
+		quit();
 	}
 
 	// function to send to one host
@@ -65,6 +71,9 @@ namespace QtCha2P
 
 		// send
 		send(host, port, data);
+		
+		// terminate thread
+		quit();
 	}
 } // namespace QtCha2P
 

@@ -20,35 +20,6 @@ namespace QtCha2P
 
 		// assign data
 		m_data = data;
-
-#if defined(_QTCHA2P_DEBUG_)
-		unsigned char proto;
-		unsigned int length;
-		QString message;
-
-		// data stream to extract protbit and length
-		QDataStream stream(data);
-
-		// get message and store into bytearray
-		QByteArray tmp = data.right(data.length() - (sizeof(unsigned char) + sizeof(unsigned int)));
-
-		// extract protbit
-		stream >> proto;
-
-		// extract length
-		stream >> length;
-
-		// get message
-		message = tmp;
-
-		qDebug() << "----------OUTGOING-----------------";
-		qDebug() << "Protocol: " << proto;
-		qDebug() << "Length: " << length;
-		qDebug() << "Message: " << message;
-		qDebug() << "Server-IP: " << host.toString();
-		qDebug() << "-----------------------------------";
-#endif
-
 	}
 
 	// dtor

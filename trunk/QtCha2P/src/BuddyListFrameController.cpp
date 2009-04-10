@@ -57,6 +57,24 @@ namespace QtCha2P
 		// remove item
 		m_buddyList->removeItemWidget(m_buddies[nickname]);
 	}
+	
+	// sync with internal buddylist
+	void BuddyListFrameController::syncContactList(BuddyList* list)
+	{
+		// get list
+		std::list<Buddy>* buddylist = list->getBuddyList();
+		
+		// iterator
+		std::list<Buddy>::iterator it;
+		
+		// iterate throught whole list
+		for(it = buddylist->begin(); it != buddylist->end(); it++)
+		{
+			// add entry
+			addBuddy((*it).getNickName());
+		}
+	}
+
 
 	// slot: onItemDoubleClicked(QListWidgetItem*)
 	void BuddyListFrameController::onItemDoubleClicked(QListWidgetItem* item)

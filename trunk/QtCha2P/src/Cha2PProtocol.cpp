@@ -52,6 +52,11 @@ namespace QtCha2P
 				break;
  		}
 
+#if defined(_QTCHA2P_DEBUG_)
+		// extract protobyte
+		m_protocolBits = bits;
+#endif
+
 		return array;
 	}
 
@@ -88,7 +93,70 @@ namespace QtCha2P
 		// add message to frame
 		protocolFrame += protocolMessage;
 
+#if defined(_QTCHA2P_DEBUG_)
+		// set messagesize
+		m_messageLength = message.size();
+		
+		// set message
+		m_message = message;
+		
+		debug(false);
+#endif
 		return protocolFrame;
+	}
+	
+	// analyze incoming protocol Frame
+	void Cha2PProtocol::analyzeInput(QHostAddress& host, QByteArray& input)
+	{
+		// data stream to extract protbit and length
+		QDataStream stream(&input, QIODevice::ReadOnly);
+
+		// get message and store into bytearray
+		QByteArray tmp = input.right(input.length() - (sizeof(unsigned char) + sizeof(unsigned int)));
+
+		// extract protbit
+		stream >> m_protocolBits;
+
+		// extract length
+		stream >> m_messageLength;
+
+		// get message
+		m_message = tmp;
+
+#if defined(_QTCHA2P_DEBUG_)
+		// debug incoming
+		debug(true, host);
+#endif
+
+		// big-fat-switch-case of all protocol bits
+		switch(m_protocolBits)
+		{
+			case REQUESTCONTACTS:
+				// emit signal
+				emit sendContactsList(m_message, host);
+				break;
+			case SENDCONTACTS:
+				// emit signal
+				emit receivedContactList(m_message);
+				break;
+			case HELLO:
+				// emit signal
+				emit receivedHello(host, m_message);
+				break;
+			case GOODBYE:
+				// emit signal
+				emit receivedHello(host, m_message);
+				break;
+			case CHANNELMESSAGE:
+				// emit signal
+				emit receivedChannelMessage(host, m_message);
+				break;
+			case PRIVATEMESSAGE:
+				// emit signal
+				emit receivedPrivateMessage(host, m_message);
+				break;
+ 		}
+		
 	}
 	
 	// generates a requestContactList byte
@@ -137,4 +205,25 @@ namespace QtCha2P
 	{
 		return m_basePort;
 	}
+	
+#if defined(_QTCHA2P_DEBUG_)
+	void Cha2PProtocol::debug(bool inc, QHostAddress host)
+	{
+		// check if incoming or outgoing
+		if(inc)
+		{
+			qDebug() << "----------INCOMING-----------------";
+		}
+		else
+		{
+			qDebug() << "----------OUTGOING-----------------";
+		}
+		
+		qDebug() << "Protocol: " << m_protocolBits;
+		qDebug() << "Length: " << m_messageLength;
+		qDebug() << "Message: " << m_message;
+		qDebug() << "Client-IP: " << host.toString();
+		qDebug() << "-----------------------------------";
+	}
+#endif
 } // namespace QtCha2P

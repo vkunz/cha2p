@@ -23,6 +23,9 @@ namespace QtCha2P
 		
 		// ctor create from ip and nickname
 		Buddy(QString ip, QString nickname);
+		
+		// ctor create from host and nickname
+		Buddy(QHostAddress ipAddress, QString nickname);
 	
 		// dtor
 		virtual ~Buddy();
@@ -38,7 +41,9 @@ namespace QtCha2P
 		
 		// compare-operator
 		bool operator==(const Buddy buddy);
-
+		
+		// return Buddy as String
+		QString serializeBuddy();
 	}; // class Buddy
 } // namespace QtCha2P
 
