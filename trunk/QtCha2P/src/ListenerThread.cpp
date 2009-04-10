@@ -1,4 +1,3 @@
-#include <QtCore/QtGlobal>
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QHostAddress>
 

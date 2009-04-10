@@ -1,4 +1,3 @@
-
 #include "Buddy.hpp"
 
 namespace QtCha2P

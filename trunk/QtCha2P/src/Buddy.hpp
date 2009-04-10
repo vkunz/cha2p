@@ -1,8 +1,8 @@
 #ifndef _QTCHA2P_BUDDY_HPP_
 #define _QTCHA2P_BUDDY_HPP_
 
-#include <QHostAddress>
-#include <QString>
+#include <QtCore/QString>
+#include <QtNetwork/QHostAddress>
 
 namespace QtCha2P
 {

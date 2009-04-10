@@ -1,4 +1,3 @@
-#include <QtDebug>
 #include <QtGui/QListWidget>
 
 #include "BuddyListFrame.hpp"

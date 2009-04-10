@@ -2,7 +2,6 @@
 #define _QTCHA2P_MESSAGEFRAMECONTROLLER_HPP_
 
 #include <map>
-#include <QDebug>
 #include <QtCore/QObject>
 #include <QtGui/QTabWidget>
 

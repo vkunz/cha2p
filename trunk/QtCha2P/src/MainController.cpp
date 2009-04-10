@@ -1,6 +1,5 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QString>
-#include <QtCore/QtGlobal>
 
 #include "BuddyList.hpp"
 #include "Cha2PProtocol.hpp"
@@ -71,6 +70,15 @@ namespace QtCha2P
 
 		// get message
 		message = tmp;
+		
+#if defined(_QTCHA2P_DEBUG_)
+		qDebug() << "----------INCOMING-----------------";
+		qDebug() << "Protocol: " << proto;
+		qDebug() << "Length: " << length;
+		qDebug() << "Message: " << message;
+		qDebug() << "Client-IP: " << peer.toString();
+		qDebug() << "-----------------------------------";
+#endif
 	}
 
 	// executed when new channel text arrives
@@ -113,7 +121,7 @@ namespace QtCha2P
 
 		// send requestcontactlist flag
 		QByteArray array = m_protocol->generateRequestContacts(host);
-
+		
 		// convert string to QHostAddress
 		QHostAddress address(host);
 

@@ -1,9 +1,7 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>
-#include <QDebug>
 #include <QtCore/QIODevice>
 #include <QtCore/QString>
-#include <QtCore/QtGlobal>
 
 #include "Cha2PProtocol.hpp"
 

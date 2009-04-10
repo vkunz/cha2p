@@ -1,4 +1,3 @@
-
 #include "Configuration.hpp"
 
 namespace QtCha2P
