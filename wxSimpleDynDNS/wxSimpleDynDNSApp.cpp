@@ -16,8 +16,8 @@
 #pragma hdrstop
 #endif //__BORLANDC__
 
-#include "wxDynDNSApp.h"
-#include "wxDynDNSMain.h"
+#include "wxSimpleDynDNSApp.h"
+#include "wxSimpleDynDNSMain.h"
 #include "tcpsocket.h"
 #include "Thread.h"
 
@@ -27,9 +27,9 @@
 #include <string>
 using namespace std;
 
-IMPLEMENT_APP(wxDynDNSApp);
+IMPLEMENT_APP(wxSimpleDynDNSApp);
 
-bool wxDynDNSApp::OnInit()
+bool wxSimpleDynDNSApp::OnInit()
 {
     tcpSocket mytcpserver;
     tcpSocket* mycc;
@@ -40,7 +40,7 @@ bool wxDynDNSApp::OnInit()
 
     while (true)
     {
-        cout << "\n\DynDNS is listening on port " << TCP_PORT << endl;
+        cout << "\nDynDNS is listening on port " << TCP_PORT << endl;
         mycc = mytcpserver.acceptclient();
 
         ServerThread* t = new ServerThread(mycc,entry);

@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="wxDynDNS" />
+		<Option title="wxSimpleDynDNS" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -88,10 +88,10 @@
 		</Unit>
 		<Unit filename="tcpsocket.cpp" />
 		<Unit filename="tcpsocket.h" />
-		<Unit filename="wxDynDNSApp.cpp" />
-		<Unit filename="wxDynDNSApp.h" />
-		<Unit filename="wxDynDNSMain.cpp" />
-		<Unit filename="wxDynDNSMain.h" />
+		<Unit filename="wxSimpleDynDNSApp.cpp" />
+		<Unit filename="wxSimpleDynDNSApp.h" />
+		<Unit filename="wxSimpleDynDNSMain.cpp" />
+		<Unit filename="wxSimpleDynDNSMain.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

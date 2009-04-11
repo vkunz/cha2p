@@ -7,20 +7,20 @@
  * License:
  **************************************************************/
 
-#ifndef WXWEBSERVERMAIN_H
-#define WXWEBSERVERMAIN_H
+#ifndef WXSSIMPLEDYNDNSFRAME_H
+#define WXSSIMPLEDYNDNSFRAME_H
 
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
 #endif
 
-#include "wxDynDNSApp.h"
+#include "wxSimpleDynDNSApp.h"
 
-class wxDynDNSFrame: public wxFrame
+class wxSimpleDynDNSFrame: public wxFrame
 {
     public:
-        wxDynDNSFrame(wxFrame *frame, const wxString& title);
-        ~wxDynDNSFrame();
+        wxSimpleDynDNSFrame(wxFrame *frame, const wxString& title);
+        ~wxSimpleDynDNSFrame();
     private:
         enum
         {
@@ -34,4 +34,4 @@ class wxDynDNSFrame: public wxFrame
 };
 
 
-#endif // WXWEBSERVERMAIN_H
+#endif // WXSSIMPLEDYNDNSFRAME_H

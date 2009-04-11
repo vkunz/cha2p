@@ -7,15 +7,15 @@
  * License:
  **************************************************************/
 
-#ifndef WXWEBSERVERAPP_H
-#define WXWEBSERVERAPP_H
+#ifndef WXSIMPLEDYNDNSAPP_H
+#define WXSIMPLEDYNDNSAPP_H
 
 #include <wx/app.h>
 
-class wxDynDNSApp : public wxApp
+class wxSimpleDynDNSApp : public wxApp
 {
     public:
         virtual bool OnInit();
 };
 
-#endif // WXWEBSERVERAPP_H
+#endif // WXSIMPLEDYNDNSAPP_H

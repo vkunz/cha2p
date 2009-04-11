@@ -19,7 +19,4 @@ private:
     string* m_entry;
 };
 
-
-
-
 #endif // THREAD_H_INCLUDED

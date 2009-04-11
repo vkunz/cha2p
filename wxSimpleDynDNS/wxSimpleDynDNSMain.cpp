@@ -15,7 +15,7 @@
 #pragma hdrstop
 #endif //__BORLANDC__
 
-#include "wxDynDNSMain.h"
+#include "wxSimpleDynDNSMain.h"
 
 //helper functions
 enum wxbuildinfoformat {
@@ -45,13 +45,13 @@ wxString wxbuildinfo(wxbuildinfoformat format)
     return wxbuild;
 }
 
-BEGIN_EVENT_TABLE(wxDynDNSFrame, wxFrame)
-    EVT_CLOSE(wxDynDNSFrame::OnClose)
-    EVT_MENU(idMenuQuit, wxDynDNSFrame::OnQuit)
-    EVT_MENU(idMenuAbout, wxDynDNSFrame::OnAbout)
+BEGIN_EVENT_TABLE(wxSimpleDynDNSFrame, wxFrame)
+    EVT_CLOSE(wxSimpleDynDNSFrame::OnClose)
+    EVT_MENU(idMenuQuit, wxSimpleDynDNSFrame::OnQuit)
+    EVT_MENU(idMenuAbout, wxSimpleDynDNSFrame::OnAbout)
 END_EVENT_TABLE()
 
-wxDynDNSFrame::wxDynDNSFrame(wxFrame *frame, const wxString& title)
+wxSimpleDynDNSFrame::wxSimpleDynDNSFrame(wxFrame *frame, const wxString& title)
     : wxFrame(frame, -1, title)
 {
 #if wxUSE_MENUS
@@ -78,21 +78,21 @@ wxDynDNSFrame::wxDynDNSFrame(wxFrame *frame, const wxString& title)
 }
 
 
-wxDynDNSFrame::~wxDynDNSFrame()
+wxSimpleDynDNSFrame::~wxSimpleDynDNSFrame()
 {
 }
 
-void wxDynDNSFrame::OnClose(wxCloseEvent &event)
-{
-    Destroy();
-}
-
-void wxDynDNSFrame::OnQuit(wxCommandEvent &event)
+void wxSimpleDynDNSFrame::OnClose(wxCloseEvent &event)
 {
     Destroy();
 }
 
-void wxDynDNSFrame::OnAbout(wxCommandEvent &event)
+void wxSimpleDynDNSFrame::OnQuit(wxCommandEvent &event)
+{
+    Destroy();
+}
+
+void wxSimpleDynDNSFrame::OnAbout(wxCommandEvent &event)
 {
     wxString msg = wxbuildinfo(long_f);
     wxMessageBox(msg, _("Welcome to..."));
