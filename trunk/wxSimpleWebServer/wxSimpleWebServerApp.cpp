@@ -16,8 +16,8 @@
 #pragma hdrstop
 #endif //__BORLANDC__
 
-#include "wxWebServerApp.h"
-#include "wxWebServerMain.h"
+#include "wxSimpleWebServerApp.h"
+#include "wxSimpleWebServerMain.h"
 #include "tcpsocket.h"
 #include "Thread.h"
 

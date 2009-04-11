@@ -15,7 +15,7 @@
 #pragma hdrstop
 #endif //__BORLANDC__
 
-#include "wxWebServerMain.h"
+#include "wxSimpleWebServerMain.h"
 
 //helper functions
 enum wxbuildinfoformat {
