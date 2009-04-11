@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>wxWebServer build log</title>
+</head>
+<body>
+<tt>
+Build started on: <u>30-03-2009 at 08:46.08</u><br />
+Build ended on: <u>30-03-2009 at 08:46.23</u><p />
+<b>-------------- Build: Debug in wxWebServer ---------------</b><br />
+mingw32-g++.exe -pipe -mthreads -D__GNUWIN32__ -D__WXMSW__ -DwxUSE_UNICODE  -Wall  -g    -IC:\Programme\Codeblocks\wxWidgets-2.8.10\include -IC:\Programme\Codeblocks\wxWidgets-2.8.10\contrib\include -IC:\Programme\Codeblocks\wxWidgets-2.8.10\lib\gcc_lib\mswu  -c H:\Projects\wxWebServer\wxWebServerApp.cpp -o obj\Debug\wxWebServerApp.o<br />
+In file included from H:\Projects\wxWebServer\wxWebServerApp.cpp:20:<br />
+<font color="#0000ff">H:\Projects\wxWebServer\tcpsocket.h:8:1: warning: "_WIN32_WINNT" redefined</font><br />
+In file included from C:/Programme/Codeblocks/wxWidgets-2.8.10/include/wx/msw/app.h:92,<br />
+                 from C:/Programme/Codeblocks/wxWidgets-2.8.10/include/wx/app.h:562,<br />
+                 from H:\Projects\wxWebServer\wxWebServerApp.h:13,<br />
+                 from H:\Projects\wxWebServer\wxWebServerApp.cpp:18:<br />
+<font color="#0000ff">C:/Programme/Codeblocks/wxWidgets-2.8.10/include/wx/msw/wrapwin.h:43:1: warning: this is the location of the previous definition</font><br />
+mingw32-g++.exe -pipe -mthreads -D__GNUWIN32__ -D__WXMSW__ -DwxUSE_UNICODE  -Wall  -g    -IC:\Programme\Codeblocks\wxWidgets-2.8.10\include -IC:\Programme\Codeblocks\wxWidgets-2.8.10\contrib\include -IC:\Programme\Codeblocks\wxWidgets-2.8.10\lib\gcc_lib\mswu  -c H:\Projects\wxWebServer\wxWebServerMain.cpp -o obj\Debug\wxWebServerMain.o<br />
+windres.exe -i H:\Projects\WXWEBS~1\resource.rc -J rc -o obj\Debug\resource.res -O coff -IC:\Programme\Codeblocks\wxWidgets-2.8.10\include -IC:\Programme\Codeblocks\wxWidgets-2.8.10\lib\gcc_lib\mswu<br />
+mingw32-g++.exe -LC:\Programme\Codeblocks\wxWidgets-2.8.10\lib\gcc_lib -LC:\Programme\Codeblocks\wxWidgets-2.8.10\lib\gcc_lib\mswu\wx\msw  -o bin\Debug\wxWebServer.exe obj\Debug\wxWebServerApp.o obj\Debug\wxWebServerMain.o  obj\Debug\resource.res   -lwxmsw28u_core -lwxbase28u -lwxpng -lwxzlib -lkernel32 -luser32 -lgdi32 -lwinspool -lcomdlg32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lcomctl32 -lwsock32 -lodbc32<br />
+obj\Debug\wxWebServerApp.o: In function `_ZN14wxWebServerApp6OnInitEv':<br />
+<font color="#ff0000">H:/Projects/wxWebServer/wxWebServerApp.cpp:30: undefined reference to `tcpSocket::tcpSocket()'</font><br />
+<font color="#ff0000">H:/Projects/wxWebServer/wxWebServerApp.cpp:33: undefined reference to `tcpSocket::openserver(int, int)'</font><br />
+<font color="#ff0000">H:/Projects/wxWebServer/wxWebServerApp.cpp:38: undefined reference to `tcpSocket::acceptclient()'</font><br />
+<font color="#ff0000">H:/Projects/wxWebServer/wxWebServerApp.cpp:40: undefined reference to `ServerThread::ServerThread(tcpSocket*)'</font><br />
+<font color="#ff0000">H:/Projects/wxWebServer/wxWebServerApp.cpp:50: undefined reference to `tcpSocket::~tcpSocket()'</font><br />
+collect2: ld returned 1 exit status<br />
+<font color="#a00000">Process terminated with status 1 (0 minutes, 15 seconds)</font><br />
+<font color="#a00000">5 errors, 2 warnings</font><br />
+</tt>
+</body>
+</html>
