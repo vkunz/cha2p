@@ -2,10 +2,13 @@
 // tcpsocket.h
 //
 
-#ifndef bbbb
-#define bbbb
+#ifndef TCPSOCKET_H
+#define TCPSOCKET_H
 
-#define _WIN32_WINNT 0x0501
+
+#ifndef _WIN32_WINNT
+    #define _WIN32_WINNT 0x0501
+#endif
 
 #include <windows.h>
 #include <stdio.h>
@@ -13,15 +16,12 @@
 #include <sstream>
 #include <string>
 
-
-
 #define SOCKETSTATUS_UNDEFINED -1
 #define SOCKETSTATUS_OPENED 0
 #define SOCKETSTATUS_LISTENSERVER 1
 #define SOCKETSTATUS_CONNECTEDCLIENT 2
 #define SOCKETSTATUS_CLIENTHANDLE 3
 #define SOCKETSTATUS_CLOSED 11
-
 
 class tcpSocket {
 public:
@@ -48,4 +48,4 @@ private:
   int _socketstatus;
 };
 
-#endif // bbbb
+#endif // TCPSOCKET_H

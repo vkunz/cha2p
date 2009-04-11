@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="wxDynDNS" />
+		<Option title="wxSimpleWebServer" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\wxDynDNS" prefix_auto="1" extension_auto="1" />
+				<Option output="..bin\debug\wxSimpleWebServer" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -29,7 +29,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\wxDynDNS" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\release\wxSimpleWebServer" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -88,10 +88,10 @@
 		</Unit>
 		<Unit filename="tcpsocket.cpp" />
 		<Unit filename="tcpsocket.h" />
-		<Unit filename="wxDynDNSApp.cpp" />
-		<Unit filename="wxDynDNSApp.h" />
-		<Unit filename="wxDynDNSMain.cpp" />
-		<Unit filename="wxDynDNSMain.h" />
+		<Unit filename="wxSimpleWebServerApp.cpp" />
+		<Unit filename="wxSimpleWebServerApp.h" />
+		<Unit filename="wxSimpleWebServerMain.cpp" />
+		<Unit filename="wxSimpleWebServerMain.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

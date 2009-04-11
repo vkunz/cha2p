@@ -14,7 +14,7 @@
     #include <wx/wx.h>
 #endif
 
-#include "wxWebServerApp.h"
+#include "wxSimpleWebServerApp.h"
 
 class wxWebServerFrame: public wxFrame
 {
