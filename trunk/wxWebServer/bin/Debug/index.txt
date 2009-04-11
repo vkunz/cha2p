@@ -1,3 +1,0 @@
-Padde war hier! <a href="demo.txt">zur demo</a>
-&nbsp;
-<a href="index.txt">reload</a>
