@@ -1,6 +1,7 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2009-03-16T19:56:58
+# This file is part of the Cha2P Project.
+# This is the project file of QtCha2P-Client
 #
 #-------------------------------------------------
 
