@@ -24,6 +24,8 @@ namespace QtCha2P
 				GOODBYE,						// sign off from actual chat, this is the proper way to sign off
 				CHANNELMESSAGE,					// flag to sign message as ChannelMessage sent to the whole channel
 				PRIVATEMESSAGE,					// flag to sign message as PrivateMessage sent to one contact
+				REQUESTENTRY,					// flag to request the entrypoint of a channel
+				SENDENTRY,						// flag to send entrypoint
 			};
 
 			// protocol consists of 3 parts
