@@ -8,6 +8,8 @@ namespace QtCha2P
 	// ctor
 	Configuration::Configuration()
 	{
+		// set threadcounter to 10 by default
+		m_threads = 10;
 	}
 
 	// dtor
@@ -45,6 +47,13 @@ namespace QtCha2P
 		// return nick
 		return m_nickName;
 	}
+	
+	// return maxthreadcounter
+	unsigned int Configuration::getThreadCounter()
+	{
+		// return counter
+		return m_threads;
+	}
 
 	// set own ipAddress
 	void Configuration::setIpAddress(const QHostAddress ipAddress)
@@ -58,6 +67,13 @@ namespace QtCha2P
 	{
 		// set nickname
 		m_nickName = nick;
+	}
+
+	// set maxthreadcounter
+	void Configuration::setThreadCounter(const unsigned int counter)
+	{
+		// set counter
+		m_threads = counter;
 	}
 } // namespace QtCha2P
 

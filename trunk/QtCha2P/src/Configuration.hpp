@@ -17,6 +17,9 @@ namespace QtCha2P
 
 		// own ipAddress
 		QHostAddress m_ipAddress;
+		
+		// stores threadcounter
+		unsigned int m_threads;
 
 	protected:
 		// ctor
@@ -45,12 +48,18 @@ namespace QtCha2P
 
 		// return own nicknName
 		const QString getNickName();
+		
+		// return maxthreadcounter
+		unsigned int getThreadCounter();
 
 		// set own ipAddress
 		void setIpAddress(const QHostAddress ipAdress);
 
 		// set own nickName
 		void setNickName(const QString nick);
+		
+		// set maxthreadcounter
+		void setThreadCounter(const unsigned int counter);
 
 	}; // class Configuration
 } // namespace QtCha2P

@@ -43,7 +43,7 @@ SOURCES  += src\AbstractProtocol.cpp\
 			src\MessageFrameController.cpp\
 			src\MessageTab.cpp\
 			src\ReceiverThread.cpp\
-			src\SenderThread.cpp
+			src\Sender.cpp
 
 HEADERS  += src\AbstractProtocol.hpp\
 			src\Buddy.hpp\
@@ -60,4 +60,4 @@ HEADERS  += src\AbstractProtocol.hpp\
 			src\MessageFrameController.hpp\
 			src\MessageTab.hpp\
 			src\ReceiverThread.hpp\
-			src\SenderThread.hpp
+			src\Sender.hpp

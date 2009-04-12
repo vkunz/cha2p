@@ -3,22 +3,26 @@
 
 #include <QtCore/QByteArray>
 #include <QtCore/QThread>
+#include <QtCore/QThreadPool>
 
 #include "Buddy.hpp"
 #include "BuddyList.hpp"
-#include "SenderThread.hpp"
+#include "Sender.hpp"
 
 namespace QtCha2P
 {
 	class DispatcherThread : public QThread
 	{
+		// QtMeta-Object-Compiler tags
+		Q_OBJECT
+	
 		private:
-			// senderthread
-			SenderThread* m_sender;
-			
+			// threadpool
+			QThreadPool* m_pool;
+
 			// functions
 			void start();
-			
+
 			// send data
 			void send(QHostAddress& host, unsigned int port, QByteArray& data);
 
@@ -31,7 +35,7 @@ namespace QtCha2P
 
 			// function to send to whole buddylist
 			void dispatch(BuddyList* buddylist, unsigned int port, QByteArray& data);
-			
+
 			// function to send to one host
 			void dispatch(QHostAddress& host, unsigned int port, QByteArray& data);
 

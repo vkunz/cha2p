@@ -2,16 +2,13 @@
 #include <QtCore/QThread>
 #include <QtNetwork/QTcpSocket>
 
-#include "SenderThread.hpp"
+#include "Sender.hpp"
 
 namespace QtCha2P
 {
 	// ctor
-	SenderThread::SenderThread(const QHostAddress& host,const unsigned int port,const QByteArray& data)
+	Sender::Sender(const QHostAddress& host, const unsigned int port, const QByteArray& data)
 	{
-		// new socket
-		m_socket = new QTcpSocket();
-
 		// assign hostaddress
 		m_address = host;
 
@@ -20,19 +17,22 @@ namespace QtCha2P
 
 		// assign data
 		m_data = data;
+		
+		// set autodelete
+		setAutoDelete(true);
 	}
 
 	// dtor
-	SenderThread::~SenderThread()
+	Sender::~Sender()
 	{
 		delete m_socket;
 	}
 	
-	// start thread
-	void SenderThread::start()
+	// run
+	void Sender::run()
 	{
-		// start thread
-		QThread::start();
+		// new socket
+		m_socket = new QTcpSocket();
 
 		// connect to host
 		m_socket->connectToHost(m_address, m_port, QIODevice::WriteOnly);
@@ -42,9 +42,16 @@ namespace QtCha2P
 		{
 			// write data
 			m_socket->write(m_data);
-
+			
+			// check if sent
+			if(m_socket->bytesToWrite() != 0)
+			{
+				// force write
+				m_socket->flush();
+			}
+			
 			// data written, close connection
-			m_socket->close();
+			m_socket->disconnectFromHost();
 		}
 	}
 } // namespace QtCha2P
