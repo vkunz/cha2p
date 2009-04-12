@@ -125,13 +125,12 @@ namespace QtCha2P
 		// prepare message	(timestamp) blanc Nickname: newline message
 		time = QTime::currentTime();
 
-		tmp = "(" + time.toString("hh:mm:ss:") + ") ";
+		tmp = "(" + time.toString("hh:mm:ss") + ") ";
 		tmp += sender.getNickName();
 		tmp += "\n" + message;
 
 		// add message
 		tab->addMessage(tmp);
-
 	}
 } // namespace QtCha2P
 
