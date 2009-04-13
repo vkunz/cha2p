@@ -56,8 +56,11 @@ namespace QtCha2P
 			// slot: input text from an other tab
 			void newInputPrivateMessage(Buddy buddy, QString inputMessage);
 
+			// slot: requestEntry
+			void requestEntry(QString host, QString channel);
+
 			// slot: ConnectWindow connect button pressed
-			void requestContactList(QString host, QString nick);
+			void requestContactList(QString host);
 			
 			// slot: receivedContactList
 			void receivedContactList(QString contacts);

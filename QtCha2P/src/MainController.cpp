@@ -29,25 +29,25 @@ namespace QtCha2P
 		m_listener->start();
 
 		// connect Signal: requestContactList(QString, QString) of ConnectWindow
-		// with Slot: requestContactList(QString, QString)
+		// with Slot: requestEntry(QString, QString)
 		connect(m_connectWindow, SIGNAL(requestContactList(QString, QString)),
-		this, SLOT(requestContactList(QString, QString)));
+		this, SLOT(requestEntry(QString, QString)));
 
 		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread
 		// with Slot: newIncMessRecv(QHostAddress, QByteArray)
 		connect(m_listener, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)),
 		this, SLOT(newIncMessRecv(QHostAddress, QByteArray)));
-		
+
 		// connect Signal: receivedChannelMessage(QHostAddress, QString) of Cha2PProtocol
 		// with Slot: newIncomingChannelMessage(QHostAddress&, QString&)
 		connect(m_protocol, SIGNAL(receivedChannelMessage(QHostAddress, QString)),
 		this, SLOT(newIncomingChannelMessage(QHostAddress, QString)));
-		
+
 		// connect Signal: receivedPrivateMessage(QHostAddress, QString) of Cha2PProtocol
 		// with Slot: newIncomingPrivateMessage(QHostAddress&, QString&)
 		connect(m_protocol, SIGNAL(receivedPrivateMessage(QHostAddress, QString)),
 		this, SLOT(newIncomingPrivateMessage(QHostAddress, QString)));
-		
+
 		// connect Signal: receivedContactList(QString) of Cha2PProtocol
 		// with Slot: receivedContactList(QString)
 		connect(m_protocol, SIGNAL(receivedContactList(QString)),
@@ -57,6 +57,11 @@ namespace QtCha2P
 		// with Slot: sendContactList(QString, QHostAddress)
 		connect(m_protocol, SIGNAL(sendContactsList(QString, QHostAddress)),
 		this, SLOT(sendContactList(QString, QHostAddress)));
+
+		// connect Signal: receivedEntry(QString) of Cha2PProtocol
+		// with Slot: requstContactList(QString)
+		connect(m_protocol, SIGNAL(receivedEntry(QString)),
+		this, SLOT(requestContactList(QString)));
 
 		// show the window
 		m_connectWindow->show();
@@ -123,22 +128,32 @@ namespace QtCha2P
 		dispatcher->dispatch(buddy, m_protocol->getBasePort(), array);
 	}
 
+	// slot: requestEntry
+	void MainController::requestEntry(QString host, QString channel)
+	{
+		// send requestentry flag
+		QByteArray array = m_protocol->generateRequestEntry(channel);
+		
+		// convert string to QHostAddress
+		QHostAddress address(host);
+
+		// new dispatcher
+		DispatcherThread* dispatcher = new DispatcherThread();
+
+		// send data
+		dispatcher->dispatch(address, m_protocol->getEntryPort(), array);
+	}
+	
 	// slot: ConnectWindow connect button pressed
-	void MainController::requestContactList(QString host, QString nick)
+	void MainController::requestContactList(QString host)
 	{
 		// close the connectwindow
 		m_connectWindow->close();
 
-		// get config object
-		QtCha2P::Configuration* config = QtCha2P::Configuration::getInstance();
-
-		// set own nickname
-		config->setNickName(nick);
-
 		// send requestcontactlist flag
 		QByteArray array = m_protocol->generateRequestContacts(host);
-		
-		// convert string to QHostAddress
+
+		// convert string  to QHostAddress
 		QHostAddress address(host);
 
 		// new dispatcher
