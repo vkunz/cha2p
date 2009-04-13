@@ -35,17 +35,21 @@ namespace QtCha2P
 	// add Buddy
 	void BuddyListFrameController::addBuddy(QString nickname)
 	{
-		// new item
-		QListWidgetItem* newItem = new QListWidgetItem();
+		// if not found
+		if(m_buddies.find(nickname) == m_buddies.end())
+		{
+			// new item
+			QListWidgetItem* newItem = new QListWidgetItem();
 
-		// set text
-		newItem->setText(nickname);
+			// set text
+			newItem->setText(nickname);
 
-		// add into map
-		m_buddies.insert(std::pair<QString, QListWidgetItem*>(nickname, newItem));
+			// add into map
+			m_buddies.insert(std::pair<QString, QListWidgetItem*>(nickname, newItem));
 
-		// add item
-		m_buddyList->addItem(nickname);
+			// add item
+			m_buddyList->addItem(nickname);
+		}
 	}
 
 	// remove Buddy
