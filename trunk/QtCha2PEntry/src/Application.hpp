@@ -2,6 +2,7 @@
 #define _QTCHA2PENTRY_APPLICATION_HPP_
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QTimer>
 
 #include "Cha2PProtocol.hpp"
 #include "ListenerThread.hpp"
@@ -19,6 +20,9 @@ namespace QtCha2PEntry
 		
 		// protocol object
 		Cha2PProtocol* m_protocol;
+		
+		// timer to ping entry and fallback
+		QTimer m_timer;
 
 	public:
 		// ctor
@@ -36,6 +40,9 @@ namespace QtCha2PEntry
 			
 			// slot: requst entry arrived
 			void sendEntry(QString message, QHostAddress sender);
+			
+			// slot: timeout
+			void timeOut();
 	}; // class Application
 } // namespace QtCha2PEntry
 

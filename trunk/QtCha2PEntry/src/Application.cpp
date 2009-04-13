@@ -22,6 +22,9 @@ namespace QtCha2PEntry
 		// with Slot: sendEntry(QString, QHostAddress)
 		connect(m_protocol, SIGNAL(sendEntry(QString, QHostAddress)),
 		this, SLOT(sendEntry(QString, QHostAddress)));
+	
+		// connect Signal: timeout () of QTimer with Slot: timeout
+		connect(&m_timer, SIGNAL(timeout()), this, SLOT(timeOut()));
 	}
 
 	// dtor
@@ -32,6 +35,14 @@ namespace QtCha2PEntry
 	int Application::exec()
 	{
 		qDebug() << "Application is listening on port: " << m_protocol->getBasePort() << " for new connections!";
+		
+		// set timer interval to 30 seconds
+		m_timer.setInterval(30000);
+		
+		// start timer
+		m_timer.start();
+		
+		qDebug() << "Timer started!";
 
 		// execute base
 		return QCoreApplication::exec();
@@ -48,5 +59,11 @@ namespace QtCha2PEntry
 	void Application::sendEntry(QString message, QHostAddress host)
 	{
 		
+	}
+	
+	// slot: timeout
+	void Application::timeOut()
+	{
+		qDebug() << "Timeout!";
 	}
 } // namespace QtCha2PEntry
