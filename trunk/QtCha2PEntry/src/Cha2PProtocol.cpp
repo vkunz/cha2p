@@ -5,7 +5,7 @@
 
 #include "Cha2PProtocol.hpp"
 
-namespace QtCha2P
+namespace QtCha2PEntry
 {
 	// ctor
 	Cha2PProtocol::Cha2PProtocol()
@@ -50,12 +50,13 @@ namespace QtCha2P
 			case PRIVATEMESSAGE:
 				datastream << static_cast<unsigned char>(PRIVATEMESSAGE);
 				break;
+			case REQUESTENTRY:
+				datastream << static_cast<unsigned char>(REQUESTENTRY);
+				break;
+			case SENDENTRY:
+				datastream << static_cast<unsigned char>(SENDENTRY);
+				break;
  		}
-
-#if defined(_QTCHA2P_DEBUG_)
-		// extract protobyte
-		m_protocolBits = bits;
-#endif
 
 		return array;
 	}
@@ -93,15 +94,6 @@ namespace QtCha2P
 		// add message to frame
 		protocolFrame += protocolMessage;
 
-#if defined(_QTCHA2P_DEBUG_)
-		// set messagesize
-		m_messageLength = message.size();
-		
-		// set message
-		m_message = message;
-		
-		debug(false);
-#endif
 		return protocolFrame;
 	}
 	
@@ -122,11 +114,6 @@ namespace QtCha2P
 
 		// get message
 		m_message = tmp;
-
-#if defined(_QTCHA2P_DEBUG_)
-		// debug incoming
-		debug(true, host);
-#endif
 
 		// big-fat-switch-case of all protocol bits
 		switch(m_protocolBits)
@@ -154,6 +141,14 @@ namespace QtCha2P
 			case PRIVATEMESSAGE:
 				// emit signal
 				emit receivedPrivateMessage(host, m_message);
+				break;
+			case REQUESTENTRY:
+				// emit signal
+				emit sendEntry(m_message, host);
+				break;
+			case SENDENTRY:
+				// emit signal
+				emit receivedEntry(m_message);
 				break;
  		}
 		
@@ -201,29 +196,22 @@ namespace QtCha2P
 		return generateOutput(PRIVATEMESSAGE, message);
 	}
 	
+	// generate requestentry
+	QByteArray Cha2PProtocol::generateRequestEntry(QString message)
+	{
+		// generate
+		return generateOutput(REQUESTENTRY, message);
+	}
+
+	// generate sendentry
+	QByteArray Cha2PProtocol::generateSendEntry(QString message)
+	{
+		// generate
+		return generateOutput(SENDENTRY, message);
+	}
+	
 	unsigned int Cha2PProtocol::getBasePort()
 	{
 		return m_basePort;
 	}
-	
-#if defined(_QTCHA2P_DEBUG_)
-	void Cha2PProtocol::debug(bool inc, QHostAddress host)
-	{
-		// check if incoming or outgoing
-		if(inc)
-		{
-			qDebug() << "----------INCOMING-----------------";
-		}
-		else
-		{
-			qDebug() << "----------OUTGOING-----------------";
-		}
-		
-		qDebug() << "Protocol: " << m_protocolBits;
-		qDebug() << "Length: " << m_messageLength;
-		qDebug() << "Message: " << m_message;
-		qDebug() << "Client-IP: " << host.toString();
-		qDebug() << "-----------------------------------";
-	}
-#endif
-} // namespace QtCha2P
+} // namespace QtCha2PEntry

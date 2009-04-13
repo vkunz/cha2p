@@ -3,7 +3,7 @@
 
 #include "ReceiverThread.hpp"
 
-namespace QtCha2P
+namespace QtCha2PEntry
 {
 	// ctor
 	ReceiverThread::ReceiverThread(QTcpSocket* socket)
@@ -44,5 +44,4 @@ namespace QtCha2P
 		// append new data into the bytearray
 		m_incomingData += m_socket->readAll();
 	}
-} // namespace QtCha2P
-
+} // namespace QtCha2PEntry

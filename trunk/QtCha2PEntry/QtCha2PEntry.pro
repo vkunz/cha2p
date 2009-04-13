@@ -5,21 +5,30 @@
 #
 #-------------------------------------------------
 
-QT       += network
+QT += network
+QT -= gui
 
-CONFIG   += debug_and_release
-CONFIG   += console
+CONFIG += debug_and_release
+CONFIG += console
 
 CONFIG(debug, debug|release) {
-	DESTDIR  = "../bin/debug"
+	DESTDIR = "../bin/debug"
 } else {
-	DESTDIR  = "../bin/release"
+	DESTDIR = "../bin/release"
 }
 
 TARGET = QtCha2PEntry
 
 TEMPLATE = app
 
-SOURCES  += src/main.cpp
+SOURCES  += src\main.cpp
 
+SOURCES  += src\Application.cpp\
+			src\Cha2PProtocol.cpp\
+			src\ListenerThread.cpp\
+			src\ReceiverThread.cpp
 
+HEADERS	 += src\Application.hpp\
+			src\Cha2PProtocol.hpp\
+			src\ListenerThread.hpp\
+			src\ReceiverThread.hpp
