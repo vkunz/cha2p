@@ -29,8 +29,7 @@ TEMPLATE = app
 
 SOURCES  += src\main.cpp
 
-SOURCES  += src\AbstractProtocol.cpp\
-			src\Buddy.cpp\
+SOURCES  += src\Buddy.cpp\
 			src\BuddyList.cpp\
 			src\BuddyListFrame.cpp\
 			src\BuddyListFrameController.cpp\
@@ -46,8 +45,7 @@ SOURCES  += src\AbstractProtocol.cpp\
 			src\ReceiverThread.cpp\
 			src\Sender.cpp
 
-HEADERS  += src\AbstractProtocol.hpp\
-			src\Buddy.hpp\
+HEADERS  += src\Buddy.hpp\
 			src\BuddyList.hpp\
 			src\BuddyListFrame.hpp\
 			src\BuddyListFrameController.hpp\

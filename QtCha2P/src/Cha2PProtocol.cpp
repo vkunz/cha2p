@@ -50,6 +50,12 @@ namespace QtCha2P
 			case PRIVATEMESSAGE:
 				datastream << static_cast<unsigned char>(PRIVATEMESSAGE);
 				break;
+			case REQUESTENTRY:
+				datastream << static_cast<unsigned char>(REQUESTENTRY);
+				break;
+			case SENDENTRY:
+				datastream << static_cast<unsigned char>(SENDENTRY);
+				break;
  		}
 
 #if defined(_QTCHA2P_DEBUG_)
@@ -155,6 +161,14 @@ namespace QtCha2P
 				// emit signal
 				emit receivedPrivateMessage(host, m_message);
 				break;
+			case REQUESTENTRY:
+				// emit signal
+				emit sendEntry(m_message, host);
+				break;
+			case SENDENTRY:
+				// emit signal
+				emit receivedEntry(m_message);
+				break;
  		}
 		
 	}
@@ -199,6 +213,20 @@ namespace QtCha2P
 	{
 		// generate
 		return generateOutput(PRIVATEMESSAGE, message);
+	}
+	
+	// generate requestentry
+	QByteArray Cha2PProtocol::generateRequestEntry(QString message)
+	{
+		// generate
+		return generateOutput(REQUESTENTRY, message);
+	}
+
+	// generate sendentry
+	QByteArray Cha2PProtocol::generateSendEntry(QString message)
+	{
+		// generate
+		return generateOutput(SENDENTRY, message);
 	}
 	
 	unsigned int Cha2PProtocol::getBasePort()

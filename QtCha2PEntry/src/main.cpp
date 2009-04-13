@@ -1,24 +1,15 @@
-#include <QtGui/QApplication>
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QTcpServer>
 
+#include "Application.hpp"
+
 int main(int argc, char *argv[])
 {
+	qDebug() << "QtCha2PEntry started!";
+	
 	// the app as console
-	QApplication QtCha2PEntry(argc, argv, QApplication::Tty);
+	QtCha2PEntry::Application App(argc, argv);
 	
-	
-	QHostAddress entry1;
-	QHostAddress entry2;
-
-	QTcpServer* server = new QTcpServer();
-
-	server->listen(QHostAdress::Any, 3001);
-
-	return 0;
-}
-
-newConnection()
-{
-	qDebug() << "Test";
+	// execute
+	return App.exec();
 }

@@ -2,14 +2,13 @@
 #define _QTCHA2P_CHA2PPROTOCOL_HPP_
 
 #include <QtCore/QByteArray>
+#include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtNetwork/QHostAddress>
 
-#include "AbstractProtocol.hpp"
-
 namespace QtCha2P
 {
-	class Cha2PProtocol : public AbstractProtocol
+	class Cha2PProtocol : public QObject
 	{
 		// QtMeta-Object-Compiler tags
 		Q_OBJECT
@@ -83,6 +82,12 @@ namespace QtCha2P
 
 			// generates a privatemessage
 			QByteArray generatePrivateMessage(QString message);
+			
+			// generate requestentry
+			QByteArray generateRequestEntry(QString message);
+			
+			// generate sendentry
+			QByteArray generateSendEntry(QString message);
 
 			// return baseport
 			unsigned int getBasePort();
@@ -105,6 +110,12 @@ namespace QtCha2P
 
 			// signal: protocolbit PRIVATEMESSAGE arrived
 			void receivedPrivateMessage(QHostAddress peer, QString message);
+			
+			// signal: protocolbit REQUESTENTRY arrived
+			void sendEntry(QString message, QHostAddress host);
+			
+			// signal: protocolbi SENDENTRY arrived
+			void receivedEntry(QString m_message);
 	}; // class Cha2PProtocol
 } // namespace QtCha2P
 #endif // _QTCHA2P_CHA2PPROTOCOL_HPP_
