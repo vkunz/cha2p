@@ -1,9 +1,11 @@
 #ifndef _QTCHA2PENTRY_APPLICATION_HPP_
 #define _QTCHA2PENTRY_APPLICATION_HPP_
 
+#include <map>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTimer>
 
+#include "Channel.hpp"
 #include "Cha2PProtocol.hpp"
 #include "ListenerThread.hpp"
 
@@ -23,6 +25,9 @@ namespace QtCha2PEntry
 		
 		// timer to ping entry and fallback
 		QTimer m_timer;
+		
+		// map to store all registered channel
+		std::map<QString, Channel*> m_channel;
 
 	public:
 		// ctor

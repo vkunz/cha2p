@@ -25,10 +25,12 @@ SOURCES  += src\main.cpp
 
 SOURCES  += src\Application.cpp\
 			src\Cha2PProtocol.cpp\
+			src\Channel.cpp\
 			src\ListenerThread.cpp\
 			src\ReceiverThread.cpp
 
 HEADERS	 += src\Application.hpp\
 			src\Cha2PProtocol.hpp\
+			src\Channel.hpp\
 			src\ListenerThread.hpp\
 			src\ReceiverThread.hpp
