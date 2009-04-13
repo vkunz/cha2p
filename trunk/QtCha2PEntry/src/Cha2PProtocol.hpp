@@ -42,7 +42,10 @@ namespace QtCha2PEntry
 			QString m_message;
 
 			// stores the baseport this protocol is working on
-			unsigned int m_basePort;
+			unsigned short m_basePort;
+			
+			// stores the entryport
+			unsigned short m_entryPort;
 
 			// generates output of an given protocolrequst without message
 			QByteArray generateOutput(ProtocolBits bits);
@@ -50,11 +53,6 @@ namespace QtCha2PEntry
 			// generates output of an given protocolrequst with given message
 			QByteArray generateOutput(ProtocolBits bits, QString message);
 			
-#if defined(_QTCHA2P_DEBUG_)
-			void debug(bool inc, QHostAddress host = QHostAddress::Null);
-#endif
-
-
 		public:
 			// ctor
 			Cha2PProtocol();
@@ -90,7 +88,10 @@ namespace QtCha2PEntry
 			QByteArray generateSendEntry(QString message);
 
 			// return baseport
-			unsigned int getBasePort();
+			unsigned short getBasePort();
+
+			// return entryport
+			unsigned short getEntryPort();
 			
 		signals:
 			// signal: protocolbit REQUESTCONTACTS arrived

@@ -12,6 +12,9 @@ namespace QtCha2PEntry
 	{
 		// set baseport
 		m_basePort = 3000;
+
+		// set entryport
+		m_entryPort = 3001;
 	}
 	
 	// dtor
@@ -210,8 +213,13 @@ namespace QtCha2PEntry
 		return generateOutput(SENDENTRY, message);
 	}
 	
-	unsigned int Cha2PProtocol::getBasePort()
+	unsigned short Cha2PProtocol::getBasePort()
 	{
 		return m_basePort;
+	}
+	
+	unsigned short Cha2PProtocol::getEntryPort()
+	{
+		return m_entryPort;
 	}
 } // namespace QtCha2PEntry
