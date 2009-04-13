@@ -12,7 +12,7 @@ namespace QtCha2PEntry
 		m_protocol = new Cha2PProtocol();
 
 		// new listenerthread
-		m_listener = new ListenerThread(m_protocol->getBasePort());
+		m_listener = new ListenerThread(m_protocol->getEntryPort());
 
 		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread
 		// with Slot: newIncMessRecv(QHostAddress, QByteArray)
@@ -35,7 +35,7 @@ namespace QtCha2PEntry
 	
 	int Application::exec()
 	{
-		qDebug() << "Application is listening on port: " << m_protocol->getBasePort() << " to new connections!";
+		qDebug() << "Application is listening on port: " << m_protocol->getEntryPort() << " to new connections!";
 		
 		// channel 'General'
 		Channel* chan = new Channel("General");

@@ -12,6 +12,9 @@ namespace QtCha2P
 	{
 		// set baseport
 		m_basePort = 3000;
+
+		// set entryport
+		m_entryPort = 3001;
 	}
 	
 	// dtor
@@ -232,6 +235,11 @@ namespace QtCha2P
 	unsigned int Cha2PProtocol::getBasePort()
 	{
 		return m_basePort;
+	}
+	
+	unsigned short Cha2PProtocol::getEntryPort()
+	{
+		return m_entryPort;
 	}
 	
 #if defined(_QTCHA2P_DEBUG_)
