@@ -62,7 +62,17 @@ namespace QtCha2P
 		// with Slot: requstContactList(QString)
 		connect(m_protocol, SIGNAL(receivedEntry(QString)),
 		this, SLOT(requestContactList(QString)));
+	
+		// connect Signal: receivedHello(QHostAddress, QString) of Cha2PProtocol
+		// with Slot: receivedHello(QHostAddress, QString)
+		connect(m_protocol, SIGNAL(receivedHello(QHostAddress, QString)),
+		this, SLOT(receivedHello(QHostAddress, QString)));
 
+		// connect Signal: receivedGoodBye(QHostAddress) of Cha2PProtocol
+		// with Slot: receivedGoodBye(QHostAddress)
+		connect(m_protocol, SIGNAL(receivedGoodBye(QHostAddress)),
+		this, SLOT(receivedGoodBye(QHostAddress)));
+	
 		// show the window
 		m_connectWindow->show();
 	}
@@ -188,9 +198,21 @@ namespace QtCha2P
 	{
 		// import contacts
 		m_buddyList->buildContactList(contacts);
+		
+		// config
+		Configuration* config = Configuration::getInstance();
+		
+		// ByteArray
+		QByteArray array;
 
-		// sync contact list
-		m_buddyListFrameController->syncContactList(m_buddyList);
+		// generate protocolframe
+		array = m_protocol->generateHello(config->getNickName());
+
+		// new dispatcher
+		DispatcherThread* dispatcher = new DispatcherThread();
+
+		// send data
+		dispatcher->dispatch(m_buddyList, m_protocol->getBasePort(), array);
 	}
 
 	// slot: receivedHello
@@ -198,7 +220,7 @@ namespace QtCha2P
 	{
 		// add new buddy to buddylist
 		m_buddyList->addBuddy(new Buddy(peer, nick));
-		
+
 		// add buddy to buddylistframe
 		m_buddyListFrameController->addBuddy(nick);
 	}
