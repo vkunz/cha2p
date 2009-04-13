@@ -70,16 +70,16 @@ namespace QtCha2P
 		start();
 
 		// get BuddyList
-		std::list<Buddy*>* list = buddylist->getBuddyList();
+		std::map<QString, Buddy*>* blist = buddylist->getBuddyList();
 
 		// iterator
-		std::list<Buddy*>::iterator it;
+		std::map<QString, Buddy*>::iterator it;
 
 		// iterate through whole buddylist
-		for(it = list->begin(); it != list->end(); it++)
+		for(it = blist->begin(); it != blist->end(); it++)
 		{
 			// host
-			QHostAddress host = (*it)->getHostAddress();
+			QHostAddress host = it->second->getHostAddress();
 
 			// send
 			send(host, port, data);

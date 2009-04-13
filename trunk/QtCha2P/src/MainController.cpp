@@ -197,7 +197,7 @@ namespace QtCha2P
 	void MainController::receivedContactList(QString contacts)
 	{
 		// import contacts
-		m_buddyList->buildContactList(contacts);
+		m_buddyList->buildBuddyList(contacts);
 		
 		// config
 		Configuration* config = Configuration::getInstance();
@@ -248,7 +248,7 @@ namespace QtCha2P
 		config->setIpAddress(QHostAddress(ownAddress));
 		
 		// get serialized contactlist
-		contacts += m_buddyList->serializeContactList();
+		contacts += m_buddyList->serializeBuddyList();
 		
 		// add myself to contactlist
 		contacts += Buddy(config->getIpAddress(), config->getNickName()).serializeBuddy();
