@@ -9,21 +9,31 @@ namespace QtCha2P
 	BuddyList::BuddyList()
 	{
 		// new list
-		m_ptrList = new std::list<Buddy>;
+		m_ptrList = new std::list<Buddy*>;
 	}
 
 	// dtor
 	BuddyList::~BuddyList()
 	{
+		// iterator
+		std::list<Buddy*>::iterator it;
+		
+		// delete all buddies
+		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
+		{
+			// delete
+			delete (*it);
+		}
+		
 		// delete list
 		delete m_ptrList;
 	}
 
 	// add buddy
-	void BuddyList::addBuddy(const Buddy* const buddy)
+	void BuddyList::addBuddy(Buddy* buddy)
 	{
 		// add buddy
-		m_ptrList->push_back(*buddy);
+		m_ptrList->push_back(buddy);
 	}
 
 	// remove buddy		
@@ -33,12 +43,12 @@ namespace QtCha2P
 		bool found = false;
 
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 		
 		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
 		{
 			// check if available
-			if((*it).getHostAddress() == *ipAddress)
+			if((*it)->getHostAddress() == *ipAddress)
 			{
 				// set found
 				found = true;
@@ -50,6 +60,9 @@ namespace QtCha2P
 		{
 			// erase element
 			m_ptrList->erase(it);
+			
+			// delete buddy
+			delete (*it);
 		}
 		
 		return found;
@@ -61,11 +74,11 @@ namespace QtCha2P
 		bool ret = true;
 	
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 		
 		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
 		{
-			if((*it).getNickName() == *nickname)
+			if((*it)->getNickName() == *nickname)
 			{
 				// set returnvalue
 				ret = false;
@@ -85,15 +98,15 @@ namespace QtCha2P
 		QString ret;
 		
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 		
 		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
 		{
 			// check if proper host
-			if((*it).getHostAddress() == *ipAddress)
+			if((*it)->getHostAddress() == *ipAddress)
 			{
 				// set returnvalue
-				ret = (*it).getNickName();
+				ret = (*it)->getNickName();
 				
 				// leave
 				break;
@@ -109,15 +122,15 @@ namespace QtCha2P
 		Buddy ret;
 
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 
 		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
 		{
 			// check if proper nickname
-			if((*it).getNickName() == nickname)
+			if((*it)->getNickName() == nickname)
 			{
 				// set return
-				ret = (*it);
+				ret = *(*it);
 
 				// leave loop
 				break;
@@ -134,15 +147,15 @@ namespace QtCha2P
 		Buddy ret;
 		
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 		
 		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
 		{
 			// check if proper nickname
-			if((*it).getHostAddress() == host)
+			if((*it)->getHostAddress() == host)
 			{
 				// set return
-				ret = (*it);
+				ret = *(*it);
 
 				// leave loop
 				break;
@@ -159,13 +172,13 @@ namespace QtCha2P
 		QString ret = "";
 		
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 
 		// iterate through the whole list
 		for(it = m_ptrList->begin(); it != m_ptrList->end(); it++)
 		{
 			// buddy to string + add buddy separator
-			ret += (*it).serializeBuddy();
+			ret += (*it)->serializeBuddy();
 			ret += ";";
 		}
 
@@ -195,7 +208,7 @@ namespace QtCha2P
 	}
 	
 	// return list
-	std::list<Buddy>* BuddyList::getBuddyList()
+	std::list<Buddy*>* BuddyList::getBuddyList()
 	{
 		// return list
 		return m_ptrList;

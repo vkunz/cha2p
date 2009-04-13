@@ -13,7 +13,7 @@ namespace QtCha2P
 	{
 	private:
 		// the list
-		std::list<Buddy>* m_ptrList;
+		std::list<Buddy*>* m_ptrList;
 
 	public:
 		// ctor
@@ -23,7 +23,7 @@ namespace QtCha2P
 		virtual ~BuddyList();
 		
 		// add buddy
-		void addBuddy(const Buddy* const buddy);
+		void addBuddy(Buddy* buddy);
 		
 		// remove buddy
 		bool removeBuddy(const QHostAddress* const ipAddress);
@@ -47,7 +47,7 @@ namespace QtCha2P
 		void buildContactList(QString contacts);
 		
 		// return list
-		std::list<Buddy>* getBuddyList();
+		std::list<Buddy*>* getBuddyList();
 	}; // class BuddyList
 } // namespace QtCha2P
 

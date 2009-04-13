@@ -22,11 +22,8 @@ namespace QtCha2P
 		// new protocol
 		m_protocol = new Cha2PProtocol();
 
-		// get baseport
-		m_basePort = m_protocol->getBasePort();
-
 		// new listenerthread
-		m_listener = new ListenerThread(m_basePort);
+		m_listener = new ListenerThread(m_protocol->getBasePort());
 
 		// start thread
 		m_listener->start();
@@ -68,6 +65,23 @@ namespace QtCha2P
 	// dtor
 	MainController::~MainController()
 	{
+		// delete listenerthread
+		delete m_listener;
+		
+		// delete protocol
+		delete m_protocol;
+		
+		// delete connect window
+		delete m_connectWindow;
+		
+		// delete buddylist
+		delete m_buddyList;
+		
+		// delete messageframecontroller
+		delete m_mesfc;
+		
+		// delete buddylistframecontroller
+		delete m_buddyListFrameController;
 	}
 
 	// slot: new Data arrived
@@ -90,7 +104,7 @@ namespace QtCha2P
 		DispatcherThread* dispatcher = new DispatcherThread();
 
 		// send data to the dispatcherthread
-		dispatcher->dispatch(m_buddyList, m_basePort, array);
+		dispatcher->dispatch(m_buddyList, m_protocol->getBasePort(), array);
 	}
 
 	// executed when new private text arrives
@@ -106,7 +120,7 @@ namespace QtCha2P
 		DispatcherThread* dispatcher = new DispatcherThread();
 
 		// send data to the dispatcherthread
-		dispatcher->dispatch(buddy, m_basePort, array);
+		dispatcher->dispatch(buddy, m_protocol->getBasePort(), array);
 	}
 
 	// slot: ConnectWindow connect button pressed
@@ -131,7 +145,7 @@ namespace QtCha2P
 		DispatcherThread* dispatcher = new DispatcherThread();
 
 		// send data
-		dispatcher->dispatch(address, m_basePort, array);
+		dispatcher->dispatch(address, m_protocol->getBasePort(), array);
 
 		// init the mainframecontroller
 		m_mesfc = new MessageFrameController();
@@ -152,9 +166,6 @@ namespace QtCha2P
 		// Slot: newInputPrivateMessage(Buddy, QString)
 		connect(m_mesfc, SIGNAL(newPrivateMessage(Buddy, QString)),
 		this, SLOT(newInputPrivateMessage(Buddy, QString)));
-
-		// add myself to BuddyList
-		m_buddyListFrameController->addBuddy(config->getNickName());
 	}
 	
 	// slot: receivedContactList
@@ -215,7 +226,7 @@ namespace QtCha2P
 		DispatcherThread* dispatcher = new DispatcherThread();
 
 		// send data
-		dispatcher->dispatch(peer, m_basePort, array);
+		dispatcher->dispatch(peer, m_protocol->getBasePort(), array);
 	}
 
 	// slot: new incoming channel message

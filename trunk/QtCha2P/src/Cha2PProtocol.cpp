@@ -232,7 +232,7 @@ namespace QtCha2P
 		return generateOutput(SENDENTRY, message);
 	}
 	
-	unsigned int Cha2PProtocol::getBasePort()
+	unsigned short Cha2PProtocol::getBasePort()
 	{
 		return m_basePort;
 	}
