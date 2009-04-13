@@ -7,6 +7,12 @@ namespace QtCha2PEntry
 	// ctor
 	Application::Application(int argc, char* argv[]) : QCoreApplication(argc, argv)
 	{
+		// new protocol object
+		m_protocol = new Cha2PProtocol();
+
+		// new listenerthread
+		m_listener = new ListenerThread(m_protocol->getBasePort());
+
 		// connect Signal: newIncMessRecv(QHostAddress, QByteArray) of ListenerThread
 		// with Slot: newIncMessRecv(QHostAddress, QByteArray)
 		connect(m_listener, SIGNAL(newIncMessRecv(QHostAddress, QByteArray)),
@@ -25,12 +31,6 @@ namespace QtCha2PEntry
 	
 	int Application::exec()
 	{
-		// new protocol object
-		m_protocol = new Cha2PProtocol();
-
-		// new listenerthread
-		m_listener = new ListenerThread(m_protocol->getBasePort());
-		
 		qDebug() << "Application is listening on port: " << m_protocol->getBasePort() << " for new connections!";
 
 		// execute base
