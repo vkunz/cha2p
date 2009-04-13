@@ -21,9 +21,6 @@ namespace QtCha2P
 		Q_OBJECT
 
 		private:
-			// baseport
-			unsigned int m_basePort;			
-
 			// buddylist
 			BuddyList* m_buddyList;
 			

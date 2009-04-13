@@ -62,16 +62,16 @@ namespace QtCha2P
 	void BuddyListFrameController::syncContactList(BuddyList* list)
 	{
 		// get list
-		std::list<Buddy>* buddylist = list->getBuddyList();
+		std::list<Buddy*>* buddylist = list->getBuddyList();
 		
 		// iterator
-		std::list<Buddy>::iterator it;
+		std::list<Buddy*>::iterator it;
 		
 		// iterate throught whole list
 		for(it = buddylist->begin(); it != buddylist->end(); it++)
 		{
 			// add entry
-			addBuddy((*it).getNickName());
+			addBuddy((*it)->getNickName());
 		}
 	}
 
