@@ -199,6 +199,9 @@ namespace QtCha2P
 		// import contacts
 		m_buddyList->buildBuddyList(contacts);
 		
+		// sync contact list
+		m_buddyListFrameController->syncContactList(m_buddyList);
+
 		// config
 		Configuration* config = Configuration::getInstance();
 		
@@ -277,7 +280,7 @@ namespace QtCha2P
 	void MainController::newIncomingPrivateMessage(QHostAddress sender, QString message)
 	{
 		// add PrivateMessage
-		m_mesfc->addChannelMessage(m_buddyList->getBuddy(sender), message);
+		m_mesfc->addPrivateMessage(m_buddyList->getBuddy(sender), message);
 	}
 	
 	// slot: new private tab
