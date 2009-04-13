@@ -13,7 +13,7 @@ namespace QtCha2P
 	{
 	private:
 		// the list
-		std::list<Buddy*>* m_ptrList;
+		std::map<QString, Buddy*>* m_ptrMap;
 
 	public:
 		// ctor
@@ -41,13 +41,13 @@ namespace QtCha2P
 		Buddy getBuddy(QHostAddress host);
 		
 		// serialize ContactList
-		QString serializeContactList();
+		QString serializeBuddyList();
 		
 		// build ConactList from String
-		void buildContactList(QString contacts);
+		void buildBuddyList(QString contacts);
 		
 		// return list
-		std::list<Buddy*>* getBuddyList();
+		std::map<QString, Buddy*>* getBuddyList();
 	}; // class BuddyList
 } // namespace QtCha2P
 
