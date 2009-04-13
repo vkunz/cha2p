@@ -21,8 +21,10 @@ namespace QtCha2P
 	private:
 		// attributes
 		QAction*		m_actionExit;
-		QLabel*			m_lblNickname;
+		QLabel*			m_lblChannel;
 		QLabel*			m_lblConnect;
+		QLabel*			m_lblNickname;
+		QLineEdit*		m_lneChannel;
 		QLineEdit*		m_lneConnect;
 		QLineEdit*		m_lneNickname;
 		QMenu*			m_menuFile;
