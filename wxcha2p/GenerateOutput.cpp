@@ -99,3 +99,14 @@ void GenerateOutput::sayGoodbye() {
 
     m_dispatcher->sendToAll(output);
 }
+
+/*
+ * Stellt eine Anfrage an den DynDNS nach einem Client im gewünschten Channel
+ */
+void GenerateOutput::requestEntry(wxString hostname, int port, wxString channel) {
+    SocketData* output = new SocketData;
+    output->setComProtocol(REQUESTENTRY);
+    output->setMessage(channel);
+
+    m_dispatcher->sendToOne(hostname, port, output);
+}

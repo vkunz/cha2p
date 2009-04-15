@@ -9,7 +9,10 @@ enum protocol       {   REQUESTCONTACTS = 1,
                         SENDCONTACTS,
                         HELLO,
                         GOODBYE,
-                        CHANNELMESSAGE
+                        CHANNELMESSAGE,
+                        PRIVATEMESSAGE,
+                        REQUESTENTRY,
+                        SENDENTRY
                     };
 
 enum guiEventType   {   DISPLAYMESSAGE,

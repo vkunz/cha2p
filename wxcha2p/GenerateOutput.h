@@ -15,6 +15,7 @@ public:
     void sayHello();
     void sayGoodbye();
     void SendChannelMessage(wxString message);
+    void requestEntry(wxString hostname, int port, wxString channel);
 protected:
     GenerateOutput();
 private:
