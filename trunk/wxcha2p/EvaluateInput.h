@@ -15,6 +15,7 @@ private:
     void sayHello(MessageEvent& event);
     void sayGoodbye(MessageEvent& event);
     void sendContacts(MessageEvent& event);
+    void sendEntry(SocketData* data);
 
     void sendDisplayEvent(wxString message);
 

@@ -29,6 +29,8 @@ class wxcha2pApp : public wxApp
         void OnMessageEvent(MessageEvent& event);
         void OnGUIEvent(GUIEvent& event);
 
+        void connect();
+
         wxcha2pFrame* Frame;
         Configuration* m_config;
         SocketServer* m_server;

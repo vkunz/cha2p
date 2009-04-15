@@ -31,6 +31,9 @@ void EvaluateInput::evaluate(MessageEvent& event) {
         case GOODBYE:
             sayGoodbye(event);
             break;
+        case SENDENTRY:
+            sendEntry(event.getSocketData());
+            break;
     }
 }
 
@@ -100,6 +103,15 @@ void EvaluateInput::sayGoodbye(MessageEvent& event) {
     //prepare GUI-Text
     wxString msg = list->getName(event.getClientIP()) + wxT(" disconnected...");
     sendDisplayEvent(msg);
+}
+
+/*
+ * Empfaengt die Adresse eine Clients im gewuenschten Channel und veranlasst den Verbindungsaufbau
+ */
+void EvaluateInput::sendEntry(SocketData* data) {
+    GenerateOutput* genOut = GenerateOutput::getInstance();
+
+    genOut->requestContacts(data->getMessage(), 3000);
 }
 
 /*

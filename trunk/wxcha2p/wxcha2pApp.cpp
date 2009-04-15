@@ -76,24 +76,35 @@ void wxcha2pApp::OnGUIEvent(GUIEvent& event) {
         case DISPLAYMESSAGE:
             Frame->addMessage(event.getText());
             break;
-        case CONNECT: {
-            // ask for server-ip
-            ConnectDialog dialog(0);
-            dialog.ShowModal();
-
-            if(dialog.getNickname() != wxT("")) {
-                // save own nickname
-                m_config->setNickname(dialog.getNickname());
-            }
-            if(dialog.getAddress() != wxT("...")) {
-                // ask for contacts
-                m_genOutput->requestContacts(dialog.getAddress(), 3000);
-            }
-
+        case CONNECT:
+            connect();
             break;
-        }
         case DISCONNECT:
             m_genOutput->sayGoodbye();
             break;
+    }
+}
+
+void wxcha2pApp::connect() {
+    // ask for server-ip
+    ConnectDialog dialog(0);
+    dialog.ShowModal();
+
+    if(dialog.getNickname() != wxT("")) {
+    // save own nickname
+        m_config->setNickname(dialog.getNickname());
+    }
+
+    if(dialog.getAddress() != wxT("...")) {
+        switch(dialog.getConnMethod()) {
+            case 0:
+                // connect to dyndns
+                m_genOutput->requestEntry(dialog.getAddress(), 3001, dialog.getChannel());
+                break;
+            case 1:
+                // ask client for contacts
+                m_genOutput->requestContacts(dialog.getAddress(), 3000);
+                break;
+        }
     }
 }
