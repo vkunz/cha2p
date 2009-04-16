@@ -5,13 +5,15 @@
 #include "SocketData.h"
 
 SocketData::SocketData() {
-    m_numBytes = 0;
+    m_numBytes    = 0;
+    m_message     = wxT("");
+    m_comProtocol = 255;
 }
 
 SocketData::SocketData(const SocketData& data) {
     m_comProtocol = data.m_comProtocol;
-    m_numBytes = data.m_numBytes;
-    m_message = data.m_message;
+    m_numBytes    = data.m_numBytes;
+    m_message     = data.m_message;
 }
 
 void SocketData::setComProtocol(unsigned char com) {
@@ -20,7 +22,7 @@ void SocketData::setComProtocol(unsigned char com) {
 
 void SocketData::setMessage(wxString message) {
     m_message = message;
-    m_numBytes = (unsigned int)((wxStrlen(message) +1) * sizeof(char));
+    m_numBytes = (unsigned int)((wxStrlen(message)/* +1 */) * sizeof(char));
 }
 
 unsigned char* SocketData::getComProtocol() {

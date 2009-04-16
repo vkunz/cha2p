@@ -98,12 +98,11 @@ void ContactList::add(wxString ip, wxString nickname)
  */
 void ContactList::remove(wxString ip)
 {
-    wxString nickname = getName(ip);
-
-    /* falls kein name gefunden muss auch nicht geloescht werden */
-    if ( ! nickname.IsEmpty() )
-    {
-        buddy_list.remove( new Buddy( ip, nickname ) );
+    for ( it = buddy_list.begin() ; it != buddy_list.end(); it++ ) {
+        if((*it)->m_ip == ip) {
+            buddy_list.erase(it);
+            break;
+        }
     }
 }
 

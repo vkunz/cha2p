@@ -96,7 +96,11 @@ void SocketServer::OnSocketEvent(wxSocketEvent& event) {
 
             // Read the data
             char* buf = new char[len];
+
             sock->Read(buf, len);
+
+            buf[len] = '\0';
+
             data->setMessage(wxString::From8BitData(buf));
 
             // get client ip
