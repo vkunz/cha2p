@@ -5,27 +5,32 @@
 #
 #-------------------------------------------------
 
-QT += network
-
 CONFIG += debug_and_release
+CONFIG -= console
 
 CONFIG(debug, debug|release) {
 	DESTDIR = "../bin/debug"
-    DEFINES += _QTCHA2P_DEBUG_
+    DEFINES += _DEBUG_
+	MOC_DIR = "obj/debug"
+	OBJECTS_DIR = "obj/debug"
 } else {
 	DESTDIR = "../bin/release"
+	MOC_DIR = "obj/release"
+	OBJECTS_DIR = "obj/release"
 }
 
 # add a debug console in debug mode on windows
-win32{
-    debug {
-        CONFIG += console
-    }
+win32:debug{
+		CONFIG += console
 }
+
+QT += network
 
 TARGET = QtCha2P
 
 TEMPLATE = app
+
+VERSION = 0.1.0
 
 SOURCES  += src\main.cpp
 
