@@ -102,7 +102,7 @@ namespace QtCha2P
 		// add message to frame
 		protocolFrame += protocolMessage;
 
-#if defined(_QTCHA2P_DEBUG_)
+#if defined(_DEBUG_)
 		// set messagesize
 		m_messageLength = message.size();
 		
@@ -132,7 +132,7 @@ namespace QtCha2P
 		// get message
 		m_message = tmp;
 
-#if defined(_QTCHA2P_DEBUG_)
+#if defined(_DEBUG_)
 		// debug incoming
 		debug(true, host);
 #endif
@@ -242,7 +242,7 @@ namespace QtCha2P
 		return m_entryPort;
 	}
 	
-#if defined(_QTCHA2P_DEBUG_)
+#if defined(_DEBUG_)
 	void Cha2PProtocol::debug(bool inc, QHostAddress host)
 	{
 		// check if incoming or outgoing
