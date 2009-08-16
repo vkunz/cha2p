@@ -99,6 +99,8 @@ namespace QtCha2P
 	{
 		// tmp string
 		QString tmp;
+		
+		qDebug() << "here: ";
 
 		// time
 		QTime time;
@@ -117,8 +119,20 @@ namespace QtCha2P
 				// set widget
 				tab = static_cast<MessageTab*>(m_widget->widget((*it).first));
 				
+				qDebug() << "if";
+				
 				// found
 				break;
+			}
+			else
+			{
+				// not found, so do not exist yet, create
+				addPrivateChatTab(sender);
+				
+				qDebug() << "else";
+				
+				// execute again
+				addPrivateMessage(sender, message);
 			}
 		}
 

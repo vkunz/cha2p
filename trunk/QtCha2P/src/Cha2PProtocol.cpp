@@ -61,7 +61,7 @@ namespace QtCha2P
 				break;
  		}
 
-#if defined(_QTCHA2P_DEBUG_)
+#if defined(_DEBUG_)
 		// extract protobyte
 		m_protocolBits = bits;
 #endif

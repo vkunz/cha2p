@@ -5,21 +5,28 @@
 #
 #-------------------------------------------------
 
-QT += network
-QT -= gui
-
 CONFIG += debug_and_release
 CONFIG += console
 
 CONFIG(debug, debug|release) {
 	DESTDIR = "../bin/debug"
+	DEFINES += _DEBUG_
+	MOC_DIR = "obj/debug"
+	OBJECTS_DIR = "obj/debug"	
 } else {
 	DESTDIR = "../bin/release"
+	MOC_DIR = "obj/release"
+	OBJECTS_DIR = "obj/release"
 }
+
+QT += network
+QT -= gui
 
 TARGET = QtCha2PEntry
 
 TEMPLATE = app
+
+VERSION = 0.1.0
 
 SOURCES  += src\main.cpp
 

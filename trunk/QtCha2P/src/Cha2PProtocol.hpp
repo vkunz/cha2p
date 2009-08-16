@@ -53,7 +53,7 @@ namespace QtCha2P
 			// generates output of an given protocolrequst with given message
 			QByteArray generateOutput(ProtocolBits bits, QString message);
 			
-#if defined(_QTCHA2P_DEBUG_)
+#if defined(_DEBUG_)
 			void debug(bool inc, QHostAddress host = QHostAddress::Null);
 #endif
 
